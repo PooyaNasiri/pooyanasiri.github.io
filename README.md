@@ -1,9 +1,11 @@
 # 💫 About Me:
 With 14+ years of experience in software development with a demonstrated history of working in the computer software industry. Skilled in C#, C, C++, Java, Object-Oriented Programming (OOP), Artificial Intelligence, machine learning, deep learning, and micro-controller programming such as Atmel AVR and STM, graduated with a BEng in Software Engineering from IAUST and studying MEng in Artificial Intelligence at UNIPD.
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue)](https://it.linkedin.com/in/pooyanasiri?trk=profile-badge)
+<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+<div class="badge-base LI-profile-badge" data-locale="en_US" data-size="large" data-theme="dark" data-type="HORIZONTAL" data-vanity="pooyanasiri" data-version="v1">
+    <a class="badge-base__link LI-simple-link" href="https://it.linkedin.com/in/pooyanasiri?trk=profile-badge">Pooya Nasiri</a>
+</div>
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue)](https://www.linkedin.com/in/pooyanasiri)
 
 ## 🌐 Socials:
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/pooyanasiri) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/pooyanasiri) 
