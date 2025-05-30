@@ -1,212 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Pooya Nasiri – Senior AI Engineer</title>
-<style>
-  /* Reset & base */
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0; padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    background: #0a0a0a;
-    color: #e0e0e0;
-    line-height: 1.6;
-  }
-  a {
-    color: #00aaff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  a:hover {
-    color: #0077cc;
-  }
-  header {
-    padding: 4rem 1rem 2rem;
-    max-width: 900px;
-    margin: auto;
-    text-align: center;
-  }
-  header h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-    letter-spacing: 0.03em;
-  }
-  header p {
-    font-weight: 400;
-    font-size: 1.25rem;
-    color: #9aa3a8;
-    margin-top: 0;
-  }
-  main {
-    max-width: 900px;
-    margin: 0 auto 3rem;
-    padding: 0 1rem;
-  }
-  section {
-    margin-bottom: 3rem;
-  }
-  section h2 {
-    font-weight: 700;
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #00aaff;
-    padding-bottom: 0.3rem;
-    max-width: fit-content;
-  }
-  .about p {
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 0 auto;
-    color: #c0c5ca;
-  }
-  .projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-    gap: 1.5rem;
-  }
-  .project-card {
-    background: #1c1c1c;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 0 12px rgb(0 170 255 / 0.25);
-    transition: box-shadow 0.3s ease;
-  }
-  .project-card:hover {
-    box-shadow: 0 0 20px rgb(0 170 255 / 0.5);
-  }
-  .project-card a {
-    font-weight: 600;
-    font-size: 1.15rem;
-    display: inline-block;
-    margin-bottom: 0.75rem;
-  }
-  .project-description {
-    color: #aaaeb3;
-    font-size: 0.95rem;
-    line-height: 1.4;
-  }
-  .contact {
-    text-align: center;
-  }
-  .contact p {
-    font-size: 1.1rem;
-    margin: 0.3rem 0;
-  }
-  .btn-contact {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.75rem 2rem;
-    background: #00aaff;
-    border-radius: 30px;
-    font-weight: 700;
-    color: white;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.3s ease;
-  }
-  .btn-contact:hover {
-    background: #0077cc;
-  }
-  footer {
-    background: #121212;
-    padding: 1rem;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #555;
-  }
-  @media (max-width: 480px) {
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <title>Pooya Nasiri – Senior AI Engineer</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; */
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    a {
+      color: #00aaff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #0077cc;
+    }
+
+    header {
+      padding: 4rem 1rem 2rem;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
     header h1 {
-      font-size: 2.25rem;
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.03em;
     }
+
+    header p {
+
+      font-weight: 400;
+      font-size: 1.25rem;
+      color: #9aa3a8;
+      margin-top: 0rem;
+    }
+
+    header p+p {
+      margin-top: -1rem;
+      margin-bottom: 0;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      padding: 0 1rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
     section h2 {
-      font-size: 1.5rem;
+      font-weight: 700;
+      font-size: 1.75rem;
+      margin-bottom: 3rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #00aaff;
+      padding-bottom: 0.3rem;
+      max-width: fit-content;
     }
-  }
-</style>
+
+    .about p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #c0c5ca;
+    }
+
+    h2 {
+      list-style: none !important;
+      padding-left: 0 !important;
+      margin-left: 0 !important;
+    }
+
+    .projects {
+      display: grid;
+      gap: 1.5rem;
+      list-style: none;
+      padding-left: 0;
+      margin-left: 0;
+    }
+
+    .project-card {
+      background: #1c1c1c;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgb(0 170 255 / 0.25);
+      transition: box-shadow 0.3s ease;
+      list-style: none;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 0 20px rgb(0 170 255 / 0.5);
+    }
+
+    .project-card a {
+      font-weight: 600;
+      font-size: 1.15rem;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-description {
+      color: #aaaeb3;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .contact {
+      text-align: center;
+    }
+
+    .contact p {
+      font-size: 1.1rem;
+      margin: 0.3rem 0;
+    }
+
+    .btn-contact {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 2rem;
+      background: #00aaff;
+      border-radius: 30px;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .btn-contact:hover {
+      background: #0077cc;
+    }
+
+    footer {
+      background: #121212;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2.25rem;
+      }
+
+      section h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<header>
-  <h1>Pooya Nasiri</h1>
-  <p>Senior AI & Machine Learning Engineer</p>
-</header>
+  <header>
+    <h1>Pooya Nasiri</h1>
+    <p>Senior AI & Machine Learning Engineer</p>
+    <p>Master's Student in Artificial Intelligence, University of Padova</p>
+  </header>
 
-<main>
-  <section class="about" aria-label="About Pooya Nasiri">
-    <h2>About Me</h2>
-    <p>
-      I’m an AI engineer with 13+ years of experience building intelligent software and deep learning systems.
-      Currently completing a Master’s in Artificial Intelligence at the University of Padova, I specialize in
-      developing impactful AI-driven solutions using Python, TensorFlow, C++, and cutting-edge ML frameworks.
-      My passion lies in computer vision, natural language processing, and building scalable AI applications that
-      solve real-world problems.
-    </p>
-  </section>
+  <main>
+    <section class="contact fade-in" aria-label="Contact Information">
+      <p>Email: <a href="mailto:Pooya.nasiri75@gmail.com">Pooya.nasiri75@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/PooyaNasiri" target="_blank"
+          rel="noopener">linkedin.com/in/PooyaNasiri</a></p>
+      <p>GitHub: <a href="https://github.com/PooyaNasiri" target="_blank" rel="noopener">github.com/PooyaNasiri</a></p>
+      <!-- <a href="mailto:Pooya.nasiri75@gmail.com" class="btn-contact" aria-label="Email Pooya Nasiri">Contact Me</a> -->
 
-  <section class="projects" aria-label="Featured Projects">
-    <h2>Selected Projects</h2>
-    
-    <div class="project-card">
-      <a href="https://github.com/PooyaNasiri/bone-age-prediction" target="_blank" rel="noopener">Bone Age Prediction</a>
-      <p class="project-description">
-        Deep learning model for predicting age from X-ray hand images using ResNet and Inception architectures.
+    </section>
+    <section class="about fade-in" aria-label="About Pooya Nasiri">
+      <h2>About Me</h2>
+      <p>
+        I’m an AI engineer with 13+ years of experience building intelligent software and deep learning systems.
+        Currently completing a Master’s in Artificial Intelligence at the University of Padova, I specialize in
+        developing impactful AI-driven solutions using Python, TensorFlow, C++, and cutting-edge ML frameworks.
+        My passion lies in computer vision, natural language processing, and building scalable AI applications that
+        solve real-world problems.
       </p>
-    </div>
-    
-    <div class="project-card">
-      <a href="https://github.com/PooyaNasiri/GrayScale2RGB-GAN-Model" target="_blank" rel="noopener">Grayscale to RGB Image Colorization (GAN)</a>
-      <p class="project-description">
-        Developed a GAN-based model to convert grayscale images to realistic color images with TensorFlow.
-      </p>
-    </div>
-    
-    <div class="project-card">
-      <a href="https://github.com/PooyaNasiri/Human-Voice-Gender-Detector" target="_blank" rel="noopener">Human Voice Gender & Age Detector</a>
-      <p class="project-description">
-        Real-time speech recognition model using RNN and CNN architectures to classify gender and estimate age.
-      </p>
-    </div>
-    
-    <div class="project-card">
-      <a href="https://github.com/PooyaNasiri/Weather-Classification" target="_blank" rel="noopener">Weather Classification with CNN</a>
-      <p class="project-description">
-        High accuracy weather pattern classification model built with convolutional neural networks.
-      </p>
-    </div>
+    </section>
 
-    <div class="project-card">
-      <a href="https://github.com/PooyaNasiri/ai_supplychain_management" target="_blank" rel="noopener">AI Supply Chain Management</a>
-      <p class="project-description">
-        AI-based heuristic algorithms for optimizing supply chain logistics developed in C#.
-      </p>
-    </div>
+    <section class="projects fade-in" aria-label="Featured Projects">
+      <h2>Selected Projects</h2>
 
-    <div class="project-card">
-      <a href="https://github.com/PooyaNasiri/3D-Data-Processing" target="_blank" rel="noopener">3D Data Processing</a>
-      <p class="project-description">
-        Implementation of stereo disparity mapping and 3D reconstruction using OpenCV and C++.
-      </p>
-    </div>
-  </section>
+      <div class="project-card">
+        <a href="https://github.com/PooyaNasiri/bone-age-prediction" target="_blank" rel="noopener">Bone Age
+          Prediction</a>
+        <p class="project-description">
+          Deep learning model for predicting age from X-ray hand images using ResNet and Inception architectures.
+        </p>
+      </div>
 
-  <section class="contact" aria-label="Contact Information">
-    <h2>Get In Touch</h2>
-    <p>Email: <a href="mailto:Pooya.nasiri75@gmail.com">Pooya.nasiri75@gmail.com</a></p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/PooyaNasiri" target="_blank" rel="noopener">linkedin.com/in/PooyaNasiri</a></p>
-    <p>GitHub: <a href="https://github.com/PooyaNasiri" target="_blank" rel="noopener">github.com/PooyaNasiri</a></p>
-    <a href="mailto:Pooya.nasiri75@gmail.com" class="btn-contact" aria-label="Email Pooya Nasiri">Contact Me</a>
-  </section>
-</main>
+      <div class="project-card">
+        <a href="https://github.com/PooyaNasiri/GrayScale2RGB-GAN-Model" target="_blank" rel="noopener">Grayscale to RGB
+          Image Colorization (GAN)</a>
+        <p class="project-description">
+          Developed a GAN-based model to convert grayscale images to realistic color images with TensorFlow.
+        </p>
+      </div>
 
-<footer>
-  &copy; 2025 Pooya Nasiri — AI Engineer Portfolio
-</footer>
+      <div class="project-card">
+        <a href="https://github.com/PooyaNasiri/Human-Voice-Gender-Detector" target="_blank" rel="noopener">Human Voice
+          Gender & Age Detector</a>
+        <p class="project-description">
+          Real-time speech recognition model using RNN and CNN architectures to classify gender and estimate age.
+        </p>
+      </div>
+
+      <div class="project-card">
+        <a href="https://github.com/PooyaNasiri/Weather-Classification" target="_blank" rel="noopener">Weather
+          Classification with CNN</a>
+        <p class="project-description">
+          High accuracy weather pattern classification model built with convolutional neural networks.
+        </p>
+      </div>
+
+      <div class="project-card">
+        <a href="https://github.com/PooyaNasiri/ai_supplychain_management" target="_blank" rel="noopener">AI Supply
+          Chain Management</a>
+        <p class="project-description">
+          AI-based heuristic algorithms for optimizing supply chain logistics developed in C#.
+        </p>
+      </div>
+
+      <div class="project-card">
+        <a href="https://github.com/PooyaNasiri/3D-Data-Processing" target="_blank" rel="noopener">3D Data
+          Processing</a>
+        <p class="project-description">
+          Implementation of stereo disparity mapping and 3D reconstruction using OpenCV and C++.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Pooya Nasiri — AI Engineer Portfolio
+  </footer>
 
 </body>
+
 </html>
