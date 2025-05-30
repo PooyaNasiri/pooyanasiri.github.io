@@ -67,14 +67,14 @@
     }
 
     main {
-      max-width: 1000px;
+      max-width: 50%;
       margin: 0 auto 3rem;
       padding: 0 1rem;
     }
 
     section {
       margin-bottom: 3rem;
-      min-width: 1000px;
+      min-width: 100%;
     }
 
     section h2 {
@@ -234,7 +234,16 @@
       color: #555;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
+      main {
+        max-width: 90vw;
+      }
+
+      section {
+        min-width: unset;
+        width: 100%;
+      }
+
       header h1 {
         font-size: 2.25rem;
       }
@@ -315,7 +324,8 @@
 
     <section class="contact" aria-label="Contact Information">
       <p>Resume/CV: <a href="https://raw.githubusercontent.com/PooyaNasiri/resume/main/PooyaNasiri-CV.pdf"
-          download="PooyaNasiri-CV.pdf" class="btn-contact" aria-label="Download Pooya Nasiri Resume">Download PDF</a></p>
+          download="PooyaNasiri-CV.pdf" class="btn-contact" aria-label="Download Pooya Nasiri Resume">Download PDF</a>
+      </p>
       <p>Email: <a href="mailto:Pooya.nasiri75@gmail.com">Pooya.nasiri75@gmail.com</a></p>
       <p>LinkedIn: <a href="https://linkedin.com/in/PooyaNasiri" target="_blank"
           rel="noopener">linkedin.com/in/PooyaNasiri</a></p>
