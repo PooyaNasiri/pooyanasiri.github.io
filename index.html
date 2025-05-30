@@ -205,7 +205,7 @@
 
     .grid-2x2-container {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 2fr;
       gap: 2rem;
       margin: center;
     }
@@ -251,6 +251,13 @@
       section h2 {
         font-size: 1.5rem;
       }
+
+      .grid-2x2-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin: center;
+      }
     }
 
     /* Default dark theme already in place */
@@ -292,8 +299,7 @@
       color: #111 !important;
     }
 
-    body.light-mode section .job-description,
-    .education-description {
+    body.light-mode section .job-description .education-description {
       color: #111 !important;
     }
   </style>
