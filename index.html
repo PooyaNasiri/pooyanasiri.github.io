@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+
 
   <title>Pooya Nasiri – Senior AI Engineer</title>
   <style>
@@ -15,35 +18,24 @@
     body {
       margin: 0;
       padding: 0;
-      /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; */
       font-family: 'Inter', sans-serif;
       background: #0a0a0a;
       color: #e0e0e0;
       line-height: 1.6;
     }
 
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
     a {
       color: #00aaff;
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: color 0.3s ease, text-decoration 0.3s ease;
+      cursor: pointer;
     }
 
-    a:hover {
-      color: #0077cc;
+    a:hover,
+    a:focus {
+      color: #0099ee;
+      text-decoration: underline;
+      outline: none;
     }
 
     header {
@@ -54,14 +46,15 @@
     }
 
     header h1 {
-      font-size: 3rem;
+      font-family:'Playfair Display', serif;
       font-weight: 700;
+      font-size: 4rem;
       margin-bottom: 0.25rem;
       letter-spacing: 0.03em;
     }
 
-    header p {
 
+    header p {
       font-weight: 400;
       font-size: 1.25rem;
       color: #9aa3a8;
@@ -74,59 +67,57 @@
     }
 
     main {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto 3rem;
       padding: 0 1rem;
     }
 
     section {
       margin-bottom: 3rem;
+      min-width: 1000px;
     }
 
     section h2 {
       font-weight: 700;
-      font-size: 1.75rem;
-      margin-bottom: 3rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #00aaff;
+      font-size: 2rem;
+      margin-top: 0rem;
+      margin-bottom: 2rem;
       padding-bottom: 0.3rem;
+      border-bottom: 2px solid #00aaff;
       max-width: fit-content;
     }
 
-    .about p {
+    .contact p {
       font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto;
-      color: #c0c5ca;
+      margin: 0.3rem 0;
+      text-align: center;
     }
 
-    h2 {
-      list-style: none !important;
-      padding-left: 0 !important;
-      margin-left: 0 !important;
-    }
-
-    .projects {
+    /* Card base style */
+    .card-container {
       display: grid;
       gap: 1.5rem;
-      list-style: none;
-      padding-left: 0;
-      margin-left: 0;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 
-    .project-card {
+    .project-card,
+    .certification-card {
       background: #1c1c1c;
       padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 0 12px rgb(0 170 255 / 0.25);
-      transition: box-shadow 0.3s ease;
+      transition: box-shadow 0.5s ease, transform 0.5s ease;
       list-style: none;
+      cursor: default;
     }
 
-    .project-card:hover {
+    .project-card:hover,
+    .certification-card:hover {
       box-shadow: 0 0 20px rgb(0 170 255 / 0.5);
+      transform: scale(1.03);
     }
 
+    /* Project Cards */
     .project-card a {
       font-weight: 600;
       font-size: 1.15rem;
@@ -140,30 +131,99 @@
       line-height: 1.4;
     }
 
-    .contact {
-      text-align: center;
-    }
-
-    .contact p {
-      font-size: 1.1rem;
-      margin: 0.3rem 0;
-    }
-
-    .btn-contact {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.75rem 2rem;
-      background: #00aaff;
-      border-radius: 30px;
+    /* Certifications cards */
+    .certification-card a {
       font-weight: 700;
-      color: white;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.3s ease;
+      font-size: 1.1rem;
+      color: #00aaff;
+      display: block;
+      margin-bottom: 0.5rem;
     }
 
-    .btn-contact:hover {
-      background: #0077cc;
+    .certification-date {
+      font-size: 0.9rem;
+      color: #888c94;
+    }
+
+    /* Other text */
+    .summary,
+    .skills-list,
+    .languages-list,
+    .interests-list,
+    .softskills-list,
+    .work-experience,
+    .education {
+      max-width: 700px;
+      margin: 0 auto;
+      color: #c0c5ca;
+    }
+
+    ul {
+      list-style: disc inside;
+      padding-left: 0;
+      margin-top: 0.5rem;
+    }
+
+    li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* Job and education styling */
+    .job,
+    .education-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .job-title,
+    .education-degree {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+      color: #00aaff;
+    }
+
+    .job-company,
+    .education-school {
+      font-style: italic;
+      color: #888c94;
+      margin-bottom: 0.2rem;
+    }
+
+    .job-dates,
+    .education-dates {
+      font-size: 0.9rem;
+      color: #666a70;
+      margin-bottom: 0.5rem;
+    }
+
+    .job-description,
+    .education-description {
+      font-size: 1rem;
+      color: #c0c5ca;
+    }
+
+
+    .grid-2x2-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: left;
+    }
+
+    .grid-2x2-container>section {
+      min-width: unset;
+      width: 100%;
+      background: #1c1c1c;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgb(0 170 255 / 0.25);
+      margin: left;
+    }
+
+    .grid-2x2-container>section h2 {
+      border-bottom: 2px solid #00aaff;
+      padding-bottom: 0.3rem;
+      margin-bottom: 1rem;
     }
 
     footer {
@@ -183,10 +243,67 @@
         font-size: 1.5rem;
       }
     }
+
+    /* Default dark theme already in place */
+
+    /* Light mode overrides */
+    body.light-mode {
+      background: #fff !important;
+      color: #111 !important;
+    }
+
+    body.light-mode a {
+      color: #0077cc !important;
+    }
+
+    body.light-mode a:hover,
+    body.light-mode a:focus {
+      color: #004a99 !important;
+    }
+
+    /* Adjust cards for light mode */
+    body.light-mode .project-card,
+    body.light-mode .certification-card,
+    body.light-mode .grid-2x2-container>section {
+      background: #f0f0f0 !important;
+      color: #111 !important;
+      box-shadow: 0 0 10px rgba(0, 170, 255, 0.3) !important;
+    }
+
+    /* Adjust header */
+    body.light-mode header p {
+      color: #555 !important;
+    }
+
+    body.light-mode section h2 {
+      color: #111 !important;
+    }
+
+    body.light-mode section p {
+      color: #111 !important;
+    }
+
+    body.light-mode section .job-description,
+    .education-description {
+      color: #111 !important;
+    }
   </style>
 </head>
 
 <body>
+  <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle Light/Dark Mode" style="
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: #00aaff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 9999;
+">🌙</button>
 
   <header>
     <h1>Pooya Nasiri</h1>
@@ -195,74 +312,262 @@
   </header>
 
   <main>
-    <section class="contact fade-in" aria-label="Contact Information">
+
+    <section class="contact" aria-label="Contact Information">
       <p>Email: <a href="mailto:Pooya.nasiri75@gmail.com">Pooya.nasiri75@gmail.com</a></p>
       <p>LinkedIn: <a href="https://linkedin.com/in/PooyaNasiri" target="_blank"
           rel="noopener">linkedin.com/in/PooyaNasiri</a></p>
       <p>GitHub: <a href="https://github.com/PooyaNasiri" target="_blank" rel="noopener">github.com/PooyaNasiri</a></p>
-      <!-- <a href="mailto:Pooya.nasiri75@gmail.com" class="btn-contact" aria-label="Email Pooya Nasiri">Contact Me</a> -->
-
-    </section>
-    <section class="about fade-in" aria-label="About Pooya Nasiri">
-      <h2>About Me</h2>
-      <p>
-        I’m an AI engineer with 13+ years of experience building intelligent software and deep learning systems.
-        Currently completing a Master’s in Artificial Intelligence at the University of Padova, I specialize in
-        developing impactful AI-driven solutions using Python, TensorFlow, C++, and cutting-edge ML frameworks.
-        My passion lies in computer vision, natural language processing, and building scalable AI applications that
-        solve real-world problems.
-      </p>
+      <p>Location: Padova, Italy</p>
+      <p>Phone: +39 435 174 94340</p>
     </section>
 
-    <section class="projects fade-in" aria-label="Featured Projects">
+    <section class="summary" aria-label="Summary">
+      <h2>Summary</h2>
+      <p>AI and Machine Learning Engineer with 13+ years of experience developing innovative AI solutions and software
+        applications. Skilled in Python, TensorFlow, and cross-platform development (C, C++, C#, Swift). Proven track
+        record of optimizing performance and delivering impactful AI-driven products. Completing a Master’s in AI at the
+        University of Padova. Seeking to contribute to a dynamic company as an AI Engineer.</p>
+    </section>
+
+    <section class="projects" aria-label="Featured Projects">
       <h2>Selected Projects</h2>
 
-      <div class="project-card">
-        <a href="https://github.com/PooyaNasiri/bone-age-prediction" target="_blank" rel="noopener">Bone Age
-          Prediction</a>
-        <p class="project-description">
-          Deep learning model for predicting age from X-ray hand images using ResNet and Inception architectures.
-        </p>
+      <div class="card-container">
+        <div class="project-card">
+          <a href="https://github.com/PooyaNasiri/bone-age-prediction" target="_blank" rel="noopener">Bone Age
+            Prediction</a>
+          <p class="project-description">
+            Deep learning model for predicting age from X-ray hand images using ResNet and Inception architectures.
+          </p>
+        </div>
+
+        <div class="project-card">
+          <a href="https://github.com/PooyaNasiri/GrayScale2RGB-GAN-Model" target="_blank" rel="noopener">Grayscale to
+            RGB Image Colorization (GAN)</a>
+          <p class="project-description">
+            Developed a GAN-based model to convert grayscale images to realistic color images with TensorFlow.
+          </p>
+        </div>
+
+        <div class="project-card">
+          <a href="https://github.com/PooyaNasiri/Human-Voice-Gender-Detector" target="_blank" rel="noopener">Human
+            Voice Gender & Age Detector</a>
+          <p class="project-description">
+            Real-time speech recognition model using RNN and CNN architectures to classify gender and estimate age.
+          </p>
+        </div>
+
+        <div class="project-card">
+          <a href="https://github.com/PooyaNasiri/Weather-Classification" target="_blank" rel="noopener">Weather
+            Classification with CNN</a>
+          <p class="project-description">
+            High accuracy weather pattern classification model built with convolutional neural networks.
+          </p>
+        </div>
+
+        <div class="project-card">
+          <a href="https://github.com/PooyaNasiri/ai_supplychain_management" target="_blank" rel="noopener">AI Supply
+            Chain Management</a>
+          <p class="project-description">
+            AI-based heuristic algorithms for optimizing supply chain logistics developed in C#.
+          </p>
+        </div>
+
+        <div class="project-card">
+          <a href="https://github.com/PooyaNasiri/3D-Data-Processing" target="_blank" rel="noopener">3D Data
+            Processing</a>
+          <p class="project-description">
+            Implementation of stereo disparity mapping and 3D reconstruction using OpenCV and C++.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="work-experience" aria-label="Work Experience">
+      <h2>Work Experience</h2>
+
+      <div class="job">
+        <div class="job-title">A.I. Engineer</div>
+        <div class="job-company">Javis SRL (Remote, Italy)</div>
+        <div class="job-dates">Mar 2024 - Dec 2024</div>
+        <div class="job-description">
+          Intern in AI and ML projects, developing intelligent systems for logistic optimization using Python and deep
+          learning frameworks. Skills: Classic AI, Deep Learning, Time Series, Machine learning.
+        </div>
       </div>
 
-      <div class="project-card">
-        <a href="https://github.com/PooyaNasiri/GrayScale2RGB-GAN-Model" target="_blank" rel="noopener">Grayscale to RGB
-          Image Colorization (GAN)</a>
-        <p class="project-description">
-          Developed a GAN-based model to convert grayscale images to realistic color images with TensorFlow.
-        </p>
+      <div class="job">
+        <div class="job-title">Freelance Software Developer</div>
+        <div class="job-company">Hybrid, Worldwide</div>
+        <div class="job-dates">Jan 2009 - Sep 2022</div>
+        <div class="job-description">
+          Engineered various software solutions, and AI/ML/DL research projects. Skills: OOP, AI, Deep Learning, Python,
+          C++, C#, WPF.
+        </div>
       </div>
 
-      <div class="project-card">
-        <a href="https://github.com/PooyaNasiri/Human-Voice-Gender-Detector" target="_blank" rel="noopener">Human Voice
-          Gender & Age Detector</a>
-        <p class="project-description">
-          Real-time speech recognition model using RNN and CNN architectures to classify gender and estimate age.
-        </p>
+      <div class="job">
+        <div class="job-title">Software Developer</div>
+        <div class="job-company">Vancosys Inc. (Remote, Canada)</div>
+        <div class="job-dates">Nov 2021 - Sep 2022</div>
+        <div class="job-description">
+          Designed cross-platform apps for IDmelon’s authentication solutions using C#, Swift, and cryptographic
+          protocols (FIDO, PKI, OpenSSL). Skills: Secure Authentication, Swift, Cryptography, FIDO.
+        </div>
       </div>
 
-      <div class="project-card">
-        <a href="https://github.com/PooyaNasiri/Weather-Classification" target="_blank" rel="noopener">Weather
-          Classification with CNN</a>
-        <p class="project-description">
-          High accuracy weather pattern classification model built with convolutional neural networks.
-        </p>
+      <div class="job">
+        <div class="job-title">Senior Software Developer</div>
+        <div class="job-company">Azar Liopad (Hybrid)</div>
+        <div class="job-dates">Aug 2020 - Sep 2022</div>
+        <div class="job-description">
+          Full-stack developer for smart firefighting and safety equipment software using C# and Visual Studio, with
+          serial and client/server communication. Skills: C#, WPF, .NET, Visual Studio.
+        </div>
       </div>
 
-      <div class="project-card">
-        <a href="https://github.com/PooyaNasiri/ai_supplychain_management" target="_blank" rel="noopener">AI Supply
-          Chain Management</a>
-        <p class="project-description">
-          AI-based heuristic algorithms for optimizing supply chain logistics developed in C#.
-        </p>
+      <div class="job">
+        <div class="job-title">Hardware Specialist</div>
+        <div class="job-company">Tajhiz Teb (On-site)</div>
+        <div class="job-dates">May 2019 - Mar 2021</div>
+        <div class="job-description">
+          Led R&D in hardware for smart medical gadgets, including mobile ECG devices. Skills: IoT, Arduino, ARM,
+          client/server programming, PCB Design.
+        </div>
+      </div>
+    </section>
+
+    <section class="education" aria-label="Education">
+      <h2>Education</h2>
+
+      <div class="education-item">
+        <div class="education-degree">Master of Engineering (MEng), Computer Engineering - Artificial Intelligence</div>
+        <div class="education-school">Università degli Studi di Padova</div>
+        <div class="education-dates">Sep 2022 - Present</div>
+        <div class="education-description">Skills: Machine Learning, Deep Learning, Computer Vision, AI.</div>
       </div>
 
-      <div class="project-card">
-        <a href="https://github.com/PooyaNasiri/3D-Data-Processing" target="_blank" rel="noopener">3D Data
-          Processing</a>
-        <p class="project-description">
-          Implementation of stereo disparity mapping and 3D reconstruction using OpenCV and C++.
-        </p>
+      <div class="education-item">
+        <div class="education-degree">Bachelor of Engineering (BE), Computer Software Engineering</div>
+        <div class="education-school">Azad University (IAU)</div>
+        <div class="education-dates">Sep 2015 - Feb 2019</div>
+        <div class="education-description">Skills: OOP, .NET, C#, A.I., Java — Activities: Teaching Assistant, Quantum
+          computers.</div>
+      </div>
+
+      <div class="education-item">
+        <div class="education-degree">Engineer’s Degree, Microcontroller</div>
+        <div class="education-school">Tehran Institute of Technology</div>
+        <div class="education-dates">Oct 2012 - Jun 2015</div>
+        <div class="education-description">Skills: IoT, ARM Architecture, AVR — Activities: AVR/ARM programming in C and
+          Assembly.</div>
+      </div>
+
+      <div class="education-item">
+        <div class="education-degree">Computer Programming Course</div>
+        <div class="education-school">Students’ Science and Research Institute</div>
+        <div class="education-dates">Oct 2010 - Jun 2013</div>
+        <div class="education-description">Skills: OOP, C, C++, C#, Java — Activities: RoboCup Programming Competitions.
+        </div>
+      </div>
+    </section>
+    <section class="grid-2x2-container">
+      <section class="languages-list" aria-label="Languages">
+        <h2>Languages</h2>
+        <ul>
+          <li>Italian: B2-Intermediate</li>
+          <li>English: C1-Advanced</li>
+          <li>Persian: Native</li>
+        </ul>
+      </section>
+
+      <section class="interests-list" aria-label="Interests">
+        <h2>Interests</h2>
+        <ul>
+          <li>Deep Learning: CNN, DNN, RNN, LLM, NLP, Transformers</li>
+          <li>Computer Vision: OpenCV</li>
+          <li>Machine Learning: Optimization, OR</li>
+          <li>Data Science: Data mining, statistical analysis, predictive and generative modeling</li>
+        </ul>
+      </section>
+
+      <section class="softskills-list" aria-label="Soft Skills">
+        <h2>Soft Skills</h2>
+        <ul>
+          <li>Team Collaboration</li>
+          <li>Agile Management</li>
+          <li>Problem Solving</li>
+          <li>Technical Communication</li>
+          <li>Mentorship</li>
+          <li>Adaptability</li>
+        </ul>
+      </section>
+
+      <section class="skills-list" aria-label="Core Skills">
+        <h2>Core Skills</h2>
+        <ul>
+          <li>Programming Languages: Python, C, C++, C#, Java, Swift, ...</li>
+          <li>AI/ML Frameworks: TensorFlow, PyTorch, Keras, Pandas, Scikit-learn</li>
+          <li>Software Development: Windows, MacOS, Secure Authentication (FIDO, PKI), REST APIs</li>
+          <li>Databases: SQL, MySQL, MongoDB, PostgreSQL, NoSQL</li>
+          <li>Microcontroller Development: Arduino, Atmel, ESP, STM32, Raspberry Pi, PIC</li>
+          <li>Tools & Platforms: Git, GitLab, Docker, AWS, Azure, GCP, CI/CD</li>
+        </ul>
+      </section>
+    </section>
+
+    <section class="certifications" aria-label="Certifications">
+      <h2>Certifications</h2>
+
+      <div class="card-container">
+        <div class="certification-card">
+          <a href="https://www.udemy.com/certificate/UC-76207d5f-bf68-4c5a-824a-4041d410daa9/" target="_blank"
+            rel="noopener">
+            Python for Machine Learning
+          </a>
+          <div class="certification-date">Nov 2021</div>
+        </div>
+
+        <div class="certification-card">
+          <a href="https://www.udemy.com/certificate/UC-6bb2318e-779c-4a16-b478-37e08fbac05e/" target="_blank"
+            rel="noopener">
+            Machine Learning from Basic to Advanced
+          </a>
+          <div class="certification-date">Oct 2021</div>
+        </div>
+
+        <div class="certification-card">
+          <a href="https://www.udemy.com/certificate/UC-defd535c-ccfb-4caa-be03-a2bc340e5676/" target="_blank"
+            rel="noopener">
+            Artificial Intelligence (AI) in the classroom
+          </a>
+          <div class="certification-date">Oct 2021</div>
+        </div>
+
+        <div class="certification-card">
+          <a href="https://www.udemy.com/certificate/UC-f9ccd8f4-9edb-4c01-9173-77b9dd8ce194/" target="_blank"
+            rel="noopener">
+            Cutting-Edge AI: Deep Reinforcement Learning in Python
+          </a>
+          <div class="certification-date">Sep 2021</div>
+        </div>
+
+        <div class="certification-card">
+          <a href="https://www.udemy.com/certificate/UC-d6e9bc83-bd0f-4de0-8e6d-9f1118998de5/" target="_blank"
+            rel="noopener">
+            Learn Machine learning & AI (Including 3 Projects)
+          </a>
+          <div class="certification-date">Aug 2021</div>
+        </div>
+
+        <div class="certification-card">
+          <a href="https://www.udemy.com/certificate/UC-df26016e-02b5-4816-9f0a-2718bb6c71f0/" target="_blank"
+            rel="noopener">
+            C# Console and Windows Forms Development - LINQ & ADO.NET
+          </a>
+          <div class="certification-date">Jul 2021</div>
+        </div>
       </div>
     </section>
   </main>
@@ -270,6 +575,19 @@
   <footer>
     &copy; 2025 Pooya Nasiri — AI Engineer Portfolio
   </footer>
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      if (document.body.classList.contains('light-mode')) {
+        toggleBtn.textContent = '☀️'; // sun icon
+        toggleBtn.style.backgroundColor = '#0077cc';
+      } else {
+        toggleBtn.textContent = '🌙'; // moon icon
+        toggleBtn.style.backgroundColor = '#00aaff';
+      }
+    });
+  </script>
 
 </body>
 
