@@ -22,6 +22,12 @@
       background: #0a0a0a;
       color: #e0e0e0;
       line-height: 1.6;
+      background-image:
+        linear-gradient(45deg, transparent 25%, rgba(255, 255, 255, 0.02) 25%),
+        linear-gradient(-45deg, transparent 25%, rgba(255, 255, 255, 0.02) 25%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.02) 75%, transparent 75%),
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.02) 75%, transparent 75%);
+      background-size: 20vw;
     }
 
     a {
@@ -145,7 +151,11 @@
       color: #888c94;
     }
 
-    /* Other text */
+    .projects,
+    .certifications {
+      color: #c0c5ca;
+    }
+
     .summary,
     .skills-list,
     .languages-list,
@@ -153,7 +163,6 @@
     .softskills-list,
     .work-experience,
     .education {
-      max-width: 700px;
       margin: 0 auto;
       color: #c0c5ca;
     }
@@ -262,11 +271,17 @@
 
     /* Default dark theme already in place */
 
-    /* Light mode overrides */
     body.light-mode {
-      background: #fff !important;
+      background-color: #ffffff;
+      background-image:
+        linear-gradient(45deg, rgba(0, 0, 0, 0.025) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(0, 0, 0, 0.025) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.025) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.025) 75%);
+      background-size: 20vw;
       color: #111 !important;
     }
+
 
     body.light-mode a {
       color: #0077cc !important;
