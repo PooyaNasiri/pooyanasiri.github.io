@@ -312,6 +312,16 @@
     body.light-mode section .education-school {
       color: #111 !important;
     }
+
+    .fancy-show-button
+    {
+      box-shadow: 0 5px 20px rgba(0, 170, 255, 0.4);
+    }
+
+    .fancy-show-button:hover {
+      transform: scale(1.2);
+      transition: all 0.5s ease;
+    }
   </style>
 </head>
 
@@ -648,7 +658,6 @@
         const repos = await res.json();
         container.innerHTML = ''; // Clear loading state
 
-        // Show first 9 by default
         const initialCount = 9;
 
         repos.forEach((repo, index) => {
@@ -672,11 +681,13 @@
           container.appendChild(card);
         });
 
-        // If more than 9 projects, add "Show more" button
         if (repos.length > initialCount) {
           const button = document.createElement('button');
-          button.textContent = 'Show more projects';
+          button.classList.add('fancy-show-button');
+          button.textContent = '↓ Show more projects ↓';
           button.style = `
+          grid-column: 1 / -1;
+          justify-self: center;
           margin-top: 2rem;
           padding: 0.75rem 1.5rem;
           font-size: 1rem;
