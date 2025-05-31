@@ -1,5 +1,2 @@
 [
-{"name":"image-segmenter","html_url":"https://github.com/PooyaNasiri/image-segmenter","description":"This program demonstrates an interactive image segmentation technique using OpenCV.","last_commit":"2025-05-31T12:20:43Z"},
-{"name":"Vibe-Visualizer","html_url":"https://github.com/PooyaNasiri/Vibe-Visualizer","description":"🎧 A psychedelic real-time audio visualizer powered by your microphone. Built with p5.js, runs in the browser.","last_commit":"2025-05-30T20:26:33Z"},
-{"name":"GestureOS","html_url":"https://github.com/PooyaNasiri/GestureOS","description":"GestureOS is a Python-based gesture recognition system that lets you control your Windows PC with hand signs using your webcam. Perform actions like media control, mouse movement, tab switching, and more — all touch-free.","last_commit":"2025-05-25T19:49:57Z"}
 ]
