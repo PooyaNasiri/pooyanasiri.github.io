@@ -360,7 +360,7 @@
         University of Padova. Seeking to contribute to a dynamic company as an AI Engineer.</p>
     </section>
 
-    <section class="projects" aria-label="Featured Projects">
+    <!-- <section class="projects" aria-label="Featured Projects">
       <h2>Selected Projects</h2>
 
       <div class="card-container">
@@ -412,7 +412,7 @@
           </p>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <section class="projects" aria-label="Recent Projects">
       <h2>Recent Projects</h2>
@@ -639,31 +639,71 @@
 
 
   <script>
-    async function loadCachedRecentProjects() {
+    async function loadRecentProjects() {
       const container = document.getElementById('recent-projects');
       try {
         const res = await fetch('data/recent.json');
-        if (!res.ok) throw new Error('Failed to fetch cached data.');
+        if (!res.ok) throw new Error('Failed to fetch project data.');
 
         const repos = await res.json();
-        container.innerHTML = '';
+        container.innerHTML = ''; // Clear loading state
 
-        repos.forEach(repo => {
+        // Show first 9 by default
+        const initialCount = 9;
+
+        repos.forEach((repo, index) => {
+          const description = (!repo.description || repo.description === "null")
+            ? "No description provided."
+            : repo.description;
+
           const card = document.createElement('div');
           card.className = 'project-card';
           card.innerHTML = `
           <a href="${repo.html_url}" target="_blank" rel="noopener">${repo.name}</a>
-          <p class="project-description">${(!repo.description || repo.description === "null") ? "No description provided." : repo.description}</p>
+          <p class="project-description">${description}</p>
         `;
+
+          // Only show first 9 initially
+          if (index >= initialCount) {
+            card.style.display = 'none';
+            card.classList.add('hidden-project');
+          }
+
           container.appendChild(card);
         });
+
+        // If more than 9 projects, add "Show more" button
+        if (repos.length > initialCount) {
+          const button = document.createElement('button');
+          button.textContent = 'Show more projects';
+          button.style = `
+          margin-top: 2rem;
+          padding: 0.75rem 1.5rem;
+          font-size: 1rem;
+          background: #00aaff;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+        `;
+
+          button.addEventListener('click', () => {
+            document.querySelectorAll('.hidden-project').forEach(card => {
+              card.style.display = 'block';
+            });
+            button.remove(); // Remove button after click
+          });
+
+          container.appendChild(button);
+        }
+
       } catch (err) {
         console.error(err);
         container.innerHTML = `<p style="color:red;">Unable to load recent projects. Please try again later.</p>`;
       }
     }
 
-    loadCachedRecentProjects();
+    loadRecentProjects();
   </script>
 
 
