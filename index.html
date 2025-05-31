@@ -117,6 +117,12 @@
       cursor: default;
     }
 
+    .project-card.collapsed {
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .project-card:hover,
     .certification-card:hover {
       box-shadow: 0 0 20px rgb(0 170 255 / 0.5);
@@ -313,31 +319,53 @@
       color: #111 !important;
     }
 
-    .fancy-show-button {
-      box-shadow: 0 5px 20px rgba(0, 170, 255, 0.4);
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .fancy-show-button:hover {
-      transform: scale(1.2);
-      transition: all 0.5s ease;
+    .project-card.animated-show {
+      animation: fadeSlideIn 0.4s ease both;
+    }
+
+    
+    .fancy-show-button,
+    #theme-toggle,
+    #go-to-top {
+      background: #00aaff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+      z-index: 9999;
+      box-shadow: 0 4px 10px rgba(0, 170, 255, 0.5);
+    }
+
+    .fancy-show-button:hover,
+    #theme-toggle:hover,
+    #go-to-top:hover {
+      background: #0099dd;
+      transform: scale(1.08);
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0, 170, 255, 0.8);
     }
   </style>
 </head>
 
 <body class="light-mode">
   <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle Light/Dark Mode" style="
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  background: #00aaff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-  z-index: 9999;
-">🌙</button>
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+  ">🌙</button>
 
   <header>
     <h1>Pooya Nasiri</h1>
@@ -637,11 +665,9 @@
     toggleBtn.addEventListener('click', () => {
       document.body.classList.toggle('light-mode');
       if (document.body.classList.contains('light-mode')) {
-        toggleBtn.textContent = '☀️'; // sun icon
-        toggleBtn.style.backgroundColor = '#0077cc';
+        toggleBtn.textContent = '🌙';
       } else {
-        toggleBtn.textContent = '🌙'; // moon icon
-        toggleBtn.style.backgroundColor = '#00aaff';
+        toggleBtn.textContent = '☀️';
       }
     });
   </script>
@@ -677,6 +703,7 @@
             card.classList.add('hidden-project');
           }
 
+
           container.appendChild(card);
         });
 
@@ -700,17 +727,31 @@
           let expanded = false;
 
           button.addEventListener('click', () => {
-            const hiddenProjects = document.querySelectorAll('.hidden-project');
+            const hiddenProjects = Array.from(document.querySelectorAll('.hidden-project'));
 
             if (!expanded) {
-              // Show hidden projects
-              hiddenProjects.forEach(card => {
-                card.style.display = 'block';
-              });
+              // Reveal cards row-by-row (3 per step)
+              let i = 0;
+              const revealInterval = setInterval(() => {
+                const group = hiddenProjects.slice(i, i + 3);
+                if (group.length === 0) {
+                  clearInterval(revealInterval);
+                  return;
+                }
+
+                group.forEach(card => {
+                  card.style.display = 'block';
+                  card.classList.add('animated-show');
+                  setTimeout(() => card.classList.remove('animated-show'), 500);
+                });
+
+                i += 3;
+              }, 500);
+
               button.textContent = '↑ Show fewer projects ↑';
               expanded = true;
             } else {
-              // Hide projects again
+              // Collapse all extra projects instantly
               hiddenProjects.forEach(card => {
                 card.style.display = 'none';
               });
@@ -718,7 +759,8 @@
               expanded = false;
             }
           });
-          
+
+
 
           container.appendChild(button);
         }
@@ -733,7 +775,27 @@
   </script>
 
 
+  <button id="go-to-top" aria-label="Go to top" title="Scroll to top" style="
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  display: none;
+  "> ⬆ </button>
 
 </body>
+
+<script>
+  const goToTopButton = document.getElementById('go-to-top');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      goToTopButton.style.display = 'block';
+    } else {
+      goToTopButton.style.display = 'none';
+    }
+  });
+  goToTopButton.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
 
 </html>
