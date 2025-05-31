@@ -414,6 +414,13 @@
       </div>
     </section>
 
+    <section class="projects" aria-label="Recent Projects">
+      <h2>Recent Projects</h2>
+      <div class="card-container" id="recent-projects">
+        <p>Loading recent projects...</p>
+      </div>
+    </section>
+
     <section class="work-experience" aria-label="Work Experience">
       <h2>Work Experience</h2>
 
@@ -629,6 +636,37 @@
       }
     });
   </script>
+
+
+  <script>
+    async function loadCachedRecentProjects() {
+      const container = document.getElementById('recent-projects');
+      try {
+        const res = await fetch('data/recent.json');
+        if (!res.ok) throw new Error('Failed to fetch cached data.');
+
+        const repos = await res.json();
+        container.innerHTML = '';
+
+        repos.forEach(repo => {
+          const card = document.createElement('div');
+          card.className = 'project-card';
+          card.innerHTML = `
+          <a href="${repo.html_url}" target="_blank" rel="noopener">${repo.name}</a>
+          <p class="project-description">${repo.description || "No description provided."}</p>
+        `;
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `<p style="color:red;">Unable to load recent projects. Please try again later.</p>`;
+      }
+    }
+
+    loadCachedRecentProjects();
+  </script>
+
+
 
 </body>
 
