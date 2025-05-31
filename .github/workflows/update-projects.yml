@@ -15,30 +15,38 @@ jobs:
 
       - name: Fetch recent repos and commits
         run: |
+          set -e
           mkdir -p data
+          echo "Fetching repos..."
           curl -s https://api.github.com/users/PooyaNasiri/repos?per_page=100 > repos.json
 
           echo "[" > data/recent.json
-          count=0
 
-          for repo in $(jq -r '.[].name' repos.json); do
-            if [ "$count" -ge 3 ]; then break; fi
-            commit_info=$(curl -s "https://api.github.com/repos/PooyaNasiri/$repo/commits?per_page=1")
+          jq -c '.[] | {name: .name, description: .description}' repos.json |
+          while read -r repo; do
+            name=$(echo "$repo" | jq -r .name)
+            desc=$(echo "$repo" | jq -r .description)
+            echo "Fetching commit for $name..."
+            commit_info=$(curl -s "https://api.github.com/repos/PooyaNasiri/$name/commits?per_page=1")
             commit_date=$(echo "$commit_info" | jq -r '.[0].commit.committer.date')
 
-            jq --arg repo "$repo" \
-               --arg url "https://github.com/PooyaNasiri/$repo" \
-               --arg desc "$(jq -r ".[] | select(.name==\"$repo\") | .description" repos.json)" \
-               --arg date "$commit_date" \
-               -n '{name: $repo, html_url: $url, description: $desc, last_commit: $date}' >> data/recent.json
+            echo "$commit_date|$name|$desc" >> commits_temp.txt
+          done
 
+          # Sort by commit date (descending), take top 3
+          sort -r commits_temp.txt | head -n 3 | while IFS='|' read -r date name desc; do
+            jq -n \
+              --arg name "$name" \
+              --arg url "https://github.com/PooyaNasiri/$name" \
+              --arg desc "$desc" \
+              --arg date "$date" \
+              '{name: $name, html_url: $url, description: $desc, last_commit: $date}' >> data/recent.json
             echo "," >> data/recent.json
-            count=$((count + 1))
           done
 
           sed -i '$ s/,$//' data/recent.json
           echo "]" >> data/recent.json
-
+          
       - name: Commit and push
         run: |
           git config user.name "github-actions"
