@@ -43,7 +43,7 @@ jobs:
           done
 
           echo "[" > data/recent.json
-          cat commits_temp.json | jq -s 'sort_by(.last_commit) | reverse | .[:3]' | jq -c '.[]' |
+          cat commits_temp.json | jq -s 'sort_by(.last_commit) | reverse | .[:15]' | jq -c '.[]' |
           while read -r line; do
             echo "$line," >> data/recent.json
           done
