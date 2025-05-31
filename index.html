@@ -313,8 +313,7 @@
       color: #111 !important;
     }
 
-    .fancy-show-button
-    {
+    .fancy-show-button {
       box-shadow: 0 5px 20px rgba(0, 170, 255, 0.4);
     }
 
@@ -698,12 +697,28 @@
           cursor: pointer;
         `;
 
+          let expanded = false;
+
           button.addEventListener('click', () => {
-            document.querySelectorAll('.hidden-project').forEach(card => {
-              card.style.display = 'block';
-            });
-            button.remove(); // Remove button after click
+            const hiddenProjects = document.querySelectorAll('.hidden-project');
+
+            if (!expanded) {
+              // Show hidden projects
+              hiddenProjects.forEach(card => {
+                card.style.display = 'block';
+              });
+              button.textContent = '↑ Show fewer projects ↑';
+              expanded = true;
+            } else {
+              // Hide projects again
+              hiddenProjects.forEach(card => {
+                card.style.display = 'none';
+              });
+              button.textContent = '↓ Show more projects ↓';
+              expanded = false;
+            }
           });
+          
 
           container.appendChild(button);
         }
