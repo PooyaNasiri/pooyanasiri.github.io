@@ -28,6 +28,7 @@
         linear-gradient(45deg, rgba(255, 255, 255, 0.02) 75%, transparent 75%),
         linear-gradient(-45deg, rgba(255, 255, 255, 0.02) 75%, transparent 75%);
       background-size: 20vw;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
     a {
@@ -112,15 +113,9 @@
       padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 0 12px rgb(0 170 255 / 0.25);
-      transition: box-shadow 0.5s ease, transform 0.5s ease;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
       list-style: none;
       cursor: default;
-    }
-
-    .project-card.collapsed {
-      max-height: 0;
-      opacity: 0;
-      pointer-events: none;
     }
 
     .project-card:hover,
@@ -222,7 +217,6 @@
       display: grid;
       grid-template-columns: 1fr 2fr;
       gap: 2rem;
-      margin: center;
     }
 
     .grid-2x2-container>section {
@@ -232,7 +226,6 @@
       padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 0 12px rgb(0 170 255 / 0.25);
-      margin: left;
     }
 
     .grid-2x2-container>section h2 {
@@ -271,7 +264,6 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 2rem;
-        margin: center;
       }
     }
 
@@ -335,7 +327,7 @@
       animation: fadeSlideIn 0.4s ease both;
     }
 
-    
+
     .fancy-show-button,
     #theme-toggle,
     #go-to-top {
@@ -746,15 +738,25 @@
                 });
 
                 i += 3;
-              }, 500);
+              }, 200); // Adjust delay as needed
 
               button.textContent = '↑ Show fewer projects ↑';
               expanded = true;
             } else {
               // Collapse all extra projects instantly
+              // Preserve scroll position relative to the button
+              const buttonTop = button.getBoundingClientRect().top;
+
+              // Hide all extra cards
               hiddenProjects.forEach(card => {
                 card.style.display = 'none';
               });
+
+              // Restore scroll so button stays at same position
+              const newTop = button.getBoundingClientRect().top;
+              const scrollOffset = newTop - buttonTop;
+              window.scrollBy({ top: scrollOffset, behavior: 'instant' });
+
               button.textContent = '↓ Show more projects ↓';
               expanded = false;
             }
