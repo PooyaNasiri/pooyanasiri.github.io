@@ -2,55 +2,52 @@ name: Update Recent Projects
 
 on:
   schedule:
-    - cron: "0 * * * *"  # Every hour
-  workflow_dispatch:      # Also lets you trigger manually
+    - cron: "0 * * * *"
+  workflow_dispatch:
 
 jobs:
   update:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Fetch recent repos and commits
+      - name: Fetch latest repositories and commits
         run: |
           set -e
           mkdir -p data
-          echo "Fetching repos..."
           curl -s https://api.github.com/users/PooyaNasiri/repos?per_page=100 > repos.json
-
-          echo "[" > data/recent.json
+          rm -f commits_temp.json
 
           jq -c '.[] | {name: .name, description: .description}' repos.json |
           while read -r repo; do
             name=$(echo "$repo" | jq -r .name)
             desc=$(echo "$repo" | jq -r .description)
-            echo "Fetching commit for $name..."
-            commit_info=$(curl -s "https://api.github.com/repos/PooyaNasiri/$name/commits?per_page=1")
-            commit_date=$(echo "$commit_info" | jq -r '.[0].commit.committer.date')
-
-            echo "$commit_date|$name|$desc" >> commits_temp.txt
-          done
-
-          # Sort by commit date (descending), take top 3
-          sort -r commits_temp.txt | head -n 3 | while IFS='|' read -r date name desc; do
+            echo "Fetching latest commit for $name..."
+            commit_data=$(curl -s "https://api.github.com/repos/PooyaNasiri/$name/commits?per_page=1")
+            last_commit=$(echo "$commit_data" | jq -r '.[0].commit.committer.date')
+            
+            # Save each repo's data in a JSON line
             jq -n \
               --arg name "$name" \
-              --arg url "https://github.com/PooyaNasiri/$name" \
-              --arg desc "$desc" \
-              --arg date "$date" \
-              '{name: $name, html_url: $url, description: $desc, last_commit: $date}' >> data/recent.json
-            echo "," >> data/recent.json
+              --arg html_url "https://github.com/PooyaNasiri/$name" \
+              --arg description "$desc" \
+              --arg last_commit "$last_commit" \
+              '{name: $name, html_url: $html_url, description: $description, last_commit: $last_commit}' >> commits_temp.json
           done
 
+          echo "[" > data/recent.json
+          cat commits_temp.json | jq -s 'sort_by(.last_commit) | reverse | .[:3]' | jq -c '.[]' |
+          while read -r line; do
+            echo "$line," >> data/recent.json
+          done
           sed -i '$ s/,$//' data/recent.json
           echo "]" >> data/recent.json
-          
+
       - name: Commit and push
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add data/recent.json
-          git commit -m "Update recent projects" || echo "No changes"
+          git commit -m "Update recent projects" || echo "No changes to commit"
           git push

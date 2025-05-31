@@ -653,7 +653,7 @@
           card.className = 'project-card';
           card.innerHTML = `
           <a href="${repo.html_url}" target="_blank" rel="noopener">${repo.name}</a>
-          <p class="project-description">${repo.description || "No description provided."}</p>
+          <p class="project-description">${(!repo.description || repo.description === "null") ? "No description provided." : repo.description}</p>
         `;
           container.appendChild(card);
         });
