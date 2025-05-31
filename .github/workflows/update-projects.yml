@@ -23,11 +23,17 @@ jobs:
           while read -r repo; do
             name=$(echo "$repo" | jq -r .name)
             desc=$(echo "$repo" | jq -r .description)
+
+            # Exclude specific repos
+            if [[ "$name" == "pooyanasiri.github.io" || "$name" == "resume" || "$name" == "PooyaNasiri" ]]; then
+              echo "Skipping $name..."
+              continue
+            fi
+
             echo "Fetching latest commit for $name..."
             commit_data=$(curl -s "https://api.github.com/repos/PooyaNasiri/$name/commits?per_page=1")
             last_commit=$(echo "$commit_data" | jq -r '.[0].commit.committer.date')
-            
-            # Save each repo's data in a JSON line
+
             jq -n \
               --arg name "$name" \
               --arg html_url "https://github.com/PooyaNasiri/$name" \
