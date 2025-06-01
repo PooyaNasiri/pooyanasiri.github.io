@@ -351,25 +351,53 @@
       animation: fadeSlideIn 0.4s ease both;
     }
 
-    body.light-mode .floating-resume,
-    .floating-resume {
+    /* Base style for floating buttons (resume + go-to-top) */
+    .floating-resume,
+    #go-to-top {
       position: fixed;
       bottom: 1rem;
-      left: 1rem;
       background: #00aaff;
       color: white !important;
       padding: 0.6rem 1rem;
       border-radius: 30px;
       font-weight: bold;
       text-decoration: none;
-      box-shadow: 0 4px 10px rgba(0, 170, 255, 0.4);
+      box-shadow: 0 4px 10px rgba(0, 170, 255, 0.8);
       z-index: 10000;
-      transition: all 0.3s ease;
+      opacity: 0;
+      cursor: pointer;
+      pointer-events: none;
+      transform: translateY(30px);
+      transition: all 0.5s ease;
+      border: none;
+      
     }
 
-    .fancy-show-button,
-    #theme-toggle,
+
+
+    /* Resume button: bottom-left */
+    .floating-resume {
+      left: 1rem;
+    }
+
+    /* Go-to-top button: bottom-right */
     #go-to-top {
+      right: 1rem;
+    }
+
+    /* Show button when visible */
+    .floating-resume.visible,
+    #go-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Theme toggle button: top-right */
+    #theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
       background: #00aaff;
       border: none;
       padding: 0.5rem 1rem;
@@ -378,19 +406,47 @@
       cursor: pointer;
       z-index: 9999;
       box-shadow: 0 4px 10px rgba(0, 170, 255, 0.5);
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
 
+    /* Fancy button (project show-more) */
+    .fancy-show-button {
+      grid-column: 1 / -1;
+      justify-self: center;
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      background: #00aaff;
+      border: none;
+      border-radius: 20px;
+      color: white !important;
+      cursor: pointer;
+      z-index: 9999;
+      box-shadow: 0 4px 10px rgba(0, 170, 255, 0.5);
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Hover effects for all */
     body.light-mode .floating-resume:hover,
     .floating-resume:hover,
-    .fancy-show-button:hover,
+    #go-to-top:hover,
     #theme-toggle:hover,
-    #go-to-top:hover {
+    .fancy-show-button:hover {
       background: #0099dd;
       color: white !important;
       transform: scale(1.08);
-      transition: all 0.3s ease;
       box-shadow: 0 6px 20px rgba(0, 170, 255, 0.8);
       text-decoration: none;
+    }
+
+    /* Light mode overrides */
+    body.light-mode .floating-resume,
+    body.light-mode #go-to-top,
+    body.light-mode #theme-toggle,
+    body.light-mode .fancy-show-button {
+      background: #00aaff;
+      color: white !important;
     }
   </style>
 </head>
@@ -772,18 +828,7 @@
           const button = document.createElement('button');
           button.classList.add('fancy-show-button');
           button.textContent = '↓ Show more projects ↓';
-          button.style = `
-          grid-column: 1 / -1;
-          justify-self: center;
-          margin-top: 2rem;
-          padding: 0.75rem 1.5rem;
-          font-size: 1rem;
-          background: #00aaff;
-          color: white;
-          border: none;
-          border-radius: 8px;
-          cursor: pointer;
-        `;
+
 
           let expanded = false;
 
@@ -850,35 +895,81 @@
     position: fixed;
     bottom: 1rem;
     right: 1rem;
-    display: none;
     "> ⬆ </button>
 
   <a href="https://raw.githubusercontent.com/PooyaNasiri/resume/main/PooyaNasiri-CV.pdf" download="PooyaNasiri-CV.pdf"
-    class="floating-resume" id="resume-button" aria-label="Download Pooya Nasiri Resume" style="display: none;">📄
-    Resume</a>
+    class="floating-resume" id="resume-button" aria-label="Download Pooya Nasiri Resume">📄Resume</a>
 
 </body>
 <script>
   const resumeButton = document.getElementById('resume-button');
+  const goToTopButton = document.getElementById('go-to-top');
+
+  function toggleVisibility(button, visible) {
+    button.classList.toggle('visible', visible);
+  }
+
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      resumeButton.style.display = 'block';
-    } else {
-      resumeButton.style.display = 'none';
-    }
+    const shouldShow = window.scrollY > 300;
+    toggleVisibility(resumeButton, shouldShow);
+    toggleVisibility(goToTopButton, shouldShow);
   });
 
-  const goToTopButton = document.getElementById('go-to-top');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      goToTopButton.style.display = 'block';
-    } else {
-      goToTopButton.style.display = 'none';
-    }
-  });
   goToTopButton.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 </script>
+
+<!-- <script>
+  const resumeButton = document.getElementById('resume-button');
+  const goToTopButton = document.getElementById('go-to-top');
+
+  let ticking = false;
+  let resumeVisible = false;
+  let goTopVisible = false;
+
+  function handleScroll() {
+    const shouldShow = window.scrollY > 300;
+
+    // Resume Button
+    if (shouldShow && !resumeVisible) {
+      resumeButton.style.display = 'block';
+      resumeButton.style.animation = 'fadeSlideIn 0.5s ease both';
+      resumeVisible = true;
+    } else if (!shouldShow && resumeVisible) {
+      resumeButton.style.animation = 'fadeSlideOut 0.5s ease both';
+      setTimeout(() => {
+        resumeButton.style.display = 'none';
+      }, 500);
+      resumeVisible = false;
+    }
+
+    // Go to Top Button
+    if (shouldShow && !goTopVisible) {
+      goToTopButton.style.display = 'block';
+      goToTopButton.style.animation = 'fadeSlideIn 0.5s ease both';
+      goTopVisible = true;
+    } else if (!shouldShow && goTopVisible) {
+      goToTopButton.style.animation = 'fadeSlideOut 0.5s ease both';
+      setTimeout(() => {
+        goToTopButton.style.display = 'none';
+      }, 500);
+      goTopVisible = false;
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(handleScroll);
+      ticking = true;
+    }
+  });
+
+  goToTopButton.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script> -->
 
 </html>
