@@ -97,7 +97,7 @@
     }
 
     main {
-      max-width: 50%;
+      max-width: 80vw;
       margin: 0 auto 3rem;
       padding: 0 1rem;
     }
@@ -265,30 +265,6 @@
       color: #757575;
     }
 
-    @media (max-width: 1280px) {
-      main {
-        max-width: 90vw;
-      }
-
-      section {
-        min-width: unset;
-        width: 100%;
-      }
-
-      header h1 {
-        font-size: 2.25rem;
-      }
-
-      section h2 {
-        font-size: 1.5rem;
-      }
-
-      .grid-2x2-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-    }
 
     /* Default dark theme already in place */
 
@@ -449,47 +425,52 @@
     }
 
     .stack-timeline {
-      margin: 4rem auto;
-      padding: 0.5rem 2rem;
-      color: white !important;
+      margin: 2rem auto;
+      padding: 1rem;
       border-radius: 20px;
       box-shadow: 0 0 12px rgba(0, 170, 255, 0.2);
+      color: #c0c5ca;
     }
 
     body.light-mode .stack-timeline {
       color: black !important;
     }
 
-    /* Timeline Container */
     .timeline {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      position: relative;
-      margin: 1rem auto;
-      max-width: 100%;
       overflow-x: auto;
-      padding-bottom: 1rem;
+      position: relative;
+      scrollbar-width: thin;
+      scrollbar-color: #00aaff transparent;
     }
 
-    .timeline::before {
-      content: '';
+    .timeline-scroll {
+      display: flex;
+      flex-wrap: nowrap;
+      position: relative;
+      min-width: max-content;
+      padding-top: 1rem;
+    }
+
+    .timeline-line {
       position: absolute;
-      top: 28px;
-      left: 0;
-      right: 0;
-      height: 4px;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 2px;
+      width: 85%;
       background: #00aaff;
-      opacity: 0.3;
+      opacity: 0.8;
       z-index: 0;
     }
 
-    /* Timeline Item */
+
     .timeline-item {
-      position: relative;
-      min-width: 180px;
+      flex: 1 1 25%;
+      min-width: fit-content;
       text-align: center;
+      position: relative;
       z-index: 1;
+      margin-bottom: 1rem;
     }
 
     .timeline-dot {
@@ -497,21 +478,47 @@
       height: 14px;
       background: #00aaff;
       border-radius: 50%;
-      margin: 0 auto;
-      margin-bottom: 10px;
+      margin: 0 auto 10px;
       box-shadow: 0 0 10px rgba(0, 170, 255, 0.6);
+      position: relative;
+      top: -20px;
     }
 
     .timeline-year {
       font-weight: bold;
       margin-bottom: 0.3rem;
-      /* color: #ffffff; */
     }
 
     .timeline-text {
       font-size: 0.95rem;
       max-width: 160px;
       margin: 0 auto;
+    }
+
+
+    @media (max-width: 1280px) {
+      /* main {
+        max-width: 90vw;
+      } */
+
+      /* section {
+        min-width: unset;
+        width: 100%;
+      } */
+
+      /* header h1 {
+        font-size: 2.25rem;
+      }
+
+      section h2 {
+        font-size: 1.5rem;
+      } */
+
+      .grid-2x2-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
     }
   </style>
 </head>
@@ -547,35 +554,41 @@
 
     <section class="summary" aria-label="Summary">
       <h2>Summary</h2>
-      <p>AI and Machine Learning Engineer with <span id="experience-years"></span>+ years of experience developing innovative AI solutions and software
+      <p>AI and Machine Learning Engineer with <span id="experience-years"></span>+ years of experience developing
+        innovative AI solutions and software
         applications. Skilled in Python, TensorFlow, and cross-platform development (C, C++, C#, Swift). Proven track
         record of optimizing performance and delivering impactful AI-driven products. Completing a Master's in AI at the
         University of Padova. Seeking to contribute to a dynamic company as an AI Engineer.</p>
     </section>
+
     <section class="stack-timeline" aria-label="Brief Timeline">
       <div class="timeline">
-        <div class="timeline-item">
-          <span class="timeline-dot"></span>
-          <div class="timeline-year">2009–2016</div>
-          <div class="timeline-text">C, C++, Embedded Systems, IoT</div>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-dot"></span>
-          <div class="timeline-year">2014-2020</div>
-          <div class="timeline-text">C#, Desktop Apps, Swift, Java, Networking</div>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-dot"></span>
-          <div class="timeline-year">2020-2024</div>
-          <div class="timeline-text">Python Ecosystems, AI Architecture, Smart Systems</div>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-dot"></span>
-          <div class="timeline-year">2022-Now</div>
-          <div class="timeline-text">Deep Learning, LLMs, Cloud AI, Transformers</div>
+        <div class="timeline-scroll">
+          <div class="timeline-line"></div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-year">2009-2016</div>
+            <div class="timeline-text">C, C++, Embedded Systems, IoT</div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-year">2014-2020</div>
+            <div class="timeline-text">C#, Desktop Apps, Swift, Java, Networking</div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-year">2020-2024</div>
+            <div class="timeline-text">Python Ecosystems, AI Architecture, Smart Systems</div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-year">2022-Now</div>
+            <div class="timeline-text">Deep Learning, LLMs, Cloud AI, Transformers</div>
+          </div>
         </div>
       </div>
     </section>
+
 
     <!-- <section class="projects" aria-label="Featured Projects">
       <h2>Selected Projects</h2>
@@ -880,7 +893,14 @@
         const repos = await res.json();
         container.innerHTML = '';
 
-        const initialCount = 6;
+        const getColumnCount = () => {
+          const grid = window.getComputedStyle(container);
+          const columns = grid.getPropertyValue('grid-template-columns');
+          return columns.split(' ').length;
+        };
+
+        const columns = getColumnCount();
+        const initialCount = columns * 2;
 
         repos.forEach((repo, index) => {
           const description = (!repo.description || repo.description === "null")
@@ -894,7 +914,6 @@
           <p class="project-description">${description}</p>
         `;
 
-          // Only show first 9 initially
           if (index >= initialCount) {
             card.style.display = 'none';
             card.classList.add('hidden-project');
@@ -916,10 +935,9 @@
             const hiddenProjects = Array.from(document.querySelectorAll('.hidden-project'));
 
             if (!expanded) {
-              // Reveal cards row-by-row (3 per step)
               let i = 0;
               const revealInterval = setInterval(() => {
-                const group = hiddenProjects.slice(i, i + 3);
+                const group = hiddenProjects.slice(i, i + 1);
                 if (group.length === 0) {
                   clearInterval(revealInterval);
                   return;
@@ -931,7 +949,7 @@
                   setTimeout(() => card.classList.remove('animated-show'), 500);
                 });
 
-                i += 3;
+                i += 1;
               }, 200); // Adjust delay as needed
 
               button.textContent = '↑ Show fewer projects ↑';
