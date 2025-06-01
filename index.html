@@ -21,7 +21,14 @@
   <meta property="og:type" content="website" />
 
   <!-- Favicon -->
-  <link rel="icon" href="https://pooyanasiri.github.io/favicon.ico" type="image/x-icon" />
+  <!-- <link rel="icon" href="https://pooyanasiri.github.io/favicon.ico" type="image/x-icon" /> -->
+
+  <link rel="icon" type="image/png" href="/icon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/icon/favicon.svg" />
+  <link rel="shortcut icon" href="/icon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png" />
+  <link rel="manifest" href="/icon/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Pooya Nasiri" />
 
   <title>Pooya Nasiri - AI Engineer</title>
 
@@ -457,7 +464,7 @@
       left: 50%;
       transform: translateX(-50%);
       height: 2px;
-      width: 85%;
+      width: 90%;
       background: #00aaff;
       opacity: 0.8;
       z-index: 0;
@@ -465,12 +472,14 @@
 
 
     .timeline-item {
-      flex: 1 1 25%;
+      flex: 1 1 20%;
       min-width: fit-content;
       text-align: center;
       position: relative;
       z-index: 1;
       margin-bottom: 1rem;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
     }
 
     .timeline-dot {
