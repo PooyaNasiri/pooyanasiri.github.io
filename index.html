@@ -4,9 +4,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO Meta -->
+  <meta name="description"
+    content="Portfolio of Pooya Nasiri, AI Engineer with 13+ years of experience in software, machine learning, and deep learning." />
+  <meta name="keywords"
+    content="AI Engineer, Machine Learning, Deep Learning, Portfolio, Pooya Nasiri, Python, TensorFlow, PyTorch" />
+  <meta name="author" content="Pooya Nasiri" />
+
+  <!-- Open Graph / LinkedIn -->
+  <meta property="og:title" content="Pooya Nasiri - Senior AI Engineer Portfolio" />
+  <meta property="og:description"
+    content="AI Engineer with 13+ years of experience in intelligent systems, deep learning, and software architecture." />
+  <meta property="og:image" content="https://pooyanasiri.github.io/assets/og-image.jpg" />
+  <!-- Replace with your image URL -->
+  <meta property="og:url" content="https://pooyanasiri.github.io/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://pooyanasiri.github.io/favicon.ico" type="image/x-icon" />
+
+  <title>Pooya Nasiri - AI Engineer</title>
+
+  <!-- Fonts & Styles -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+
 
 
   <title>Pooya Nasiri - AI Engineer</title>
@@ -328,6 +352,21 @@
     }
 
 
+    .floating-resume {
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+      background: #00aaff;
+      color: white;
+      padding: 0.6rem 1rem;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0, 170, 255, 0.4);
+      z-index: 10000;
+      transition: all 0.3s ease;
+    }
+    
     .fancy-show-button,
     #theme-toggle,
     #go-to-top {
@@ -340,14 +379,16 @@
       z-index: 9999;
       box-shadow: 0 4px 10px rgba(0, 170, 255, 0.5);
     }
-
+    .floating-resume:hover,
     .fancy-show-button:hover,
     #theme-toggle:hover,
     #go-to-top:hover {
       background: #0099dd;
+      color: white;
       transform: scale(1.08);
       transition: all 0.3s ease;
       box-shadow: 0 6px 20px rgba(0, 170, 255, 0.8);
+      text-decoration: none;
     }
   </style>
 </head>
@@ -388,6 +429,16 @@
         record of optimizing performance and delivering impactful AI-driven products. Completing a Master's in AI at the
         University of Padova. Seeking to contribute to a dynamic company as an AI Engineer.</p>
     </section>
+
+    <!-- <section class="stack-timeline" aria-label="Brief Timeline">
+      <h2>Brief Timeline</h2>
+      <ul>
+        <li><strong>2009–2016:</strong> C, C++, Embedded Systems, IoT</li>
+        <li><strong>2014–2020:</strong> C#, Desktop Apps, Swift, Java, Networking</li>
+        <li><strong>2022–2024:</strong> Python Ecosystems, AI Architecture, Smart Systems</li>
+        <li><strong>2024–Now:</strong> Deep Learning, LLMs, Cloud AI, Transformers</li>
+      </ul>
+    </section> -->
 
     <!-- <section class="projects" aria-label="Featured Projects">
       <h2>Selected Projects</h2>
@@ -639,9 +690,11 @@
       </section>
     </section>
     <section style="text-align:center; padding: 1rem; color: #9aa3a8; font-size: 1.1rem;">
-      <p>Thank you for visiting my portfolio!<br />If you like what you see, feel free to <a
+      <!-- <p>Thank you for visiting my portfolio!<br />If you like what you see, feel free to <a
           href="mailto:Pooya.nasiri75@gmail.com" style="color:#00aaff;">get in touch</a> for collaborations or job
-        opportunities.</p>
+        opportunities.</p> -->
+      <p> Ready to tackle your next AI challenge. <a href="mailto:Pooya.nasiri75@gmail.com" style="color:#00aaff;">Let's
+          connect</a>.</p>
     </section>
     <section style="text-align:center; font-style: italic; color: #9aa3a8; padding: 3rem; font-size: 1.1rem;">
       <p>"I trust data over opinions, systems over chaos, and intelligence — artificial or not — over noise."</p>
@@ -651,8 +704,8 @@
 
   <footer>
     &copy; <span id="year"></span> Pooya Nasiri — AI Engineer Portfolio
-  </footer>  
-  
+  </footer>
+
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
@@ -687,8 +740,8 @@
         if (!res.ok) throw new Error('Failed to fetch project data.');
 
         const repos = await res.json();
-        container.innerHTML = ''; 
-        
+        container.innerHTML = '';
+
         const initialCount = 6;
 
         repos.forEach((repo, index) => {
@@ -792,15 +845,27 @@
 
 
   <button id="go-to-top" aria-label="Go to top" title="Scroll to top" style="
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  display: none;
-  "> ⬆ </button>
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    display: none;
+    "> ⬆ </button>
+
+  <a href="https://raw.githubusercontent.com/PooyaNasiri/resume/main/PooyaNasiri-CV.pdf" download="PooyaNasiri-CV.pdf"
+    class="floating-resume" id="resume-button" aria-label="Download Pooya Nasiri Resume" style="display: none;">📄
+    Resume</a>
 
 </body>
-
 <script>
+  const resumeButton = document.getElementById('resume-button');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      resumeButton.style.display = 'block';
+    } else {
+      resumeButton.style.display = 'none';
+    }
+  });
+  
   const goToTopButton = document.getElementById('go-to-top');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
