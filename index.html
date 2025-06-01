@@ -370,7 +370,7 @@
       transform: translateY(30px);
       transition: all 0.5s ease;
       border: none;
-      
+
     }
 
 
@@ -448,6 +448,72 @@
       background: #00aaff;
       color: white !important;
     }
+
+    .stack-timeline {
+      margin: 4rem auto;
+      padding: 0.5rem 2rem;
+      color: white !important;
+      border-radius: 20px;
+      box-shadow: 0 0 12px rgba(0, 170, 255, 0.2);
+    }
+
+    body.light-mode .stack-timeline {
+      color: black !important;
+    }
+
+    /* Timeline Container */
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      margin: 1rem auto;
+      max-width: 100%;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #00aaff;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    /* Timeline Item */
+    .timeline-item {
+      position: relative;
+      min-width: 180px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .timeline-dot {
+      width: 14px;
+      height: 14px;
+      background: #00aaff;
+      border-radius: 50%;
+      margin: 0 auto;
+      margin-bottom: 10px;
+      box-shadow: 0 0 10px rgba(0, 170, 255, 0.6);
+    }
+
+    .timeline-year {
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+      /* color: #ffffff; */
+    }
+
+    .timeline-text {
+      font-size: 0.95rem;
+      max-width: 160px;
+      margin: 0 auto;
+    }
   </style>
 </head>
 
@@ -487,16 +553,30 @@
         record of optimizing performance and delivering impactful AI-driven products. Completing a Master's in AI at the
         University of Padova. Seeking to contribute to a dynamic company as an AI Engineer.</p>
     </section>
-
-    <!-- <section class="stack-timeline" aria-label="Brief Timeline">
-      <h2>Brief Timeline</h2>
-      <ul>
-        <li><strong>2009–2016:</strong> C, C++, Embedded Systems, IoT</li>
-        <li><strong>2014–2020:</strong> C#, Desktop Apps, Swift, Java, Networking</li>
-        <li><strong>2022–2024:</strong> Python Ecosystems, AI Architecture, Smart Systems</li>
-        <li><strong>2024–Now:</strong> Deep Learning, LLMs, Cloud AI, Transformers</li>
-      </ul>
-    </section> -->
+    <section class="stack-timeline" aria-label="Brief Timeline">
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div class="timeline-year">2009–2016</div>
+          <div class="timeline-text">C, C++, Embedded Systems, IoT</div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div class="timeline-year">2014-2020</div>
+          <div class="timeline-text">C#, Desktop Apps, Swift, Java, Networking</div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div class="timeline-year">2020-2024</div>
+          <div class="timeline-text">Python Ecosystems, AI Architecture, Smart Systems</div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div class="timeline-year">2022-Now</div>
+          <div class="timeline-text">Deep Learning, LLMs, Cloud AI, Transformers</div>
+        </div>
+      </div>
+    </section>
 
     <!-- <section class="projects" aria-label="Featured Projects">
       <h2>Selected Projects</h2>
