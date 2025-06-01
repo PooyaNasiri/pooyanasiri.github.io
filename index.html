@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- SEO Meta -->
-  <meta name="description"
-    content="Portfolio of Pooya Nasiri, AI Engineer with 13+ years of experience in software, machine learning, and deep learning." />
+  <meta name="description" content="Portfolio of Pooya Nasiri, AI Engineer" />
   <meta name="keywords"
     content="AI Engineer, Machine Learning, Deep Learning, Portfolio, Pooya Nasiri, Python, TensorFlow, PyTorch" />
   <meta name="author" content="Pooya Nasiri" />
@@ -15,7 +14,7 @@
   <!-- Open Graph / LinkedIn -->
   <meta property="og:title" content="Pooya Nasiri - Senior AI Engineer Portfolio" />
   <meta property="og:description"
-    content="AI Engineer with 13+ years of experience in intelligent systems, deep learning, and software architecture." />
+    content="AI Engineer with experience in intelligent systems, deep learning, and software architecture." />
   <meta property="og:image" content="https://pooyanasiri.github.io/assets/og-image.jpg" />
   <!-- Replace with your image URL -->
   <meta property="og:url" content="https://pooyanasiri.github.io/" />
@@ -548,7 +547,7 @@
 
     <section class="summary" aria-label="Summary">
       <h2>Summary</h2>
-      <p>AI and Machine Learning Engineer with 13+ years of experience developing innovative AI solutions and software
+      <p>AI and Machine Learning Engineer with <span id="experience-years"></span>+ years of experience developing innovative AI solutions and software
         applications. Skilled in Python, TensorFlow, and cross-platform development (C, C++, C#, Swift). Proven track
         record of optimizing performance and delivering impactful AI-driven products. Completing a Master's in AI at the
         University of Padova. Seeking to contribute to a dynamic company as an AI Engineer.</p>
@@ -846,6 +845,7 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('experience-years').textContent = new Date().getFullYear() - 2010;
   </script>
 
   <script>
