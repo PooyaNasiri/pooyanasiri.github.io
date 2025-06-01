@@ -110,7 +110,7 @@
     .project-card,
     .certification-card {
       background: #1c1c1c;
-      padding: 1.5rem;
+      padding: 1.2rem;
       border-radius: 8px;
       box-shadow: 0 0 12px rgb(0 170 255 / 0.25);
       transition: box-shadow 0.3s ease, transform 0.3s ease;
@@ -242,7 +242,7 @@
       color: #757575;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 1280px) {
       main {
         max-width: 90vw;
       }
@@ -352,7 +352,7 @@
   </style>
 </head>
 
-<body class="light-mode">
+<body>
   <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle Light/Dark Mode" style="
     position: fixed;
     top: 1rem;
@@ -650,17 +650,31 @@
   </main>
 
   <footer>
-    &copy; 2025 Pooya Nasiri — AI Engineer Portfolio
-  </footer>
+    &copy; <span id="year"></span> Pooya Nasiri — AI Engineer Portfolio
+  </footer>  
+  
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
   <script>
     const toggleBtn = document.getElementById('theme-toggle');
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+
+      if (savedTheme === 'dark') {
+        document.body.classList.remove('light-mode');
+        toggleBtn.textContent = '☀️';
+      } else {
+        document.body.classList.add('light-mode');
+        toggleBtn.textContent = '🌙';
+      }
+    });
     toggleBtn.addEventListener('click', () => {
       document.body.classList.toggle('light-mode');
-      if (document.body.classList.contains('light-mode')) {
-        toggleBtn.textContent = '🌙';
-      } else {
-        toggleBtn.textContent = '☀️';
-      }
+      const isLightMode = document.body.classList.contains('light-mode');
+      localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+      toggleBtn.textContent = isLightMode ? '🌙' : '☀️';
     });
   </script>
 
@@ -673,9 +687,9 @@
         if (!res.ok) throw new Error('Failed to fetch project data.');
 
         const repos = await res.json();
-        container.innerHTML = ''; // Clear loading state
-
-        const initialCount = 9;
+        container.innerHTML = ''; 
+        
+        const initialCount = 6;
 
         repos.forEach((repo, index) => {
           const description = (!repo.description || repo.description === "null")
