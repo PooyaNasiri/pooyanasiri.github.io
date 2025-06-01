@@ -351,13 +351,13 @@
       animation: fadeSlideIn 0.4s ease both;
     }
 
-
+    body.light-mode .floating-resume,
     .floating-resume {
       position: fixed;
       bottom: 1rem;
       left: 1rem;
       background: #00aaff;
-      color: white;
+      color: white !important;
       padding: 0.6rem 1rem;
       border-radius: 30px;
       font-weight: bold;
@@ -366,7 +366,7 @@
       z-index: 10000;
       transition: all 0.3s ease;
     }
-    
+
     .fancy-show-button,
     #theme-toggle,
     #go-to-top {
@@ -374,17 +374,19 @@
       border: none;
       padding: 0.5rem 1rem;
       border-radius: 20px;
-      color: white;
+      color: white !important;
       cursor: pointer;
       z-index: 9999;
       box-shadow: 0 4px 10px rgba(0, 170, 255, 0.5);
     }
+
+    body.light-mode .floating-resume:hover,
     .floating-resume:hover,
     .fancy-show-button:hover,
     #theme-toggle:hover,
     #go-to-top:hover {
       background: #0099dd;
-      color: white;
+      color: white !important;
       transform: scale(1.08);
       transition: all 0.3s ease;
       box-shadow: 0 6px 20px rgba(0, 170, 255, 0.8);
@@ -865,7 +867,7 @@
       resumeButton.style.display = 'none';
     }
   });
-  
+
   const goToTopButton = document.getElementById('go-to-top');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
