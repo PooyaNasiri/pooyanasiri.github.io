@@ -167,32 +167,37 @@
     }
 
     .project-card,
-    .certification-card {
+    .certification-card,
+    .project-link {
       background: #1c1c1c;
       padding: 1.2rem;
       border-radius: 8px;
       box-shadow: 0 0 12px rgb(0 170 255 / 0.25);
       transition: box-shadow 0.3s ease, transform 0.3s ease;
       list-style: none;
-      cursor: default;
+      display: block;
+      text-decoration: none;
+      color: inherit;
     }
 
     .project-card:hover,
-    .certification-card:hover {
+    .certification-card:hover,
+    .project-link:hover {
       box-shadow: 0 0 20px rgb(0 170 255 / 0.5);
-      transform: scale(1.1);
+      transform: scale(1.05);
+      cursor: pointer;
+      text-decoration: none;
     }
 
-    /* Project Cards */
-
-    .certification-card a,
-    .project-card a {
+    .project-link h3,
+    .certification-card h3 {
       font-weight: var(--h2-w);
       font-size: var(--h4-s);
       color: #00aaff;
-      display: inline-block;
       margin-bottom: 0.75rem;
+      text-decoration: none;
     }
+
 
     .project-description {
       color: #aaaeb3;
@@ -880,55 +885,44 @@
       <h2>Certifications</h2>
 
       <div class="card-container">
-        <div class="certification-card">
-          <a href="https://www.udemy.com/certificate/UC-76207d5f-bf68-4c5a-824a-4041d410daa9/" target="_blank"
-            rel="noopener">
-            Python for Machine Learning
-          </a>
+        <a href="https://www.udemy.com/certificate/UC-76207d5f-bf68-4c5a-824a-4041d410daa9/" target="_blank"
+          rel="noopener" class="certification-card">
+          <h3>Python for Machine Learning</h3>
           <div class="certification-date">Nov 2021</div>
-        </div>
+        </a>
 
-        <div class="certification-card">
-          <a href="https://www.udemy.com/certificate/UC-6bb2318e-779c-4a16-b478-37e08fbac05e/" target="_blank"
-            rel="noopener">
-            Machine Learning from Basic to Advanced
-          </a>
+        <a href="https://www.udemy.com/certificate/UC-6bb2318e-779c-4a16-b478-37e08fbac05e/" target="_blank"
+          rel="noopener" class="certification-card">
+          <h3>Machine Learning from Basic to Advanced</h3>
           <div class="certification-date">Oct 2021</div>
-        </div>
+        </a>
 
-        <div class="certification-card">
-          <a href="https://www.udemy.com/certificate/UC-defd535c-ccfb-4caa-be03-a2bc340e5676/" target="_blank"
-            rel="noopener">
-            Artificial Intelligence (AI) in the classroom
-          </a>
+        <a href="https://www.udemy.com/certificate/UC-defd535c-ccfb-4caa-be03-a2bc340e5676/" target="_blank"
+          rel="noopener" class="certification-card">
+          <h3>Artificial Intelligence (AI) in the classroom</h3>
           <div class="certification-date">Oct 2021</div>
-        </div>
+        </a>
 
-        <div class="certification-card">
-          <a href="https://www.udemy.com/certificate/UC-f9ccd8f4-9edb-4c01-9173-77b9dd8ce194/" target="_blank"
-            rel="noopener">
-            Cutting-Edge AI: Deep Reinforcement Learning in Python
-          </a>
+        <a href="https://www.udemy.com/certificate/UC-f9ccd8f4-9edb-4c01-9173-77b9dd8ce194/" target="_blank"
+          rel="noopener" class="certification-card">
+          <h3>Cutting-Edge AI: Deep Reinforcement Learning in Python</h3>
           <div class="certification-date">Sep 2021</div>
-        </div>
+        </a>
 
-        <div class="certification-card">
-          <a href="https://www.udemy.com/certificate/UC-d6e9bc83-bd0f-4de0-8e6d-9f1118998de5/" target="_blank"
-            rel="noopener">
-            Learn Machine learning & AI (Including 3 Projects)
-          </a>
+        <a href="https://www.udemy.com/certificate/UC-d6e9bc83-bd0f-4de0-8e6d-9f1118998de5/" target="_blank"
+          rel="noopener" class="certification-card">
+          <h3>Learn Machine learning & AI (Including 3 Projects)</h3>
           <div class="certification-date">Aug 2021</div>
-        </div>
+        </a>
 
-        <div class="certification-card">
-          <a href="https://www.udemy.com/certificate/UC-df26016e-02b5-4816-9f0a-2718bb6c71f0/" target="_blank"
-            rel="noopener">
-            C# Console and Windows Forms Development - LINQ & ADO.NET
-          </a>
+        <a href="https://www.udemy.com/certificate/UC-df26016e-02b5-4816-9f0a-2718bb6c71f0/" target="_blank"
+          rel="noopener" class="certification-card">
+          <h3>C# Console and Windows Forms Development - LINQ & ADO.NET</h3>
           <div class="certification-date">Jul 2021</div>
-        </div>
+        </a>
       </div>
     </section>
+
 
 
     <section class="grid-2x2-container">
@@ -1044,12 +1038,21 @@
             ? "No description provided."
             : repo.description;
 
-          const card = document.createElement('div');
-          card.className = 'project-card';
+          //   const card = document.createElement('div');
+          //   card.className = 'project-card';
+          //   card.innerHTML = `
+          //   <a href="${repo.html_url}" target="_blank" rel="noopener">${repo.name}</a>
+          //   <p class="project-description">${description}</p>
+          // `;
+          const card = document.createElement('a');
+          card.href = repo.html_url;
+          card.target = '_blank';
+          card.rel = 'noopener';
+          card.className = 'project-card project-link';
           card.innerHTML = `
-          <a href="${repo.html_url}" target="_blank" rel="noopener">${repo.name}</a>
-          <p class="project-description">${description}</p>
-        `;
+            <h3>${repo.name}</h3>
+            <p class="project-description">${description}</p>
+          `;
 
           if (index >= initialCount) {
             card.style.display = 'none';
