@@ -51,6 +51,8 @@
       --h5-s: clamp(0.4rem, 1.2vw, 1rem);
       --h6-s: clamp(0.3rem, 1vw, 0.8rem);
       --p-s: clamp(0.45rem, 1vw, 1.2rem);
+
+      --gap: clamp(1rem, 2vw, 2rem);
     }
 
     * {
@@ -163,16 +165,22 @@
       text-align: center;
     }
 
-    /* Card base style */
     .card-container {
       display: grid;
-      gap: 2rem;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--gap);
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .project-card,
     .certification-card,
     .project-link {
+      transform-origin: center;
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
       background: #1c1c1c;
       padding: 1.2rem;
       border-radius: 8px;
@@ -250,7 +258,7 @@
       padding: 1.2rem;
       border-radius: 8px;
       box-shadow: 0 0 12px rgba(0, 170, 255, 0.25);
-      margin-bottom: 1.5rem;
+      margin-bottom: var(--gap);
     }
 
     body.light-mode .job,
@@ -293,7 +301,7 @@
     .grid-2x2-container {
       display: grid;
       grid-template-columns: 1fr 2fr;
-      gap: 2rem;
+      gap: var(--gap);
     }
 
     .grid-2x2-container>section {
@@ -376,7 +384,7 @@
       background: #00aaff;
       color: white !important;
       padding: 0.6rem 1rem;
-      border-radius: 30px;
+      border-radius: 20px;
       font-weight: bold;
       font-size: var(--h5-s);
       text-decoration: none;
@@ -461,7 +469,7 @@
     .stack-timeline {
       margin: 2rem auto;
       padding: 1rem;
-      border-radius: 20px;
+      border-radius: 8px;
       box-shadow: 0 0 12px rgba(0, 170, 255, 0.2);
       color: #c0c5ca;
     }
@@ -537,7 +545,7 @@
     .github-cards {
       display: flex;
       flex-wrap: wrap;
-      gap: 2rem;
+      gap: var(--gap);
       margin: 1rem auto;
       align-items: stretch;
     }
@@ -575,7 +583,7 @@
     }
 
     .github-stats img {
-      transform: scale(1.03);
+      transform: scale(1.04);
       transform-origin: center;
     }
 
@@ -616,9 +624,7 @@
       } */
 
       .grid-2x2-container {
-        display: grid;
         grid-template-columns: 1fr;
-        gap: 2rem;
       }
     }
 
@@ -626,7 +632,7 @@
 
       html,
       body {
-        zoom: 0.8;
+        /* zoom: 0.8; */
         margin: 0 !important;
         padding: 0 2rem !important;
         width: 100% !important;
@@ -724,12 +730,10 @@
 
     <div class="github-cards">
       <div class="github-card github-stats">
-        <img id="github-stats-img"
-          src="https://github-readme-stats.vercel.app/api?username=PooyaNasiri&show_icons=true&hide=contribs,prs,issues&theme=github_dark"
-          alt="GitHub Stats" loading="lazy" />
+        <img id="github-stats-img" />
       </div>
       <div class="github-card github-heatmap">
-        <img src="https://ghchart.rshah.org/58a6ff/PooyaNasiri" alt="GitHub Contribution Heatmap" loading="lazy" />
+        <img src="https://ghchart.rshah.org/58a6ff/PooyaNasiri" alt="GitHub Contribution Heatmap" loading="eager" />
       </div>
     </div>
 
@@ -1174,11 +1178,13 @@
       username,
       show_icons: 'true',
       hide: 'contribs,prs,issues',
-      theme
+      theme,
+      t: Date.now() // ⬅️ Anti-cache key
     });
 
     statsImg.src = `${baseURL}?${params.toString()}`;
   }
+
 
   // On initial load
   window.addEventListener('DOMContentLoaded', () => {
