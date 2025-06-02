@@ -39,6 +39,21 @@
 
   <title>Pooya Nasiri - AI Engineer</title>
   <style>
+    :root {
+      --h1-w: 700;
+      --h1-s: clamp(1.8rem, 5vw, 4rem);
+
+      --h2-w: 600;
+      --h2-s: clamp(1.2rem, 2.5vw, 1.6rem);
+
+      --h3-s: clamp(1rem, 2vw, 1.25rem);
+      --h4-s: clamp(0.95rem, 1.5vw, 1.1rem);
+      --h5-s: clamp(0.875rem, 1.2vw, 1rem);
+
+      --p-w: 400;
+      --p-s: clamp(0.9rem, 1vw, 1.2rem);
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -82,16 +97,30 @@
 
     header h1 {
       font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 4rem;
+      font-weight: var(--h1-w);
+      font-size: var(--h1-s);
       margin-bottom: 0.25rem;
       letter-spacing: 0.03em;
     }
 
+    h1 {
+      font-weight: var(--h1-w);
+      font-size: var(--h1-s);
+    }
+
+    h2 {
+      font-weight: var(--h2-w);
+      font-size: var(--h2-s);
+    }
+
+    p {
+      font-weight: var(--p-w);
+      font-size: var(--p-s);
+    }
 
     header p {
-      font-weight: 400;
-      font-size: 1.25rem;
+      font-weight: var(--p-w);
+      font-size: var(--p-s);
       color: #9aa3a8;
       margin-top: 0rem;
     }
@@ -113,8 +142,8 @@
     }
 
     section h2 {
-      font-weight: 700;
-      font-size: 2rem;
+      font-weight: var(--h2-w);
+      font-size: var(--h2-s);
       margin-top: 0rem;
       margin-bottom: 2rem;
       padding-bottom: 0.3rem;
@@ -123,7 +152,7 @@
     }
 
     .contact p {
-      font-size: 1.1rem;
+      font-size: var(--p-s);
       margin: 0.3rem 0;
       text-align: center;
     }
@@ -153,35 +182,31 @@
     }
 
     /* Project Cards */
+
+    .certification-card a,
     .project-card a {
-      font-weight: 600;
-      font-size: 1.15rem;
+      font-weight: var(--h2-w);
+      font-size: var(--h4-s);
+      color: #00aaff;
       display: inline-block;
       margin-bottom: 0.75rem;
     }
 
     .project-description {
       color: #aaaeb3;
-      font-size: 0.95rem;
+      font-size: var(--p-s);
       line-height: 1.4;
     }
 
-    /* Certifications cards */
-    .certification-card a {
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #00aaff;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
 
     .certification-date {
-      font-size: 0.9rem;
+      font-size: var(--h5-s);
       color: #888c94;
     }
 
     .projects,
     .certifications {
+      font-size: var(--p-s);
       color: #c0c5ca;
     }
 
@@ -192,6 +217,7 @@
     .softskills-list,
     .work-experience,
     .education {
+      font-size: var(--p-s);
       margin: 0 auto;
       color: #c0c5ca;
     }
@@ -214,8 +240,8 @@
 
     .job-title,
     .education-degree {
-      font-weight: 600;
-      font-size: 1.1rem;
+      font-weight: var(--h2-w);
+      font-size: var(--h3-s);
       margin-bottom: 0.2rem;
       color: #00aaff;
     }
@@ -229,14 +255,14 @@
 
     .job-dates,
     .education-dates {
-      font-size: 0.9rem;
+      font-size: var(--h4-s);
       color: #666;
       margin-bottom: 0.5rem;
     }
 
     .job-description,
     .education-description {
-      font-size: 1rem;
+      font-size: var(--h5-s);
       color: #ffffff;
     }
 
@@ -266,7 +292,7 @@
       background: #121212;
       padding: 1rem;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: var(--h5-s);
       color: #757575;
     }
 
@@ -315,18 +341,6 @@
       color: #111 !important;
     }
 
-    @keyframes fadeSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     .project-card.animated-show {
       animation: fadeSlideIn 0.4s ease both;
     }
@@ -353,19 +367,14 @@
 
     }
 
-
-
-    /* Resume button: bottom-left */
     .floating-resume {
       left: 1rem;
     }
 
-    /* Go-to-top button: bottom-right */
     #go-to-top {
       right: 1rem;
     }
 
-    /* Show button when visible */
     .floating-resume.visible,
     #go-to-top.visible {
       opacity: 1;
@@ -373,7 +382,6 @@
       transform: translateY(0);
     }
 
-    /* Theme toggle button: top-right */
     #theme-toggle {
       position: fixed;
       top: 1rem;
@@ -389,13 +397,12 @@
       transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* Fancy button (project show-more) */
     .fancy-show-button {
       grid-column: 1 / -1;
       justify-self: center;
       margin-top: 2rem;
       padding: 0.75rem 1.5rem;
-      font-size: 1rem;
+      font-size: var(--h4-s);
       border: none;
       background: #00aaff;
       border: none;
@@ -407,7 +414,6 @@
       transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* Hover effects for all */
     body.light-mode .floating-resume:hover,
     .floating-resume:hover,
     #go-to-top:hover,
@@ -420,7 +426,6 @@
       text-decoration: none;
     }
 
-    /* Light mode overrides */
     body.light-mode .floating-resume,
     body.light-mode #go-to-top,
     body.light-mode #theme-toggle,
@@ -492,12 +497,12 @@
     }
 
     .timeline-year {
-      font-weight: bold;
+      /* font-weight: bold; */
       margin-bottom: 0.3rem;
     }
 
     .timeline-text {
-      font-size: 0.95rem;
+      font-size: var(--h5-s);
       max-width: 160px;
       margin: 0 auto;
     }
@@ -552,6 +557,18 @@
       box-shadow: 0 0 12px rgba(0, 170, 255, 0.15);
     }
 
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
 
     @media (max-width: 900px) {
       /* main {
@@ -575,6 +592,40 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 2rem;
+      }
+    }
+
+  
+    @media print {
+
+      html,
+      body {
+        zoom: 0.8;
+        margin: 0 !important;
+        padding: 0 2rem !important;
+        width: 100% !important;
+        background: white !important;
+        color: black !important;
+      }
+
+      body * {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        max-width: none !important;
+      }
+
+      .certification-card,
+      .grid-2x2-container>section,
+      .timeline,
+      .project-card {
+        background: #f0f0f0 !important;
+      }
+
+      #theme-toggle,
+      .floating-resume,
+      #go-to-top {
+        display: none !important;
       }
     }
   </style>
@@ -653,8 +704,7 @@
           alt="GitHub Stats" loading="lazy" />
       </div>
       <div class="github-card github-heatmap">
-        <img src="https://ghchart.rshah.org/58a6ff/PooyaNasiri" alt="GitHub Contribution Heatmap"
-          loading="lazy" />
+        <img src="https://ghchart.rshah.org/58a6ff/PooyaNasiri" alt="GitHub Contribution Heatmap" loading="lazy" />
       </div>
     </div>
 
@@ -909,14 +959,14 @@
         </ul>
       </section>
     </section>
-    <section style="text-align:center; padding: 1rem; color: #9aa3a8; font-size: 1.1rem;">
+    <section style="text-align:center; padding-top: 4rem; color: #9aa3a8; font-size: 1rem;">
       <!-- <p>Thank you for visiting my portfolio!<br />If you like what you see, feel free to <a
           href="mailto:Pooya.nasiri75@gmail.com" style="color:#00aaff;">get in touch</a> for collaborations or job
         opportunities.</p> -->
       <p> Ready to tackle your next AI challenge. <a href="mailto:Pooya.nasiri75@gmail.com" style="color:#00aaff;">Let's
           connect</a>.</p>
     </section>
-    <section style="text-align:center; font-style: italic; color: #9aa3a8; padding: 3rem; font-size: 1.1rem;">
+    <section style="text-align:center; font-style: italic; color: #9aa3a8; padding: 4rem; font-size: 1rem;">
       <p>"I trust data over opinions, systems over chaos, and intelligence — artificial or not — over noise."</p>
     </section>
 
