@@ -41,17 +41,16 @@
   <style>
     :root {
       --h1-w: 700;
-      --h1-s: clamp(1.8rem, 5vw, 4rem);
-
       --h2-w: 600;
-      --h2-s: clamp(1.2rem, 2.5vw, 2rem);
-      --h3-s: clamp(1rem, 2vw, 1.3rem);
-      --h4-s: clamp(0.9rem, 1.5vw, 1.1rem);
-      --h5-s: clamp(0.8rem, 1.2vw, 1rem);
-      --h6-s: clamp(0.6rem, 1vw, 0.8rem);
-
       --p-w: 400;
-      --p-s: clamp(0.9rem, 1vw, 1.2rem);
+
+      --h1-s: clamp(1rem, 5vw, 4rem);
+      --h2-s: clamp(0.6rem, 2.5vw, 2rem);
+      --h3-s: clamp(0.5rem, 2vw, 1.3rem);
+      --h4-s: clamp(0.45rem, 1.5vw, 1.1rem);
+      --h5-s: clamp(0.4rem, 1.2vw, 1rem);
+      --h6-s: clamp(0.3rem, 1vw, 0.8rem);
+      --p-s: clamp(0.45rem, 1vw, 1.2rem);
     }
 
     * {
@@ -103,6 +102,11 @@
       letter-spacing: 0.03em;
     }
 
+    /* header p {
+      font-size: var(--h6-s);
+    } */
+
+
     h1 {
       font-weight: var(--h1-w);
       font-size: var(--h1-s);
@@ -111,7 +115,7 @@
     h2 {
       font-weight: var(--h2-w);
       font-size: var(--h2-s);
-      padding-top: 3rem;
+      /* padding-top: 1rem; */
       text-align: center !important;
     }
 
@@ -139,7 +143,7 @@
     }
 
     section {
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
       min-width: 100%;
     }
 
@@ -482,10 +486,10 @@
 
     .timeline-line {
       position: absolute;
-      top: 36px;
+      top: 40%;
       left: 50%;
       transform: translateX(-50%);
-      height: 2px;
+      height: 2%;
       width: 90%;
       background: #00aaff;
       opacity: 0.8;
@@ -592,7 +596,7 @@
     }
 
 
-    @media (max-width: 900px) {
+    @media (max-width: 600px) {
       /* main {
         max-width: 90vw;
       } */
@@ -661,8 +665,7 @@
 
   <header>
     <h1>Pooya Nasiri</h1>
-    <p>AI & Machine Learning Engineer</p>
-    <p>Master's Student in Artificial Intelligence, University of Padova</p>
+    <p>AI & Machine Learning Engineer </br> br Master's Student in Artificial Intelligence, University of Padova</p>
   </header>
 
   <main>
