@@ -47,8 +47,9 @@
       --h2-s: clamp(1.2rem, 2.5vw, 1.6rem);
 
       --h3-s: clamp(1rem, 2vw, 1.25rem);
-      --h4-s: clamp(0.95rem, 1.5vw, 1.1rem);
-      --h5-s: clamp(0.875rem, 1.2vw, 1rem);
+      --h4-s: clamp(0.9rem, 1.5vw, 1.1rem);
+      --h5-s: clamp(0.8rem, 1.2vw, 1rem);
+      --h6-s: clamp(0.6rem, 1vw, 0.8rem);
 
       --p-w: 400;
       --p-s: clamp(0.9rem, 1vw, 1.2rem);
@@ -498,11 +499,13 @@
 
     .timeline-year {
       /* font-weight: bold; */
+      /* font-weight: var(--h2-w); */
+      font-size: var(--h5-s);
       margin-bottom: 0.3rem;
     }
 
     .timeline-text {
-      font-size: var(--h5-s);
+      font-size: var(--h6-s);
       max-width: 160px;
       margin: 0 auto;
     }
