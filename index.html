@@ -424,6 +424,23 @@
       border: none;
     }
 
+    #go-to-top.launched {
+      animation: flyUp 1s forwards;
+    }
+
+    @keyframes flyUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-150vh);
+        opacity: 0;
+      }
+    }
+
+
     .floating-resume {
       left: 1rem;
     }
@@ -1444,6 +1461,11 @@
 
   goToTopButton.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    const btn = document.getElementById('go-to-top');
+    btn.classList.add('launched');
+    setTimeout(() => {
+      btn.classList.remove('launched');
+    }, 1000);
   });
 </script>
 
