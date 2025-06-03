@@ -34,8 +34,9 @@ jobs:
             commit_data=$(curl -s "https://api.github.com/repos/PooyaNasiri/$name/commits?per_page=1")
             last_commit=$(echo "$commit_data" | jq -r '.[0].commit.committer.date')
 
-            topics=$(curl -s -H "Accept: application/vnd.github.mercy-preview+json" \
-              "https://api.github.com/repos/PooyaNasiri/$name" | jq -c '.topics')
+            repo_meta=$(curl -s -H "Accept: application/vnd.github.mercy-preview+json" \
+              "https://api.github.com/repos/PooyaNasiri/$name")
+            topics=$(echo "$repo_meta" | jq -c 'if type == "object" and has("topics") then .topics else [] end')
               
             jq -n \
               --arg name "$name" \
