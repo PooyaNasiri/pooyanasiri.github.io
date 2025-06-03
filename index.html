@@ -42,13 +42,13 @@
       --h2-w: 600;
       --p-w: 400;
 
-      --h1-s: clamp(1rem, 5vw, 4rem);
-      --h2-s: clamp(0.6rem, 2.5vw, 2rem);
-      --h3-s: clamp(0.5rem, 2vw, 1.3rem);
-      --h4-s: clamp(0.45rem, 1.5vw, 1.1rem);
-      --h5-s: clamp(0.4rem, 1.2vw, 1rem);
-      --h6-s: clamp(0.3rem, 1vw, 0.8rem);
-      --p-s: clamp(0.45rem, 1vw, 1.2rem);
+      --h1-s: clamp(1.1rem, 5vw, 4rem);
+      --h2-s: clamp(0.66rem, 2.5vw, 2rem);
+      --h3-s: clamp(0.55rem, 2vw, 1.3rem);
+      --h4-s: clamp(0.5rem, 1.5vw, 1.1rem);
+      --h5-s: clamp(0.45rem, 1.2vw, 1rem);
+      --h6-s: clamp(0.35rem, 1vw, 0.8rem);
+      --p-s: clamp(0.5rem, 1vw, 1.2rem);
 
       --gap: clamp(1rem, 2vw, 2rem);
     }
@@ -57,7 +57,10 @@
       box-sizing: border-box;
     }
 
+    html,
     body {
+      /* z-index: 1; */
+      position: relative;
       margin: 0;
       padding: 0;
       font-family: 'Inter', sans-serif;
@@ -106,7 +109,6 @@
       font-size: var(--h6-s);
     } */
 
-
     h1 {
       font-weight: var(--h1-w);
       font-size: var(--h1-s);
@@ -137,9 +139,11 @@
     }
 
     main {
+      position: relative;
       max-width: 80vw;
       margin: 0 auto 3rem;
       padding: 0 1rem;
+      z-index: 1;
     }
 
     section {
@@ -157,24 +161,36 @@
       max-width: fit-content;
     }
 
-    .contact p:hover,
-    .contact i:hover,
-    .contact a:hover {
-      text-decoration: none !important;
-      transform: scale(1.08);
-      transition: all 0.3s ease;
+    .contact {
+      width: fit-content;
     }
 
     .contact p {
       font-size: var(--p-s);
-      margin: 0.3rem 0;
+      margin: 0.3rem auto;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: fit-content;
     }
 
-    .contact i {
+    .contact i,
+    .contact a {
       margin-right: 0.5rem;
       color: #00aaff;
-      min-width: 1.2rem;
+      /* width: 10px; */
+      /* min-width: 1.2rem; */
+    }
+
+    /* Hover only scales the <a>, not the entire row */
+    .contact a:hover,
+    .contact p:hover,
+    .contact i:hover {
+      text-decoration: none !important;
+      transform: scale(1.08);
+      transition: all 0.3s ease;
     }
 
     .card-container {
@@ -481,11 +497,13 @@
       padding: 1rem;
       border-radius: 8px;
       box-shadow: 0 0 12px rgba(0, 170, 255, 0.2);
+      background: #0d1117;
       color: #c0c5ca;
     }
 
     body.light-mode .stack-timeline {
       color: black !important;
+      background: #ffffff !important;
     }
 
     .timeline {
@@ -512,7 +530,7 @@
       width: 90%;
       background: #00aaff;
       opacity: 0.8;
-      z-index: 0;
+      z-index: 1;
     }
 
 
@@ -655,13 +673,14 @@
     }
 
     #particles-js {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
+      height: 100%;
       width: 100%;
-      /* height: 10vmin; */
-      z-index: -1;
+      z-index: 0;
       background: transparent !important;
+      pointer-events: auto !important;
     }
 
     @keyframes slideInSidebar {
@@ -720,9 +739,7 @@
 
       html,
       body {
-        /* zoom: 0.8; */
         height: auto;
-        position: relative;
         margin: 0 !important;
         padding: 0 2rem !important;
         width: 100% !important;
@@ -755,29 +772,28 @@
 
 <body>
   <div id="particles-js"></div>
-  <nav id="sidebar-nav">
-    <ul>
-      <li><a href="#contact" class="sidebar-link">📬<span>Contact</span></a></li>
-      <li><a href="#summary" class="sidebar-link">📄<span>Summary</span></a></li>
-      <li><a href="#projects" class="sidebar-link">🧠<span>Projects</span></a></li>
-      <li><a href="#experience" class="sidebar-link">💼<span>Experience</span></a></li>
-      <li><a href="#education" class="sidebar-link">🎓<span>Education</span></a></li>
-      <li><a href="#skills" class="sidebar-link">🛠️<span>Skills</span></a></li>
-    </ul>
-  </nav>
-
-  <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle Light/Dark Mode" style="
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-  ">🌙</button>
-
-  <header>
-    <h1>Pooya Nasiri</h1>
-    <p>AI & Machine Learning Engineer </br> Master's Student in Artificial Intelligence, University of Padova</p>
-  </header>
-
   <main>
+    <nav id="sidebar-nav">
+      <ul>
+        <li><a href="#contact" class="sidebar-link">📬<span>Contact</span></a></li>
+        <li><a href="#summary" class="sidebar-link">📄<span>Summary</span></a></li>
+        <li><a href="#projects" class="sidebar-link">🧠<span>Projects</span></a></li>
+        <li><a href="#experience" class="sidebar-link">💼<span>Experience</span></a></li>
+        <li><a href="#education" class="sidebar-link">🎓<span>Education</span></a></li>
+        <li><a href="#skills" class="sidebar-link">🛠️<span>Skills</span></a></li>
+      </ul>
+    </nav>
+
+    <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle Light/Dark Mode" style="
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+    ">🌙</button>
+
+    <header>
+      <h1>Pooya Nasiri</h1>
+      <p>AI & Machine Learning Engineer </br> Master's Student in Artificial Intelligence, University of Padova</p>
+    </header>
 
     <section id="contact" class="contact" aria-label="Contact Information">
       <p>
@@ -1332,15 +1348,7 @@
       const color = isLight ? "#00aaff" : "#ffffff";
 
       const particlesDiv = document.getElementById("particles-js");
-
-      // Ensure the element exists
-      if (!particlesDiv) return;
-
-      // Set dynamic height to match full page height
-      const pageHeight = document.documentElement.scrollHeight;
-      particlesDiv.style.height = `${pageHeight}px`;
-
-      // Initialize particles.js
+      const size = window.innerWidth / 400 + 2;
       particlesJS("particles-js", {
         particles: {
           number: {
@@ -1350,7 +1358,7 @@
           color: { value: color },
           shape: { type: "circle" },
           opacity: { value: 0.3, random: true },
-          size: { value: 5, random: true },
+          size: { value: size, random: true },
           line_linked: {
             enable: true,
             distance: 150,
@@ -1360,16 +1368,32 @@
           },
           move: {
             enable: true,
-            speed: 1,
+            speed: 2,
             direction: "none",
             out_mode: "out"
           }
         },
         interactivity: {
-          detect_on: "canvas",
+          detect_on: "window",
           events: {
-            onhover: { enable: false },
-            onclick: { enable: false }
+            onhover: {
+              enable: true,
+              mode: "repulse"  // You can also try "grab" or "bubble"
+            },
+            onclick: {
+              enable: true,
+              mode: "push"     // Adds particles on click
+            },
+            resize: true
+          },
+          modes: {
+            repulse: {
+              distance: 100,
+              duration: 0.4
+            },
+            push: {
+              particles_nb: 4
+            }
           }
         },
         retina_detect: true
@@ -1380,14 +1404,6 @@
     window.addEventListener("load", () => {
       const isLight = document.body.classList.contains("light-mode");
       initParticles(isLight);
-    });
-
-    // Optional: Recalculate on resize
-    window.addEventListener("resize", () => {
-      const particlesDiv = document.getElementById("particles-js");
-      if (particlesDiv) {
-        particlesDiv.style.height = `${document.documentElement.scrollHeight}px`;
-      }
     });
   </script>
 
