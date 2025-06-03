@@ -455,6 +455,27 @@
       transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
 
+    #theme-toggle.animate {
+      animation: rotateIcon 0.4s ease;
+    }
+
+    @keyframes rotateIcon {
+      0% {
+        transform: rotate(0deg) scale(1);
+        transform-origin: center;
+      }
+
+      50% {
+        transform: rotate(180deg) scale(1.2);
+        transform-origin: center;
+      }
+
+      100% {
+        transform: rotate(360deg) scale(1);
+        transform-origin: center;
+      }
+    }
+
     .fancy-show-button {
       grid-column: 1 / -1;
       justify-self: center;
@@ -788,11 +809,7 @@
       </ul>
     </nav>
 
-    <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle Light/Dark Mode" style="
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-    ">🌙</button>
+    <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle Light/Dark Mode">🌙</button>
 
     <header>
       <h1>Pooya Nasiri</h1>
@@ -1150,271 +1167,6 @@
     document.getElementById('experience-years').textContent = new Date().getFullYear() - 2010;
   </script>
 
-  <script>
-    const toggleBtn = document.getElementById('theme-toggle');
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('theme');
-
-      if (savedTheme === 'dark') {
-        document.body.classList.remove('light-mode');
-        toggleBtn.textContent = '☀️';
-      } else {
-        document.body.classList.add('light-mode');
-        toggleBtn.textContent = '🌙';
-      }
-    });
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-      const isLightMode = document.body.classList.contains('light-mode');
-      localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
-      toggleBtn.textContent = isLightMode ? '🌙' : '☀️';
-      updateGitHubStatsTheme(isLightMode);
-      initParticles(isLightMode);
-    });
-  </script>
-
-
-  <script>
-    async function loadRecentProjects() {
-      const container = document.getElementById('recent-projects');
-      try {
-        const res = await fetch('data/recent.json');
-        if (!res.ok) throw new Error('Failed to fetch project data.');
-
-        const repos = await res.json();
-        container.innerHTML = '';
-
-        const getColumnCount = () => {
-          const grid = window.getComputedStyle(container);
-          const columns = grid.getPropertyValue('grid-template-columns');
-          return columns.split(' ').length;
-        };
-
-        const columns = getColumnCount();
-        const initialCount = columns * 2;
-
-        repos.forEach((repo, index) => {
-          const description = (!repo.description || repo.description === "null")
-            ? "No description provided."
-            : repo.description;
-
-          const card = document.createElement('a');
-          card.href = repo.html_url;
-          card.target = '_blank';
-          card.rel = 'noopener';
-          card.className = 'project-card project-link';
-          card.innerHTML = `
-            <h3>${repo.name}</h3>
-            <p class="project-description">${description}</p>
-          `;
-
-          if (index >= initialCount) {
-            card.style.display = 'none';
-            card.classList.add('hidden-project');
-          }
-
-          container.appendChild(card);
-          if (!("ontouchstart" in window)) {
-            VanillaTilt.init(card, {
-              max: 15,
-              speed: 500,
-              scale: 1.05,
-              glare: true,
-              "max-glare": 0.05,
-            });
-          }
-        });
-
-
-        if (repos.length > initialCount) {
-          const button = document.createElement('button');
-          button.classList.add('fancy-show-button');
-          button.textContent = '↓ Show more projects ↓';
-
-
-          let expanded = false;
-
-          button.addEventListener('click', () => {
-            const hiddenProjects = Array.from(document.querySelectorAll('.hidden-project'));
-
-            if (!expanded) {
-              let i = 0;
-              const revealInterval = setInterval(() => {
-                const group = hiddenProjects.slice(i, i + 1);
-                if (group.length === 0) {
-                  clearInterval(revealInterval);
-                  return;
-                }
-
-                group.forEach(card => {
-                  card.style.display = 'block';
-                  card.classList.add('animated-show');
-                  setTimeout(() => card.classList.remove('animated-show'), 500);
-                });
-
-                i += 1;
-              }, 200); // Adjust delay as needed
-
-              button.textContent = '↑ Show fewer projects ↑';
-              expanded = true;
-            } else {
-              // Collapse all extra projects instantly
-              // Preserve scroll position relative to the button
-              const buttonTop = button.getBoundingClientRect().top;
-
-              // Hide all extra cards
-              hiddenProjects.forEach(card => {
-                card.style.display = 'none';
-              });
-
-              // Restore scroll so button stays at same position
-              const newTop = button.getBoundingClientRect().top;
-              const scrollOffset = newTop - buttonTop;
-              window.scrollBy({ top: scrollOffset, behavior: 'instant' });
-
-              button.textContent = '↓ Show more projects ↓';
-              expanded = false;
-            }
-          });
-
-
-
-          container.appendChild(button);
-        }
-
-      } catch (err) {
-        console.error(err);
-        container.innerHTML = `<p style="color:red;">Unable to load recent projects. Please try again later.</p>`;
-      }
-    }
-
-    loadRecentProjects();
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
-
-  <script>
-    if (!("ontouchstart" in window)) {
-      VanillaTilt.init(document.querySelectorAll(".certification-card"), {
-        max: 15,
-        speed: 400,
-        scale: 1.05,
-        glare: true,
-        "max-glare": 0.05,
-      });
-    }
-  </script>
-  <script>
-    const links = document.querySelectorAll('.sidebar-link');
-    const sections = document.querySelectorAll('section[id]');
-
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          const id = entry.target.getAttribute('id');
-          const link = document.querySelector(`.sidebar-link[href="#${id}"]`);
-          if (link) {
-            if (entry.isIntersecting) {
-              link.classList.add('active');
-            } else {
-              link.classList.remove('active');
-            }
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.5, // Fires when 60% of section is visible
-      }
-    );
-
-    sections.forEach(section => {
-      observer.observe(section);
-    });
-  </script>
-  <script>
-    document.querySelectorAll('.sidebar-link').forEach(link => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('active'));
-        this.classList.add('active');
-        const target = document.getElementById(this.getAttribute('href').substring(1));
-        const top = target.getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({
-          top,
-          behavior: 'smooth'
-        });
-      });
-    });
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script>
-    function initParticles(isLight) {
-      const color = isLight ? "#0077cc" : "#ffffff";
-
-      const particlesDiv = document.getElementById("particles-js");
-      const size = window.innerWidth / 400 + 2;
-      particlesJS("particles-js", {
-        particles: {
-          number: {
-            value: 20,
-            density: { enable: true, value_area: 500 }
-          },
-          color: { value: color },
-          shape: { type: "circle" },
-          opacity: { value: 0.3, random: true },
-          size: { value: size, random: true },
-          line_linked: {
-            enable: true,
-            distance: 150,
-            color: color,
-            opacity: 0.2,
-            width: 1
-          },
-          move: {
-            enable: true,
-            speed: 2,
-            direction: "none",
-            out_mode: "out"
-          }
-        },
-        interactivity: {
-          detect_on: "window",
-          events: {
-            onhover: {
-              enable: true,
-              mode: "repulse"  // You can also try "grab" or "bubble"
-            },
-            onclick: {
-              enable: true,
-              mode: "push"     // Adds particles on click
-            },
-            resize: true
-          },
-          modes: {
-            repulse: {
-              distance: 100,
-              duration: 0.4
-            },
-            push: {
-              particles_nb: 4
-            }
-          }
-        },
-        retina_detect: true
-      });
-    }
-
-    // Init on page load
-    window.addEventListener("load", () => {
-      const isLight = document.body.classList.contains("light-mode");
-      initParticles(isLight);
-    });
-  </script>
-
-
   <button id="go-to-top" aria-label="Go to top" title="Scroll to top" style="
     position: fixed;
     bottom: 1rem;
@@ -1425,6 +1177,257 @@
     class="floating-resume" id="resume-button" aria-label="Download Pooya Nasiri Resume">📄Resume</a>
 
 </body>
+
+
+<script>
+  const toggleBtn = document.getElementById('theme-toggle');
+  toggleBtn.addEventListener('click', () => {
+    const isLightMode = document.body.classList.toggle('light-mode');
+    localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+    toggleBtn.textContent = isLightMode ? '🌙' : '☀️';
+    toggleBtn.classList.add('animate');
+    setTimeout(() => toggleBtn.classList.remove('animate'), 400);
+    updateGitHubStatsTheme(isLightMode);
+    initParticles(isLightMode);
+  });
+</script>
+
+
+<script>
+  async function loadRecentProjects() {
+    const container = document.getElementById('recent-projects');
+    try {
+      const res = await fetch('data/recent.json');
+      if (!res.ok) throw new Error('Failed to fetch project data.');
+
+      const repos = await res.json();
+      container.innerHTML = '';
+
+      const getColumnCount = () => {
+        const grid = window.getComputedStyle(container);
+        const columns = grid.getPropertyValue('grid-template-columns');
+        return columns.split(' ').length;
+      };
+
+      const columns = getColumnCount();
+      const initialCount = columns * 2;
+
+      repos.forEach((repo, index) => {
+        const description = (!repo.description || repo.description === "null")
+          ? "No description provided."
+          : repo.description;
+
+        const card = document.createElement('a');
+        card.href = repo.html_url;
+        card.target = '_blank';
+        card.rel = 'noopener';
+        card.className = 'project-card project-link';
+        card.innerHTML = `
+          <h3>${repo.name}</h3>
+          <p class="project-description">${description}</p>
+        `;
+
+        if (index >= initialCount) {
+          card.style.display = 'none';
+          card.classList.add('hidden-project');
+        }
+
+        container.appendChild(card);
+        if (!("ontouchstart" in window)) {
+          VanillaTilt.init(card, {
+            max: 15,
+            speed: 500,
+            scale: 1.05,
+            glare: true,
+            "max-glare": 0.05,
+          });
+        }
+      });
+
+
+      if (repos.length > initialCount) {
+        const button = document.createElement('button');
+        button.classList.add('fancy-show-button');
+        button.textContent = '↓ Show more projects ↓';
+
+
+        let expanded = false;
+
+        button.addEventListener('click', () => {
+          const hiddenProjects = Array.from(document.querySelectorAll('.hidden-project'));
+
+          if (!expanded) {
+            let i = 0;
+            const revealInterval = setInterval(() => {
+              const group = hiddenProjects.slice(i, i + 1);
+              if (group.length === 0) {
+                clearInterval(revealInterval);
+                return;
+              }
+
+              group.forEach(card => {
+                card.style.display = 'block';
+                card.classList.add('animated-show');
+                setTimeout(() => card.classList.remove('animated-show'), 500);
+              });
+
+              i += 1;
+            }, 200); // Adjust delay as needed
+
+            button.textContent = '↑ Show fewer projects ↑';
+            expanded = true;
+          } else {
+            // Collapse all extra projects instantly
+            // Preserve scroll position relative to the button
+            const buttonTop = button.getBoundingClientRect().top;
+
+            // Hide all extra cards
+            hiddenProjects.forEach(card => {
+              card.style.display = 'none';
+            });
+
+            // Restore scroll so button stays at same position
+            const newTop = button.getBoundingClientRect().top;
+            const scrollOffset = newTop - buttonTop;
+            window.scrollBy({ top: scrollOffset, behavior: 'instant' });
+
+            button.textContent = '↓ Show more projects ↓';
+            expanded = false;
+          }
+        });
+
+
+
+        container.appendChild(button);
+      }
+
+    } catch (err) {
+      console.error(err);
+      container.innerHTML = `<p style="color:red;">Unable to load recent projects. Please try again later.</p>`;
+    }
+  }
+
+  loadRecentProjects();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
+
+<script>
+  if (!("ontouchstart" in window)) {
+    VanillaTilt.init(document.querySelectorAll(".certification-card"), {
+      max: 15,
+      speed: 400,
+      scale: 1.05,
+      glare: true,
+      "max-glare": 0.05,
+    });
+  }
+</script>
+<script>
+  const links = document.querySelectorAll('.sidebar-link');
+  const sections = document.querySelectorAll('section[id]');
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        const id = entry.target.getAttribute('id');
+        const link = document.querySelector(`.sidebar-link[href="#${id}"]`);
+        if (link) {
+          if (entry.isIntersecting) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5, // Fires when 60% of section is visible
+    }
+  );
+
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+</script>
+<script>
+  document.querySelectorAll('.sidebar-link').forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('active'));
+      this.classList.add('active');
+      const target = document.getElementById(this.getAttribute('href').substring(1));
+      const top = target.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top,
+        behavior: 'smooth'
+      });
+    });
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+  function initParticles(isLight) {
+    const color = isLight ? "#0077cc" : "#ffffff";
+
+    const particlesDiv = document.getElementById("particles-js");
+    const size = window.innerWidth / 400 + 2;
+    particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 20,
+          density: { enable: true, value_area: 500 }
+        },
+        color: { value: color },
+        shape: { type: "circle" },
+        opacity: { value: 0.3, random: true },
+        size: { value: size, random: true },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: color,
+          opacity: 0.2,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 2,
+          direction: "none",
+          out_mode: "out"
+        }
+      },
+      interactivity: {
+        detect_on: "window",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "repulse"  // You can also try "grab" or "bubble"
+          },
+          onclick: {
+            enable: true,
+            mode: "push"     // Adds particles on click
+          },
+          resize: true
+        },
+        modes: {
+          repulse: {
+            distance: 100,
+            duration: 0.4
+          },
+          push: {
+            particles_nb: 4
+          }
+        }
+      },
+      retina_detect: true
+    });
+  }
+</script>
+
+
 <script>
   const resumeButton = document.getElementById('resume-button');
   const goToTopButton = document.getElementById('go-to-top');
@@ -1464,64 +1467,34 @@
   }
 </script>
 <script>
-  // On initial load
+  window.addEventListener("load", () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.body.classList.remove('light-mode');
+      toggleBtn.textContent = '☀️';
+    } else {
+      document.body.classList.add('light-mode');
+      toggleBtn.textContent = '🌙';
+    }
+    const isLight = document.body.classList.contains("light-mode");
+    updateGitHubStatsTheme(isLight);
+    initParticles(isLight);
+  });
+</script>
+<script>
   window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.body.classList.remove('light-mode');
+      toggleBtn.textContent = '☀️';
+    } else {
+      document.body.classList.add('light-mode');
+      toggleBtn.textContent = '🌙';
+    }
     const isLight = document.body.classList.contains('light-mode');
     updateGitHubStatsTheme(isLight);
     initParticles(isLight);
   });
 </script>
-
-<!-- <script>
-  const resumeButton = document.getElementById('resume-button');
-  const goToTopButton = document.getElementById('go-to-top');
-
-  let ticking = false;
-  let resumeVisible = false;
-  let goTopVisible = false;
-
-  function handleScroll() {
-    const shouldShow = window.scrollY > 300;
-
-    // Resume Button
-    if (shouldShow && !resumeVisible) {
-      resumeButton.style.display = 'block';
-      resumeButton.style.animation = 'fadeSlideIn 0.5s ease both';
-      resumeVisible = true;
-    } else if (!shouldShow && resumeVisible) {
-      resumeButton.style.animation = 'fadeSlideOut 0.5s ease both';
-      setTimeout(() => {
-        resumeButton.style.display = 'none';
-      }, 500);
-      resumeVisible = false;
-    }
-
-    // Go to Top Button
-    if (shouldShow && !goTopVisible) {
-      goToTopButton.style.display = 'block';
-      goToTopButton.style.animation = 'fadeSlideIn 0.5s ease both';
-      goTopVisible = true;
-    } else if (!shouldShow && goTopVisible) {
-      goToTopButton.style.animation = 'fadeSlideOut 0.5s ease both';
-      setTimeout(() => {
-        goToTopButton.style.display = 'none';
-      }, 500);
-      goTopVisible = false;
-    }
-
-    ticking = false;
-  }
-
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(handleScroll);
-      ticking = true;
-    }
-  });
-
-  goToTopButton.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-</script> -->
 
 </html>
