@@ -633,9 +633,19 @@
     }
 
     .sidebar-link.active {
-      transform: scale(1.1);
+      transform: scale(1.1) translateX(1rem);
       color: #ffffff;
       text-shadow: 0 0 3px #00aaff70;
+    }
+
+    #particles-js {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      /* height: 10vmin; */
+      z-index: -1;
+      background: transparent !important;
     }
 
     @keyframes slideInSidebar {
@@ -695,6 +705,8 @@
       html,
       body {
         /* zoom: 0.8; */
+        height: auto;
+        position: relative;
         margin: 0 !important;
         padding: 0 2rem !important;
         width: 100% !important;
@@ -726,6 +738,7 @@
 </head>
 
 <body>
+  <div id="particles-js"></div>
   <nav id="sidebar-nav">
     <ul>
       <li><a href="#contact" class="sidebar-link">📬<span>Contact</span></a></li>
@@ -806,7 +819,7 @@
         <img id="github-stats-img" />
       </div>
       <div class="github-card github-heatmap">
-        <img src="https://ghchart.rshah.org/58a6ff/PooyaNasiri" alt="GitHub Contribution Heatmap" loading="eager" />
+        <img src="https://ghchart.rshah.org/58a6ff/PooyaNasiri" alt="GitHub Contribution Heatmap" loading="lazy" />
       </div>
     </div>
 
@@ -1091,6 +1104,7 @@
       localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
       toggleBtn.textContent = isLightMode ? '🌙' : '☀️';
       updateGitHubStatsTheme(isLightMode);
+      initParticles(isLightMode);
     });
   </script>
 
@@ -1262,6 +1276,71 @@
     });
   </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    function initParticles(isLight) {
+      const color = isLight ? "#00aaff" : "#ffffff";
+
+      const particlesDiv = document.getElementById("particles-js");
+
+      // Ensure the element exists
+      if (!particlesDiv) return;
+
+      // Set dynamic height to match full page height
+      const pageHeight = document.documentElement.scrollHeight;
+      particlesDiv.style.height = `${pageHeight}px`;
+
+      // Initialize particles.js
+      particlesJS("particles-js", {
+        particles: {
+          number: {
+            value: 20,
+            density: { enable: true, value_area: 500 }
+          },
+          color: { value: color },
+          shape: { type: "circle" },
+          opacity: { value: 0.3, random: true },
+          size: { value: 5, random: true },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: color,
+            opacity: 0.3,
+            width: 1
+          },
+          move: {
+            enable: true,
+            speed: 1,
+            direction: "none",
+            out_mode: "out"
+          }
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { enable: false },
+            onclick: { enable: false }
+          }
+        },
+        retina_detect: true
+      });
+    }
+
+    // Init on page load
+    window.addEventListener("load", () => {
+      const isLight = document.body.classList.contains("light-mode");
+      initParticles(isLight);
+    });
+
+    // Optional: Recalculate on resize
+    window.addEventListener("resize", () => {
+      const particlesDiv = document.getElementById("particles-js");
+      if (particlesDiv) {
+        particlesDiv.style.height = `${document.documentElement.scrollHeight}px`;
+      }
+    });
+  </script>
+
 
   <button id="go-to-top" aria-label="Go to top" title="Scroll to top" style="
     position: fixed;
@@ -1310,15 +1389,15 @@
 
     statsImg.src = `${baseURL}?${params.toString()}`;
   }
-
-
+</script>
+<script>
   // On initial load
   window.addEventListener('DOMContentLoaded', () => {
     const isLight = document.body.classList.contains('light-mode');
     updateGitHubStatsTheme(isLight);
+    initParticles(isLight);
   });
 </script>
-
 
 <!-- <script>
   const resumeButton = document.getElementById('resume-button');
