@@ -1149,14 +1149,17 @@
           }
 
           container.appendChild(card);
-          VanillaTilt.init(card, {
-            max: 15,
-            speed: 500,
-            scale: 1.05,
-            glare: true,
-            "max-glare": 0.05,
-          });
+          if (!("ontouchstart" in window)) {
+            VanillaTilt.init(card, {
+              max: 15,
+              speed: 500,
+              scale: 1.05,
+              glare: true,
+              "max-glare": 0.05,
+            });
+          }
         });
+
 
         if (repos.length > initialCount) {
           const button = document.createElement('button');
@@ -1226,13 +1229,15 @@
   <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
 
   <script>
-    VanillaTilt.init(document.querySelectorAll(".certification-card"), {
-      max: 15,
-      speed: 400,
-      scale: 1.05,
-      glare: true,
-      "max-glare": 0.05,
-    });
+    if (!("ontouchstart" in window)) {
+      VanillaTilt.init(document.querySelectorAll(".certification-card"), {
+        max: 15,
+        speed: 400,
+        scale: 1.05,
+        glare: true,
+        "max-glare": 0.05,
+      });
+    }
   </script>
   <script>
     const links = document.querySelectorAll('.sidebar-link');
