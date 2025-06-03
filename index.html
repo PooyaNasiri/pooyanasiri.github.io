@@ -209,7 +209,7 @@
       max-width: 100%;
       width: 100%;
       box-sizing: border-box;
-      background: #1c1c1c;
+      background: #1c1c1ca1;
       padding: 1.2rem;
       border-radius: 8px;
       box-shadow: 0 0 12px rgb(0 170 255 / 0.25);
@@ -218,6 +218,7 @@
       display: block;
       text-decoration: none;
       color: inherit;
+      backdrop-filter: blur(2px);
     }
 
     .project-card:hover,
@@ -284,18 +285,20 @@
     /* Job and education styling */
     .job,
     .education-item {
-      background: #1c1c1c;
+      background: #1c1c1ca1;
       padding: 1.2rem;
       border-radius: 8px;
       box-shadow: 0 0 12px rgba(0, 170, 255, 0.25);
       margin-bottom: var(--gap);
+      backdrop-filter: blur(2px);
     }
 
     body.light-mode .job,
     body.light-mode .education-item {
-      background: #f0f0f0;
+      background: #f0f0f050;
       color: #111;
       box-shadow: 0 0 10px rgba(0, 170, 255, 0.3);
+      backdrop-filter: blur(2px);
     }
 
 
@@ -327,7 +330,6 @@
       color: #ffffff;
     }
 
-
     .grid-2x2-container {
       display: grid;
       grid-template-columns: 2fr 1fr;
@@ -337,10 +339,11 @@
     .grid-2x2-container>section {
       min-width: unset;
       width: 100%;
-      background: #1c1c1c;
+      background: #1c1c1ca1;
       padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 0 12px rgb(0 170 255 / 0.25);
+      backdrop-filter: blur(2px);
     }
 
     .grid-2x2-container>section h2 {
@@ -384,7 +387,7 @@
     body.light-mode .project-card,
     body.light-mode .certification-card,
     body.light-mode .grid-2x2-container>section {
-      background: #f0f0f0 !important;
+      background: #f0f0f070 !important;
       color: #111 !important;
       box-shadow: 0 0 10px rgba(0, 170, 255, 0.3) !important;
     }
@@ -400,6 +403,47 @@
     body.light-mode section .job-company,
     body.light-mode section .education-school {
       color: #111 !important;
+    }
+
+    .resume-popup {
+      position: fixed;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #00aaff70, #004a9970);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 20px;
+      font-weight: var(--h2-w);
+      font-size: var(--h4-s);
+      box-shadow: 0 6px 20px rgba(0, 170, 255, 0.3);
+      z-index: 10000;
+      opacity: 0;
+      animation: popupFade 2.5s ease-out forwards;
+      pointer-events: none;
+      backdrop-filter: blur(2px);
+    }
+
+    @keyframes popupFade {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 0);
+      }
+
+      10% {
+        opacity: 1;
+        transform: translate(-50%, -8px);
+      }
+
+      90% {
+        opacity: 1;
+        transform: translate(-50%, -8px);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+      }
     }
 
     /* Base style for floating buttons (resume + go-to-top) */
@@ -535,13 +579,15 @@
       padding: 1rem;
       border-radius: 8px;
       box-shadow: 0 0 12px rgba(0, 170, 255, 0.2);
-      background: #0d1117;
+      background: #0d1117a1;
       color: #c0c5ca;
+      backdrop-filter: blur(2px);
     }
 
     body.light-mode .stack-timeline {
       color: black !important;
-      background: #ffffff !important;
+      background: #ffffff50 !important;
+      backdrop-filter: blur(2px);
     }
 
     .timeline {
@@ -596,8 +642,6 @@
     }
 
     .timeline-year {
-      /* font-weight: bold; */
-      /* font-weight: var(--h2-w); */
       font-size: var(--h5-s);
       margin-bottom: 0.3rem;
     }
@@ -639,8 +683,9 @@
 
     .github-heatmap {
       border-radius: 8px;
-      background: #0d1117;
+      background: #0d1117a1;
       padding: 1.5rem;
+      backdrop-filter: blur(2px);
     }
 
     .github-heatmap img {
@@ -654,8 +699,9 @@
     }
 
     body.light-mode .github-heatmap {
-      background: #ffffff;
+      background: #ffffffa1;
       box-shadow: 0 0 12px rgba(0, 170, 255, 0.15);
+      backdrop-filter: blur(2px);
     }
 
     #sidebar-nav {
@@ -695,7 +741,7 @@
 
     #sidebar-nav a:hover {
       color: white;
-      text-shadow: 0 0 5px #00aaff70;
+      text-shadow: 0 0 5px #00aaffa1;
       transform: scale(1.1);
     }
 
@@ -711,7 +757,7 @@
     .sidebar-link.active {
       transform: translateX(1rem);
       color: #ffffff;
-      text-shadow: 0 0 3px #00aaff70;
+      text-shadow: 0 0 3px #00aaffa1;
     }
 
     #particles-js {
@@ -837,7 +883,7 @@
       <p>
         <i class="fas fa-file-download fa-flip"></i>
         <a href="https://raw.githubusercontent.com/PooyaNasiri/resume/main/PooyaNasiri-CV.pdf"
-          download="PooyaNasiri-CV.pdf" class="btn-contact" aria-label="Download Pooya Nasiri Resume">
+          download="PooyaNasiri-CV.pdf" id="resume-link" class="btn-contact" aria-label="Download Pooya Nasiri Resume">
           Download Resume (PDF)
         </a>
       </p>
@@ -1518,5 +1564,22 @@
     initParticles(isLight);
   });
 </script>
+<script>
+  function showResumePopup() {
+    const popup = document.createElement('div');
+    popup.className = 'resume-popup';
+    popup.textContent = '📥 Downloading Resume...';
+    document.body.appendChild(popup);
+    setTimeout(() => popup.remove(), 2500);
+  }
+
+  ['resume-button', 'resume-link'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('click', showResumePopup);
+    }
+  });
+</script>
+
 
 </html>
