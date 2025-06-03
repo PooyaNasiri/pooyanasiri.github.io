@@ -161,36 +161,43 @@
       max-width: fit-content;
     }
 
+    body.light-mode .contact i {
+      color: #0077cc !important;
+    }
+
     .contact {
+      display: inline-flex;
+      flex-direction: column;
+      background: #00aaff10;
+      padding: 0.75rem 1rem;
+      border-radius: 20px;
+      margin: 0rem auto;
+      text-align: center;
       width: fit-content;
+      max-width: 100%;
+      color: #0077cc;
+    }
+
+    .contact-wrapper {
+      display: flex;
+      justify-content: center;
     }
 
     .contact p {
       font-size: var(--p-s);
-      margin: 0.3rem auto;
-      text-align: center;
+      margin: 0.3rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      width: fit-content;
+      gap: 0.8rem;
     }
 
-    .contact i,
-    .contact a {
-      margin-right: 0.5rem;
-      color: #00aaff;
-      /* width: 10px; */
-      /* min-width: 1.2rem; */
-    }
-
-    /* Hover only scales the <a>, not the entire row */
     .contact a:hover,
     .contact p:hover,
     .contact i:hover {
       text-decoration: none !important;
-      transform: scale(1.08);
-      transition: all 0.3s ease;
+      transform: scale(1.03);
+      transition: all 0.2s ease;
     }
 
     .card-container {
@@ -916,48 +923,49 @@
       <p>AI & Machine Learning Engineer </br> Master's Student in Artificial Intelligence, University of Padova</p>
     </header>
 
-    <section id="contact" class="contact" aria-label="Contact Information">
-      <p>
-        <i class="fas fa-file-download fa-flip"></i>
-        <a href="https://raw.githubusercontent.com/PooyaNasiri/resume/main/PooyaNasiri-CV.pdf"
-          download="PooyaNasiri-CV.pdf" id="resume-link" class="btn-contact" aria-label="Download Pooya Nasiri Resume">
-          Download Resume (PDF)
-        </a>
-      </p>
+    <section id="contact" aria-label="Contact Information">
+      <div class="contact contact-wrapper">
+        <p>
+          <i class="fas fa-file-download fa-flip"></i>
+          <a href="https://raw.githubusercontent.com/PooyaNasiri/resume/main/PooyaNasiri-CV.pdf"
+            download="PooyaNasiri-CV.pdf" id="resume-link" class="btn-contact"
+            aria-label="Download Pooya Nasiri Resume">
+            Download Resume (PDF)
+          </a>
+        </p>
 
-      <p>
-        <i class="fas fa-envelope fa-beat"></i>
-        <a href="mailto:Pooya.nasiri75@gmail.com">Pooya.nasiri75@gmail.com</a>
-      </p>
+        <p>
+          <i class="fas fa-envelope fa-beat"></i>
+          <a href="mailto:Pooya.nasiri75@gmail.com">Pooya.nasiri75@gmail.com</a>
+        </p>
 
-      <p>
-        <i class="fab fa-linkedin fa-shake"></i>
-        <a href="https://linkedin.com/in/PooyaNasiri" target="_blank" rel="noopener">
-          linkedin.com/in/PooyaNasiri
-        </a>
-      </p>
+        <p>
+          <i class="fab fa-linkedin fa-shake"></i>
+          <a href="https://linkedin.com/in/PooyaNasiri" target="_blank" rel="noopener">
+            linkedin.com/in/PooyaNasiri
+          </a>
+        </p>
 
-      <p>
-        <i class="fab fa-github fa-spin"></i>
-        <a href="https://github.com/PooyaNasiri" target="_blank" rel="noopener">
-          github.com/PooyaNasiri
-        </a>
-      </p>
+        <p>
+          <i class="fab fa-github fa-spin"></i>
+          <a href="https://github.com/PooyaNasiri" target="_blank" rel="noopener">
+            github.com/PooyaNasiri
+          </a>
+        </p>
 
-      <p>
-        <i class="fas fa-map-marker-alt fa-bounce"></i>
-        <a href="https://www.google.com/maps/place/Padova,+Italy" target="_blank" rel="noopener">
-          Padova, Italy
-        </a>
-      </p>
+        <p>
+          <i class="fas fa-map-marker-alt fa-bounce"></i>
+          <a href="https://www.google.com/maps/place/Padova,+Italy" target="_blank" rel="noopener">
+            Padova, Italy
+          </a>
+        </p>
 
-      <p>
-        <i class="fas fa-phone fa-shake"></i>
-        <a href="tel:+393517494340">+39 351 749 4340</a>
-      </p>
+        <p>
+          <i class="fas fa-phone fa-shake"></i>
+          <a href="tel:+393517494340">+39 351 749 4340</a>
+        </p>
+      </div>
     </section>
-
-
 
     <section id="summary" class="summary" aria-label="Summary">
       <h2>Summary</h2>
@@ -1418,8 +1426,16 @@
       glare: true,
       "max-glare": 0.05,
     });
+    VanillaTilt.init(document.querySelectorAll(".contact-wrapper"), {
+      max: 5,
+      speed: 100,
+      scale: 1.0,
+      glare: true,
+      "max-glare": 0.05,
+    });
   }
 </script>
+
 <script>
   const links = document.querySelectorAll('.sidebar-link');
   const sections = document.querySelectorAll('section[id]');
