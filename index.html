@@ -33,8 +33,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
 
-
-
   <title>Pooya Nasiri - AI Engineer</title>
   <style>
     :root {
@@ -194,9 +192,12 @@
     .certification-card:hover,
     .project-link:hover {
       box-shadow: 0 0 20px rgb(0 170 255 / 0.5);
-      transform: scale(1.05);
       cursor: pointer;
       text-decoration: none;
+    }
+
+    .project-card.animated-show {
+      animation: fadeSlideIn 0.4s ease both;
     }
 
     .project-link h3,
@@ -207,7 +208,6 @@
       margin-bottom: 0.75rem;
       text-decoration: none;
     }
-
 
     .project-description {
       color: #aaaeb3;
@@ -368,10 +368,6 @@
     body.light-mode section .job-company,
     body.light-mode section .education-school {
       color: #111 !important;
-    }
-
-    .project-card.animated-show {
-      animation: fadeSlideIn 0.4s ease both;
     }
 
     /* Base style for floating buttons (resume + go-to-top) */
@@ -1044,12 +1040,6 @@
             ? "No description provided."
             : repo.description;
 
-          //   const card = document.createElement('div');
-          //   card.className = 'project-card';
-          //   card.innerHTML = `
-          //   <a href="${repo.html_url}" target="_blank" rel="noopener">${repo.name}</a>
-          //   <p class="project-description">${description}</p>
-          // `;
           const card = document.createElement('a');
           card.href = repo.html_url;
           card.target = '_blank';
@@ -1065,8 +1055,14 @@
             card.classList.add('hidden-project');
           }
 
-
           container.appendChild(card);
+          VanillaTilt.init(card, {
+            max: 10,
+            speed: 500,
+            scale: 1.05,
+            glare: true,
+            "max-glare": 0.05,
+          });
         });
 
         if (repos.length > initialCount) {
@@ -1134,6 +1130,17 @@
     loadRecentProjects();
   </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
+
+  <script>
+    VanillaTilt.init(document.querySelectorAll(".certification-card"), {
+      max: 15,
+      speed: 400,
+      scale: 1.05,
+      glare: true,
+      "max-glare": 0.05,
+    });
+  </script>
 
   <button id="go-to-top" aria-label="Go to top" title="Scroll to top" style="
     position: fixed;
