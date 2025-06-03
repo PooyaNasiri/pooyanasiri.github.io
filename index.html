@@ -272,10 +272,23 @@
       transition: background 0.3s ease;
     }
 
+    .project-language {
+      display: inline-block;
+      margin-top: 0.3rem;
+      margin-bottom: 0.2rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: var(--h6-s);
+      background: #eeeeee11;
+      color: #ffaa00;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
     .project-tag:hover {
       background: #00aaff44;
     }
-    
+
     .certification-date {
       font-size: var(--h5-s);
       color: #888c94;
@@ -1307,6 +1320,7 @@
         card.target = '_blank';
         card.rel = 'noopener';
         card.className = 'project-card project-link';
+        const languageHTML = repo.language ? `<span class="project-language">${repo.language}</span>` : '';
         const topicsHTML = (repo.topics || [])
           .map(tag => `<span class="project-tag">${tag}</span>`)
           .join(' ');
@@ -1314,6 +1328,7 @@
         card.innerHTML = `
           <h3>${repo.name.replace(/[_-]/g, ' ')}</h3>
           <p class="project-description">${description}</p>
+          ${languageHTML}
           <div class="project-tags">${topicsHTML}</div>
         `;
 
