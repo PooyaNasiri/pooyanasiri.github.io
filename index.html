@@ -254,6 +254,28 @@
       color: #c0c5ca;
     }
 
+    .project-tags {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .project-tag {
+      background: #00aaff22;
+      color: #00aaff;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: var(--h6-s);
+      font-weight: 500;
+      white-space: nowrap;
+      transition: background 0.3s ease;
+    }
+
+    .project-tag:hover {
+      background: #00aaff44;
+    }
+    
     .certification-date {
       font-size: var(--h5-s);
       color: #888c94;
@@ -1285,9 +1307,14 @@
         card.target = '_blank';
         card.rel = 'noopener';
         card.className = 'project-card project-link';
+        const topicsHTML = (repo.topics || [])
+          .map(tag => `<span class="project-tag">${tag}</span>`)
+          .join(' ');
+
         card.innerHTML = `
           <h3>${repo.name.replace(/[_-]/g, ' ')}</h3>
           <p class="project-description">${description}</p>
+          <div class="project-tags">${topicsHTML}</div>
         `;
 
 
@@ -1308,15 +1335,12 @@
         }
       });
 
-
       if (repos.length > initialCount) {
         const button = document.createElement('button');
         button.classList.add('fancy-show-button');
         button.textContent = '↓ Show more projects ↓';
 
-
         let expanded = false;
-
         button.addEventListener('click', () => {
           const hiddenProjects = Array.from(document.querySelectorAll('.hidden-project'));
 
@@ -1336,21 +1360,15 @@
               });
 
               i += 1;
-            }, 200); // Adjust delay as needed
-
+            }, 200);
             button.textContent = '↑ Show fewer projects ↑';
             expanded = true;
           } else {
-            // Collapse all extra projects instantly
-            // Preserve scroll position relative to the button
             const buttonTop = button.getBoundingClientRect().top;
-
-            // Hide all extra cards
             hiddenProjects.forEach(card => {
               card.style.display = 'none';
             });
 
-            // Restore scroll so button stays at same position
             const newTop = button.getBoundingClientRect().top;
             const scrollOffset = newTop - buttonTop;
             window.scrollBy({ top: scrollOffset, behavior: 'instant' });
@@ -1359,8 +1377,6 @@
             expanded = false;
           }
         });
-
-
 
         container.appendChild(button);
       }
