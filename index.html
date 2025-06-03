@@ -586,6 +586,68 @@
       box-shadow: 0 0 12px rgba(0, 170, 255, 0.15);
     }
 
+    #sidebar-nav {
+      position: fixed;
+      top: 50%;
+      left: 1rem;
+      transform: translateY(-50%);
+      background: transparent;
+      z-index: 9999;
+      animation: slideInSidebar 0.8s ease-out both;
+      display: block;
+      align-items: left;
+    }
+
+    #sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      align-items: left;
+    }
+
+    #sidebar-nav a {
+      color: #00aaff;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+    }
+
+    #sidebar-nav a:hover {
+      color: white;
+      transform: scale(1.15);
+      text-shadow: 0 0 10px #00aaff;
+    }
+
+    #sidebar-nav a span {
+      font-size: var(--h6-s);
+      margin-top: 0.2rem;
+    }
+
+    .sidebar-link.active {
+      transform: scale(1.1);
+      color: #ffffff;
+      text-shadow: 0 0 8px #00aaff;
+    }
+
+    @keyframes slideInSidebar {
+      from {
+        transform: translate(-100%, -50%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(-50%);
+        opacity: 1;
+      }
+    }
+
     @keyframes fadeSlideIn {
       from {
         opacity: 0;
@@ -600,6 +662,10 @@
 
 
     @media (max-width: 600px) {
+      #sidebar-nav {
+        display: none;
+      }
+
       /* main {
         max-width: 90vw;
       } */
@@ -658,6 +724,17 @@
 </head>
 
 <body>
+  <nav id="sidebar-nav">
+    <ul>
+      <li><a href="#contact" class="sidebar-link">📬<span>Contact</span></a></li>
+      <li><a href="#summary" class="sidebar-link">📄<span>Summary</span></a></li>
+      <li><a href="#projects" class="sidebar-link">🧠<span>Projects</span></a></li>
+      <li><a href="#experience" class="sidebar-link">💼<span>Experience</span></a></li>
+      <li><a href="#education" class="sidebar-link">🎓<span>Education</span></a></li>
+      <li><a href="#skills" class="sidebar-link">🛠️<span>Skills</span></a></li>
+    </ul>
+  </nav>
+
   <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle Light/Dark Mode" style="
     position: fixed;
     top: 1rem;
@@ -671,7 +748,7 @@
 
   <main>
 
-    <section class="contact" aria-label="Contact Information">
+    <section id="contact" class="contact" aria-label="Contact Information">
       <p>Resume/CV: <a href="https://raw.githubusercontent.com/PooyaNasiri/resume/main/PooyaNasiri-CV.pdf"
           download="PooyaNasiri-CV.pdf" class="btn-contact" aria-label="Download Pooya Nasiri Resume">Download PDF</a>
       </p>
@@ -685,7 +762,7 @@
     </section>
 
 
-    <section class="summary" aria-label="Summary">
+    <section id="summary" class="summary" aria-label="Summary">
       <h2>Summary</h2>
       <p>AI and Machine Learning Engineer with <span id="experience-years"></span>+ years of experience developing
         innovative AI solutions and software
@@ -787,14 +864,14 @@
       </div>
     </section> -->
 
-    <section class="projects" aria-label="Recent Projects">
+    <section id="projects" class="projects" aria-label="Recent Projects">
       <h2>Recent Projects</h2>
       <div class="card-container" id="recent-projects">
         <p>Loading recent projects...</p>
       </div>
     </section>
 
-    <section class="work-experience" aria-label="Work Experience">
+    <section id="experience" class="work-experience" aria-label="Work Experience">
       <h2>Work Experience</h2>
 
       <div class="job">
@@ -848,7 +925,7 @@
       </div>
     </section>
 
-    <section class="education" aria-label="Education">
+    <section id="education" class="education" aria-label="Education">
       <h2>Education</h2>
 
       <div class="education-item">
@@ -927,7 +1004,7 @@
 
 
 
-    <section class="grid-2x2-container">
+    <section id="skills" class="grid-2x2-container">
       <section class="skills-list" aria-label="Core Skills">
         <h2>Core Skills</h2>
         <ul>
@@ -1057,7 +1134,7 @@
 
           container.appendChild(card);
           VanillaTilt.init(card, {
-            max: 10,
+            max: 15,
             speed: 500,
             scale: 1.05,
             glare: true,
@@ -1141,6 +1218,36 @@
       "max-glare": 0.05,
     });
   </script>
+  <script>
+    const links = document.querySelectorAll('.sidebar-link');
+    const sections = document.querySelectorAll('section[id]');
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          const id = entry.target.getAttribute('id');
+          const link = document.querySelector(`.sidebar-link[href="#${id}"]`);
+          if (link) {
+            if (entry.isIntersecting) {
+              link.classList.add('active');
+            } else {
+              link.classList.remove('active');
+            }
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.6, // Fires when 60% of section is visible
+      }
+    );
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+
 
   <button id="go-to-top" aria-label="Go to top" title="Scroll to top" style="
     position: fixed;
