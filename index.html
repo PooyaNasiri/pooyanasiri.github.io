@@ -1286,9 +1286,10 @@
         card.rel = 'noopener';
         card.className = 'project-card project-link';
         card.innerHTML = `
-          <h3>${repo.name}</h3>
+          <h3>${repo.name.replace(/[_-]/g, ' ')}</h3>
           <p class="project-description">${description}</p>
         `;
+
 
         if (index >= initialCount) {
           card.style.display = 'none';
