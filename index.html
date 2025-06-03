@@ -657,8 +657,12 @@
 
     #sidebar-nav a:hover {
       color: white;
-      transform: scale(1.15);
       text-shadow: 0 0 5px #00aaff70;
+      transform: scale(1.1);
+    }
+
+    #sidebar-nav a.active:hover {
+      transform: scale(1.1) translateX(1rem);
     }
 
     #sidebar-nav a span {
@@ -667,7 +671,7 @@
     }
 
     .sidebar-link.active {
-      transform: scale(1.1) translateX(1rem);
+      transform: translateX(1rem);
       color: #ffffff;
       text-shadow: 0 0 3px #00aaff70;
     }
@@ -1333,7 +1337,10 @@
     document.querySelectorAll('.sidebar-link').forEach(link => {
       link.addEventListener('click', function (e) {
         e.preventDefault();
-        const top = document.getElementById(this.getAttribute('href').substring(1)).getBoundingClientRect().top + window.pageYOffset;
+        document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('active'));
+        this.classList.add('active');
+        const target = document.getElementById(this.getAttribute('href').substring(1));
+        const top = target.getBoundingClientRect().top + window.pageYOffset;
         window.scrollTo({
           top,
           behavior: 'smooth'
