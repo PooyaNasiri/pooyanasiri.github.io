@@ -33,6 +33,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <title>Pooya Nasiri - AI Engineer</title>
   <style>
     :root {
@@ -155,10 +157,24 @@
       max-width: fit-content;
     }
 
+    .contact p:hover,
+    .contact i:hover,
+    .contact a:hover {
+      text-decoration: none !important;
+      transform: scale(1.08);
+      transition: all 0.3s ease;
+    }
+
     .contact p {
       font-size: var(--p-s);
       margin: 0.3rem 0;
       text-align: center;
+    }
+
+    .contact i {
+      margin-right: 0.5rem;
+      color: #00aaff;
+      min-width: 1.2rem;
     }
 
     .card-container {
@@ -611,7 +627,7 @@
     }
 
     #sidebar-nav a {
-      color: #004a99 !important;
+      color: #0077cc !important;
       font-size: 1rem;
       font-weight: bold;
       text-decoration: none;
@@ -764,17 +780,46 @@
   <main>
 
     <section id="contact" class="contact" aria-label="Contact Information">
-      <p>Resume/CV: <a href="https://raw.githubusercontent.com/PooyaNasiri/resume/main/PooyaNasiri-CV.pdf"
-          download="PooyaNasiri-CV.pdf" class="btn-contact" aria-label="Download Pooya Nasiri Resume">Download PDF</a>
+      <p>
+        <i class="fas fa-file-download fa-flip"></i>
+        <a href="https://raw.githubusercontent.com/PooyaNasiri/resume/main/PooyaNasiri-CV.pdf"
+          download="PooyaNasiri-CV.pdf" class="btn-contact" aria-label="Download Pooya Nasiri Resume">
+          Download Resume (PDF)
+        </a>
       </p>
-      <p>Email: <a href="mailto:Pooya.nasiri75@gmail.com">Pooya.nasiri75@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://linkedin.com/in/PooyaNasiri" target="_blank"
-          rel="noopener">linkedin.com/in/PooyaNasiri</a></p>
-      <p>GitHub: <a href="https://github.com/PooyaNasiri" target="_blank" rel="noopener">github.com/PooyaNasiri</a></p>
-      <p>Location: <a href="https://www.google.com/maps/place/Padova,+Italy" target="_blank" rel="noopener">Padova,
-          Italy</a></p>
-      <p>Phone: <a href="tel:+393517494340">+39 351 749 4340</a></p>
+
+      <p>
+        <i class="fas fa-envelope fa-beat"></i>
+        <a href="mailto:Pooya.nasiri75@gmail.com">Pooya.nasiri75@gmail.com</a>
+      </p>
+
+      <p>
+        <i class="fab fa-linkedin fa-shake"></i>
+        <a href="https://linkedin.com/in/PooyaNasiri" target="_blank" rel="noopener">
+          linkedin.com/in/PooyaNasiri
+        </a>
+      </p>
+
+      <p>
+        <i class="fab fa-github fa-spin"></i>
+        <a href="https://github.com/PooyaNasiri" target="_blank" rel="noopener">
+          github.com/PooyaNasiri
+        </a>
+      </p>
+
+      <p>
+        <i class="fas fa-map-marker-alt fa-bounce"></i>
+        <a href="https://www.google.com/maps/place/Padova,+Italy" target="_blank" rel="noopener">
+          Padova, Italy
+        </a>
+      </p>
+
+      <p>
+        <i class="fas fa-phone fa-shake"></i>
+        <a href="tel:+393517494340">+39 351 749 4340</a>
+      </p>
     </section>
+
 
 
     <section id="summary" class="summary" aria-label="Summary">
