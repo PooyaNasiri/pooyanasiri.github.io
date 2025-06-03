@@ -1282,7 +1282,7 @@
   async function loadRecentProjects() {
     const container = document.getElementById('recent-projects');
     try {
-      const res = await fetch('data/recent.json');
+      const res = await fetch(`data/recent.json?nocache=${Date.now()}`);
       if (!res.ok) throw new Error('Failed to fetch project data.');
 
       const repos = await res.json();
