@@ -588,9 +588,11 @@
 
     #sidebar-nav {
       position: fixed;
-      top: 50%;
       left: 1rem;
-      transform: translateY(-50%);
+      /* top: 50%; */
+      /* transform: translateY(-50%); */
+      top: 2rem;
+      transform: none !important;
       background: transparent;
       z-index: 9999;
       animation: slideInSidebar 0.8s ease-out both;
@@ -1245,6 +1247,18 @@
 
     sections.forEach(section => {
       observer.observe(section);
+    });
+  </script>
+  <script>
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const top = document.getElementById(this.getAttribute('href').substring(1)).getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top,
+          behavior: 'smooth'
+        });
+      });
     });
   </script>
 
