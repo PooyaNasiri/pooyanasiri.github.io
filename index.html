@@ -134,7 +134,14 @@
 
     <div class="github-cards">
       <div class="github-card github-stats" id="github-stats-card">
-        <img id="github-stats-img" alt="GitHub Stats Summary" loading="lazy" />
+        <div class="github-stats-placeholder" id="stats-placeholder">
+          <div class="spinner"></div>
+          <p>Loading GitHub stats...</p>
+        </div>
+        <img id="github-stats-img" alt="GitHub Stats Summary" loading="lazy" style="display: none;" />
+        <div id="stats-error" class="error-message" style="display: none;">
+          <p>Unable to load GitHub stats.</p>
+        </div>
       </div>
       <div class="github-card github-heatmap">
         <img src="https://ghchart.rshah.org/58a6ff/PooyaNasiri" alt="GitHub Contribution Heatmap" loading="lazy" />
@@ -349,7 +356,7 @@
     document.getElementById('experience-years').textContent = new Date().getFullYear() - 2010;
   </script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
   <script src="main.js" defer></script>
 </body>
 

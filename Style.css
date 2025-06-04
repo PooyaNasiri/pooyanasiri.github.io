@@ -90,7 +90,7 @@ body.light-mode .floating-resume:hover,
     text-decoration: none;
     transform: scale(1.08);
 }
-
+body.light-mode .github-stats,
 body.light-mode .github-heatmap {
     backdrop-filter: blur(2px);
     background: #ffffffa1;
@@ -523,12 +523,31 @@ ul {
 }
 
 .github-stats {
+    backdrop-filter: blur(2px);
+    background: #0d1117a1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
     padding: 0;
 }
 
 .github-stats img {
     transform-origin: center;
     transform: scale(1.04);
+}
+
+.github-stats-placeholder,
+.error-message {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.error-message p {
+    color: #ffaa00;
 }
 
 .grid-2x2-container {
