@@ -47,53 +47,57 @@
     <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle Light/Dark Mode">🌙</button>
 
     <header>
-      <h1>Pooya Nasiri</h1>
-      <p>AI & Machine Learning Engineer </br> Master's in Artificial Intelligence, University of Padova</p>
+      <div id="avatar-container"> </div>
+      <div class="text-container">
+        <h1>Pooya Nasiri</h1>
+        <p>AI & Machine Learning Engineer <br> Master's in Artificial Intelligence, University of Padova</p>
+      </div>
+      <div id="contact" aria-label="Contact Information">
+        <div class="contact contact-wrapper">
+          <p>
+            <i class="fas fa-file-download fa-flip"></i>
+            <a href="https://raw.githubusercontent.com/PooyaNasiri/resume/main/PooyaNasiri-CV.pdf"
+              download="PooyaNasiri-CV.pdf" id="resume-link" class="btn-contact"
+              aria-label="Download Pooya Nasiri Resume">
+              Download Resume (PDF)
+            </a>
+          </p>
+
+          <p>
+            <i class="fas fa-envelope fa-beat"></i>
+            <a href="mailto:Pooya.nasiri75@gmail.com">Pooya.nasiri75@gmail.com</a>
+          </p>
+
+          <p>
+            <i class="fab fa-linkedin fa-shake"></i>
+            <a href="https://linkedin.com/in/PooyaNasiri" target="_blank" rel="noopener">
+              linkedin.com/in/PooyaNasiri
+            </a>
+          </p>
+
+          <p>
+            <i class="fab fa-github fa-spin"></i>
+            <a href="https://github.com/PooyaNasiri" target="_blank" rel="noopener">
+              github.com/PooyaNasiri
+            </a>
+          </p>
+
+          <p>
+            <i class="fas fa-map-marker-alt fa-bounce"></i>
+            <a href="https://www.google.com/maps/place/Padova,+Italy" target="_blank" rel="noopener">
+              Padova, Italy
+            </a>
+          </p>
+
+          <p>
+            <i class="fas fa-phone fa-shake"></i>
+            <a href="tel:+393517494340">+39 351 749 4340</a>
+          </p>
+        </div>
+      </div>
     </header>
 
-    <section id="contact" aria-label="Contact Information">
-      <div class="contact contact-wrapper">
-        <p>
-          <i class="fas fa-file-download fa-flip"></i>
-          <a href="https://raw.githubusercontent.com/PooyaNasiri/resume/main/PooyaNasiri-CV.pdf"
-            download="PooyaNasiri-CV.pdf" id="resume-link" class="btn-contact"
-            aria-label="Download Pooya Nasiri Resume">
-            Download Resume (PDF)
-          </a>
-        </p>
 
-        <p>
-          <i class="fas fa-envelope fa-beat"></i>
-          <a href="mailto:Pooya.nasiri75@gmail.com">Pooya.nasiri75@gmail.com</a>
-        </p>
-
-        <p>
-          <i class="fab fa-linkedin fa-shake"></i>
-          <a href="https://linkedin.com/in/PooyaNasiri" target="_blank" rel="noopener">
-            linkedin.com/in/PooyaNasiri
-          </a>
-        </p>
-
-        <p>
-          <i class="fab fa-github fa-spin"></i>
-          <a href="https://github.com/PooyaNasiri" target="_blank" rel="noopener">
-            github.com/PooyaNasiri
-          </a>
-        </p>
-
-        <p>
-          <i class="fas fa-map-marker-alt fa-bounce"></i>
-          <a href="https://www.google.com/maps/place/Padova,+Italy" target="_blank" rel="noopener">
-            Padova, Italy
-          </a>
-        </p>
-
-        <p>
-          <i class="fas fa-phone fa-shake"></i>
-          <a href="tel:+393517494340">+39 351 749 4340</a>
-        </p>
-      </div>
-    </section>
 
     <section id="summary" class="summary" aria-label="Summary">
       <h2>Summary</h2>
@@ -357,7 +361,7 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
-  <script src="main.js" defer></script>
+  <script type="module" src="main.js" defer></script>
 </body>
 
 </html>

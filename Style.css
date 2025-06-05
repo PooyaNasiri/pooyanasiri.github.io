@@ -145,9 +145,14 @@ h2 {
 
 header {
     margin: auto;
-    max-width: 900px;
+    max-width: 100%;
     padding: 4rem 1rem 2rem;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
 header h1 {
@@ -162,6 +167,7 @@ header p {
     color: #9aa3a8;
     font-size: var(--p-s);
     font-weight: var(--p-w);
+    text-align: left;
     margin-top: 0rem;
 }
 
@@ -389,8 +395,9 @@ ul {
     margin: 0rem auto;
     max-width: 100%;
     padding: 0.75rem 1rem;
-    text-align: center;
+    text-align: left;
     width: fit-content;
+    box-shadow: 0 0 12px rgba(0, 170, 255, 0.5);
 }
 
 .contact a:hover,
@@ -406,13 +413,12 @@ ul {
     display: flex;
     font-size: var(--p-s);
     gap: 0.8rem;
-    justify-content: center;
+    justify-content: left;
     margin: 0.3rem;
 }
 
 .contact-wrapper {
     display: flex;
-    justify-content: center;
 }
 
 .education,
@@ -713,6 +719,37 @@ ul {
 .timeline-year {
     font-size: var(--h5-s);
     margin-bottom: 0.3rem;
+}
+
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    top: -0.5rem;
+}
+
+#avatar-container {
+    width: 12vw;
+    height: 15vw;
+    border-radius: 50%;
+    backdrop-filter: blur(1px);
+    background: transparent;
+    box-shadow: #0077cc 0px 0px 10px 1px;
+    overflow: hidden;
+    flex-shrink: 0;
+    z-index: 2;
+    position: relative;
+}
+
+canvas.three-avatar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
 }
 
 @keyframes fadeSlideIn {
