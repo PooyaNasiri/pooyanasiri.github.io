@@ -6,6 +6,7 @@ function isDesktop() {
   const ua = navigator.userAgent || navigator.vendor || window.opera;
   return !/android.*mobile|iphone|ipod|windows phone/i.test(ua);
 }
+const IS_DESKTOP = isDesktop();
 
 function toggleVisibility(button, visible) {
   button.classList.toggle("visible", visible);
@@ -65,7 +66,7 @@ function initParticles(isLight) {
   const color = isLight ? "#0077cc" : "#ffffff";
   const size = window.innerWidth / 400 + 2;
 
-  const interactivityStyle = isDesktop()
+  const interactivityStyle = IS_DESKTOP
     ? {
         detect_on: "window",
         events: {
@@ -209,7 +210,7 @@ sections.forEach((section) => observer.observe(section));
 // VanillaTilt Initialization
 // ----------------------
 
-if (isDesktop()) {
+if (IS_DESKTOP) {
   VanillaTilt.init(document.querySelectorAll(".certification-card"), {
     max: 15,
     speed: 400,
@@ -283,7 +284,7 @@ async function loadRecentProjects() {
 
       container.appendChild(card);
 
-      if (isDesktop()) {
+      if (IS_DESKTOP) {
         VanillaTilt.init(card, {
           max: 15,
           speed: 500,
@@ -442,7 +443,7 @@ new GLTFLoader().load(
     avatar.scale.set(4, 4, 1);
     avatar.position.set(0, -5.2, 0);
     scene.add(avatar);
-    if (isDesktop()) {
+    if (IS_DESKTOP) {
       // Find morph targets and head bone
       avatar.traverse((child) => {
         if (child.isBone && child.name === "Head") headBone = child;
