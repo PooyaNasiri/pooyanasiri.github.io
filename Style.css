@@ -147,7 +147,7 @@ h2 {
 header {
     margin: auto;
     max-width: 100%;
-    padding: 4rem 1rem 2rem;
+    padding: 3rem 0rem 1rem 0rem;
     text-align: center;
     display: flex;
     align-items: center;
@@ -170,11 +170,6 @@ header p {
     font-weight: var(--p-w);
     text-align: left;
     margin-top: 0rem;
-}
-
-header p+p {
-    margin-bottom: 0;
-    margin-top: -1rem;
 }
 
 li {
@@ -393,7 +388,7 @@ ul {
     color: #0077cc;
     display: inline-flex;
     flex-direction: column;
-    margin: 0rem auto;
+    margin: 2rem 0rem 0rem 0rem;
     max-width: 100%;
     padding: 0.75rem 1rem;
     text-align: left;
@@ -416,10 +411,6 @@ ul {
     gap: 0.8rem;
     justify-content: left;
     margin: 0.3rem;
-}
-
-.contact-wrapper {
-    display: flex;
 }
 
 .education,
@@ -722,6 +713,17 @@ ul {
     margin-bottom: 0.3rem;
 }
 
+.identity-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: nowrap;
+}
+
+.contact-wrapper {
+    display: flex;
+}
 
 .text-container {
     display: flex;
