@@ -388,7 +388,7 @@ ul {
     color: #0077cc;
     display: inline-flex;
     flex-direction: column;
-    margin: 2rem 0rem 0rem 0rem;
+    margin: 0rem 0rem -2rem 0rem;
     max-width: 100%;
     padding: 0.75rem 1rem;
     text-align: left;
