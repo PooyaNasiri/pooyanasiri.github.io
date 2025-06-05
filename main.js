@@ -350,7 +350,7 @@ async function loadRecentProjects() {
 loadRecentProjects();
 
 // ----------------------
-// Load GitHub Projects
+// AVATAR
 // ----------------------
 
 //https://pooya-nasiri-portfolio.readyplayer.me/avatar?id=6841e94dc4abd0700db3afe4
@@ -407,7 +407,6 @@ function animate() {
   dummy.position.copy(headBone.position);
   dummy.lookAt(lookTarget);
   headBone.quaternion.copy(dummy.quaternion);
-
   renderer.render(scene, camera);
 }
 
@@ -470,7 +469,7 @@ new GLTFLoader().load(
           setExpression(SMILE_DEFAULT, MOUTH_DEFAULT);
         });
       }
-    }
+    } else renderer.render(scene, camera);
   }
 );
 
