@@ -53,8 +53,8 @@ body.light-mode {
 
 body.light-mode #go-to-top,
 body.light-mode #theme-toggle,
-body.light-mode .fancy-show-button,
-body.light-mode .floating-resume {
+body.light-mode #fancy-show-button,
+body.light-mode #resume-button {
     background: #0099ee;
     color: white !important;
 }
@@ -63,7 +63,6 @@ body.light-mode .certification-card,
 body.light-mode .grid-2x2-container>section,
 body.light-mode .project-card {
     background: #f0f0f070 !important;
-    box-shadow: 0 0 10px rgba(0, 170, 255, 0.3) !important;
     color: #111 !important;
 }
 
@@ -79,17 +78,17 @@ body.light-mode .job {
     color: #111;
 }
 
-body.light-mode .floating-resume:hover,
-#go-to-top:hover,
-#theme-toggle:hover,
-.fancy-show-button:hover,
-.floating-resume:hover {
+#go-to-top:hover:not(.launched),
+#theme-toggle:hover:not(.animate),
+#fancy-show-button:hover,
+#resume-button:hover {
     background: #0099ee;
     box-shadow: 0 6px 20px rgba(0, 170, 255, 0.8);
     color: white !important;
     text-decoration: none;
-    transform: scale(1.08);
+    transform: translateY(0) scale(1.1) !important;
 }
+
 body.light-mode .github-stats,
 body.light-mode .github-heatmap {
     backdrop-filter: blur(2px);
@@ -127,7 +126,7 @@ body.light-mode section p {
 
 footer {
     background: #121212;
-    color: #757575;
+    color: #c0c5ca;
     font-size: var(--h5-s);
     padding: 1rem;
     text-align: center;
@@ -214,7 +213,7 @@ ul {
 }
 
 #go-to-top,
-.floating-resume {
+#resume-button {
     background: #00aaff;
     border-radius: 20px;
     border: none;
@@ -229,7 +228,7 @@ ul {
     pointer-events: none;
     position: fixed;
     text-decoration: none;
-    transform: translateY(30px);
+    transform: translateY(50px) scale(1);
     transition: all 0.3s ease;
     z-index: 10000;
 }
@@ -239,10 +238,10 @@ ul {
 }
 
 #go-to-top.visible,
-.floating-resume.visible {
+#resume-button.visible {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
 #particles-js {
@@ -317,7 +316,7 @@ ul {
     position: fixed;
     right: 1rem;
     top: 1rem;
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     z-index: 9999;
 }
 
@@ -417,10 +416,7 @@ ul {
 }
 
 .education,
-.interests-list,
-.languages-list,
 .skills-list,
-.softskills-list,
 .summary,
 .work-experience {
     color: #c0c5ca;
@@ -459,6 +455,14 @@ ul {
     padding: 1.2rem;
 }
 
+.education-item:hover,
+.job:hover,
+.skills-list:hover {
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.5) !important;
+    /* transition: all 0.3s ease; */
+    /* transform: scale(1.01); */
+}
+
 .education-school,
 .job-company {
     color: #999;
@@ -466,7 +470,7 @@ ul {
     margin-bottom: 0.2rem;
 }
 
-.fancy-show-button {
+#fancy-show-button {
     background: #0099ee;
     border-radius: 20px;
     border: none;
@@ -482,7 +486,7 @@ ul {
     z-index: 9999;
 }
 
-.floating-resume {
+#resume-button {
     left: 1rem;
 }
 
@@ -726,12 +730,12 @@ ul {
 @keyframes flyUp {
     0% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 
     100% {
         opacity: 0;
-        transform: translateY(-150vh);
+        transform: translateY(-150vh) scale(1);
     }
 }
 
@@ -816,7 +820,7 @@ ul {
 
     #theme-toggle,
     #go-to-top,
-    .floating-resume {
+    #resume-button {
         display: none !important;
     }
 

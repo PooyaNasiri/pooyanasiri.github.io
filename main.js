@@ -65,7 +65,7 @@ function initParticles(isLight) {
   const color = isLight ? "#0077cc" : "#ffffff";
   const size = window.innerWidth / 400 + 2;
 
-  const interactivity_style = isDesktop()
+  const interactivityStyle = isDesktop()
     ? {
         detect_on: "window",
         events: {
@@ -108,7 +108,7 @@ function initParticles(isLight) {
         out_mode: "out",
       },
     },
-    interactivity: interactivity_style,
+    interactivity: interactivityStyle,
     retina_detect: true,
   });
 }
@@ -222,7 +222,7 @@ if (isDesktop()) {
     speed: 400,
     scale: 1.05,
     glare: true,
-    "max-glare": 0.05,
+    "max-glare": 0.1,
   });
 
   VanillaTilt.init(document.querySelectorAll(".contact-wrapper"), {
@@ -230,7 +230,7 @@ if (isDesktop()) {
     speed: 100,
     scale: 1.0,
     glare: true,
-    "max-glare": 0.05,
+    "max-glare": 0.1,
   });
 }
 
@@ -303,7 +303,7 @@ async function loadRecentProjects() {
 
     if (repos.length > initialCount) {
       const button = document.createElement("button");
-      button.classList.add("fancy-show-button");
+      button.id = "fancy-show-button";
       button.textContent = "↓ Show more projects ↓";
       let expanded = false;
 
@@ -349,7 +349,7 @@ async function loadRecentProjects() {
     }
   } catch (err) {
     console.error(err);
-    container.innerHTML = `<p style="color:red;">Unable to load recent projects. Please try again later.</p>`;
+    container.innerHTML = `<p>Unable to load recent projects. Please try again later.</p>`;
   }
 }
 
