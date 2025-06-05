@@ -355,6 +355,8 @@ async function loadRecentProjects() {
 
 loadRecentProjects();
 
+//https://pooya-nasiri-portfolio.readyplayer.me/avatar?id=6841e94dc4abd0700db3afe4
+
 import * as THREE from "https://esm.sh/three@0.161.0";
 import { GLTFLoader } from "https://esm.sh/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
 
