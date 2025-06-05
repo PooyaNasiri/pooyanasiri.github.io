@@ -42,6 +42,7 @@ html {
     padding: 0;
     position: relative;
     transition: background-color 0.4s ease, color 0.4s ease;
+    scroll-behavior: smooth;
 }
 
 body.light-mode {
@@ -240,7 +241,7 @@ ul {
 }
 
 #go-to-top.launched {
-    animation: flyUp 1s forwards;
+    animation: flyUp 2s forwards;
 }
 
 #go-to-top.visible,

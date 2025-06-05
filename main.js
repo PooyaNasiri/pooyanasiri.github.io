@@ -117,17 +117,7 @@ function initParticles(isLight) {
 // Theme & Initial Setup
 // ----------------------
 
-const statsImg = document.getElementById("github-stats-img");
 const toggleBtn = document.getElementById("theme-toggle");
-
-window.addEventListener("load", () => {
-  const savedTheme = localStorage.getItem("theme");
-  const isLight = savedTheme !== "dark";
-  document.body.classList.toggle("light-mode", isLight);
-  toggleBtn.textContent = isLight ? "☀️" : "🌙";
-  updateGitHubStatsTheme(isLight);
-  initParticles(isLight);
-});
 
 window.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
@@ -136,6 +126,24 @@ window.addEventListener("DOMContentLoaded", () => {
   toggleBtn.textContent = isLight ? "☀️" : "🌙";
   updateGitHubStatsTheme(isLight);
   initParticles(isLight);
+
+  const links = document.querySelectorAll(".sidebar-link");
+  links.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      links.forEach((el) => el.classList.remove("active"));
+      this.classList.add("active");
+      const target = document.getElementById(
+        this.getAttribute("href").substring(1)
+      );
+      if (target) {
+        window.scrollTo({
+          top: target.getBoundingClientRect().top + window.pageYOffset - 70,
+          behavior: "smooth",
+        });
+      }
+    });
+  });
 });
 
 toggleBtn.addEventListener("click", () => {
@@ -180,7 +188,6 @@ goToTopButton.addEventListener("click", () => {
 // Sidebar Navigation
 // ----------------------
 
-const links = document.querySelectorAll(".sidebar-link");
 const sections = document.querySelectorAll("section[id]");
 
 const observer = new IntersectionObserver(
@@ -197,20 +204,6 @@ const observer = new IntersectionObserver(
 );
 
 sections.forEach((section) => observer.observe(section));
-
-links.forEach((link) => {
-  link.addEventListener("click", function (e) {
-    e.preventDefault();
-    links.forEach((el) => el.classList.remove("active"));
-    this.classList.add("active");
-
-    const target = document.getElementById(
-      this.getAttribute("href").substring(1)
-    );
-    const top = target.getBoundingClientRect().top + window.pageYOffset;
-    window.scrollTo({ top, behavior: "smooth" });
-  });
-});
 
 // ----------------------
 // VanillaTilt Initialization
@@ -355,25 +348,27 @@ async function loadRecentProjects() {
 
 loadRecentProjects();
 
+// ----------------------
+// Load GitHub Projects
+// ----------------------
+
 //https://pooya-nasiri-portfolio.readyplayer.me/avatar?id=6841e94dc4abd0700db3afe4
 
 import * as THREE from "https://esm.sh/three@0.161.0";
 import { GLTFLoader } from "https://esm.sh/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
 
-let camera, scene, renderer, avatar, headBone;
-const mouse = new THREE.Vector2(0, 0);
-const raycaster = new THREE.Raycaster();
-const lookTarget = new THREE.Vector3();
-const dummy = new THREE.Object3D();
+// Constants for expressions
+const SMILE_DEFAULT = 0.5;
+const MOUTH_DEFAULT = 0.2;
+const SMILE_HOVER = 1.0;
+const MOUTH_HOVER = 1.0;
 
+// Scene setup
 const container = document.getElementById("avatar-container");
-if (!container) {
-  console.error("Avatar container not found");
-}
+if (!container) throw new Error("Avatar container not found");
 
-scene = new THREE.Scene();
-
-camera = new THREE.PerspectiveCamera(
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(
   35,
   container.clientWidth / container.clientHeight,
   0.1,
@@ -381,7 +376,7 @@ camera = new THREE.PerspectiveCamera(
 );
 camera.position.set(0, 1.5, 3);
 
-renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(container.clientWidth, container.clientHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.domElement.classList.add("three-avatar");
@@ -389,27 +384,100 @@ container.appendChild(renderer.domElement);
 
 scene.add(new THREE.HemisphereLight(0xffffff, 0x000000, 6));
 
-const loader = new GLTFLoader();
-loader.load(
+// Interaction and tracking
+const mouse = new THREE.Vector2();
+const raycaster = new THREE.Raycaster();
+const lookTarget = new THREE.Vector3();
+const dummy = new THREE.Object3D();
+
+// Avatar-related
+let avatar = null;
+let headBone = null;
+let smileIndex, openIndex;
+
+// Animate head tracking
+function animate() {
+  requestAnimationFrame(animate);
+  if (!avatar || !headBone) return;
+
+  raycaster.setFromCamera(mouse, camera);
+  raycaster.ray.at(2.8, lookTarget);
+  headBone.parent.worldToLocal(lookTarget);
+  dummy.position.copy(headBone.position);
+  dummy.lookAt(lookTarget);
+  headBone.quaternion.copy(dummy.quaternion);
+
+  renderer.render(scene, camera);
+}
+
+// Blink once
+function blinkEyesOnce() {
+  avatar?.traverse((child) => {
+    if (child.name === "EyeLeft" || child.name === "EyeRight") {
+      child.visible = false;
+      setTimeout(() => (child.visible = true), 200);
+    }
+  });
+}
+
+// Set smile and mouth expression
+function setExpression(smileValue, mouthValue) {
+  avatar?.traverse((child) => {
+    if (child.isMesh && child.morphTargetInfluences) {
+      if (smileIndex !== undefined) {
+        child.morphTargetInfluences[smileIndex] = smileValue;
+      }
+      if (openIndex !== undefined) {
+        child.morphTargetInfluences[openIndex] = mouthValue;
+      }
+    }
+  });
+}
+
+// Load avatar
+new GLTFLoader().load(
   "https://models.readyplayer.me/6841e94dc4abd0700db3afe4.glb",
   (gltf) => {
     avatar = gltf.scene;
     avatar.scale.set(4, 4, 1);
     avatar.position.set(0, -5.2, 0);
     scene.add(avatar);
+    if (isDesktop()) {
+      // Find morph targets and head bone
+      avatar.traverse((child) => {
+        if (child.isBone && child.name === "Head") headBone = child;
+        if (child.isMesh && child.morphTargetDictionary) {
+          smileIndex ??= child.morphTargetDictionary["mouthSmile"];
+          openIndex ??= child.morphTargetDictionary["mouthOpen"];
+        }
+      });
 
-    avatar.traverse((child) => {
-      if (child.isBone && child.name === "Head") headBone = child;
-    });
-    animate();
-  },
-  undefined
+      // Start tracking
+      animate();
+
+      // Initial expression
+      setExpression(SMILE_DEFAULT, MOUTH_DEFAULT);
+
+      // Hover behavior
+      const contact = document.getElementById("contact");
+      if (contact) {
+        contact.addEventListener("mouseenter", () => {
+          setExpression(SMILE_HOVER, MOUTH_HOVER);
+          blinkEyesOnce();
+        });
+        contact.addEventListener("mouseleave", () => {
+          setExpression(SMILE_DEFAULT, MOUTH_DEFAULT);
+        });
+      }
+    }
+  }
 );
 
-window.addEventListener("mousemove", (event) => {
+// Event listeners
+window.addEventListener("mousemove", (e) => {
   const rect = renderer.domElement.getBoundingClientRect();
-  mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-  mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 0.6;
+  mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 0.6;
 });
 
 window.addEventListener("resize", () => {
@@ -420,13 +488,4 @@ window.addEventListener("resize", () => {
   renderer.setSize(width, height);
 });
 
-function animate() {
-  requestAnimationFrame(animate);
-  raycaster.setFromCamera(mouse, camera);
-  raycaster.ray.at(2.8, lookTarget);
-  headBone.parent.worldToLocal(lookTarget);
-  dummy.position.copy(headBone.position);
-  dummy.lookAt(lookTarget);
-  headBone.quaternion.copy(dummy.quaternion);
-  renderer.render(scene, camera);
-}
+window.addEventListener("click", blinkEyesOnce);
