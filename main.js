@@ -352,8 +352,6 @@ loadRecentProjects();
 // AVATAR
 // ----------------------
 
-//https://pooya-nasiri-portfolio.readyplayer.me/avatar?id=6841e94dc4abd0700db3afe4
-
 import * as THREE from "https://esm.sh/three@0.161.0";
 import { GLTFLoader } from "https://esm.sh/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
 
@@ -433,7 +431,11 @@ function setExpression(smileValue, mouthValue) {
   });
 }
 
+// Link to avatar editor
+//https://pooya-nasiri-portfolio.readyplayer.me/avatar?id=6841e94dc4abd0700db3afe4
+
 // Load avatar
+//https://models.readyplayer.me/6841e94dc4abd0700db3afe4.glb
 new GLTFLoader().load("data/6841e94dc4abd0700db3afe4.glb", (gltf) => {
   avatar = gltf.scene;
   avatar.scale.set(4, 4, 1);
