@@ -774,6 +774,10 @@ canvas.three-avatar {
     pointer-events: none;
 }
 
+#avatar-container.no-transition {
+    transition: none !important;
+}
+
 
 @keyframes fadeSlideIn {
     from {

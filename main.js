@@ -491,10 +491,21 @@ window.addEventListener("resize", resizeAvatar);
 
 window.addEventListener("DOMContentLoaded", resetAvatarPosition);
 window.addEventListener("scroll", moveAvatar);
-
+let avatarState = null;
 function moveAvatar() {
-  if (window.scrollY > 100 && IS_DESKTOP) moveAvatarToCorner();
-  else resetAvatarPosition();
+  const isCorner = window.scrollY > 100 && IS_DESKTOP;
+  const nextState = isCorner ? "corner" : "reset";
+  if (nextState !== avatarState) {
+    avatarContainer.classList.remove("no-transition");
+    if (isCorner) moveAvatarToCorner();
+    else resetAvatarPosition();
+  } else {
+    avatarContainer.classList.add("no-transition");
+    void avatarContainer.offsetHeight;
+    if (isCorner) moveAvatarToCorner();
+    else resetAvatarPosition();
+  }
+  avatarState = nextState;
 }
 
 function moveAvatarToCorner() {
