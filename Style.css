@@ -760,10 +760,10 @@ canvas.three-avatar {
 
 #avatar-container {
     position: fixed;
-    top: var(--avatar-top, 10rem);
-    left: var(--avatar-left, 10rem);
-    width: var(--avatar-width, 12vw);
-    height: var(--avatar-height, 15vw);
+    top: var(--avatar-top, 0);
+    left: var(--avatar-left, 0);
+    width: var(--avatar-width, 0);
+    height: var(--avatar-height, 0);
     border-radius: 50%;
     backdrop-filter: blur(1px);
     background: transparent;
