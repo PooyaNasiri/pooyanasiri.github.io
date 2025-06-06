@@ -265,22 +265,22 @@ ul {
 }
 
 #sidebar-nav {
-    align-items: left;
-    animation: slideInSidebar 0.8s ease-out both;
-    display: block;
-    left: 1rem;
     position: fixed;
-    top: 2rem;
-    transform: none !important;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    animation: slideInSidebar 0.8s ease-out both;
     z-index: 9999;
 }
+
 
 #sidebar-nav a {
     align-items: left;
     background: #00aaff22;
     backdrop-filter: blur(2px);
     box-shadow: 0 0 3px rgba(0, 170, 255, 0.8);
-    border-radius: 20px;
+    border-radius: 1rem;
     color: #0077cc !important;
     display: flex;
     flex-direction: column;
@@ -743,7 +743,7 @@ ul {
     top: -0.5rem;
 }
 
-#avatar-container {
+/* #avatar-container {
     width: 12vw;
     height: 15vw;
     border-radius: 50%;
@@ -754,7 +754,7 @@ ul {
     flex-shrink: 0;
     z-index: 2;
     position: relative;
-}
+} */
 
 canvas.three-avatar {
     position: absolute;
@@ -764,6 +764,29 @@ canvas.three-avatar {
     margin: 0;
     padding: 0;
 }
+
+#avatar-placeholder {
+    width: 12vw;
+    height: 15vw;
+    flex-shrink: 0;
+}
+
+#avatar-container {
+    position: fixed;
+    top: var(--avatar-top, 10rem);
+    left: var(--avatar-left, 10rem);
+    width: var(--avatar-width, 12vw);
+    height: var(--avatar-height, 15vw);
+    border-radius: 50%;
+    backdrop-filter: blur(1px);
+    background: transparent;
+    box-shadow: #0077cc 0px 0px 10px 1px;
+    overflow: hidden;
+    z-index: 9999;
+    transition: all 0.6s ease-in-out;
+    pointer-events: none;
+}
+
 
 @keyframes fadeSlideIn {
     from {

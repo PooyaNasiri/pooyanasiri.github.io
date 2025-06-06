@@ -355,45 +355,47 @@ loadRecentProjects();
 import * as THREE from "https://esm.sh/three@0.161.0";
 import { GLTFLoader } from "https://esm.sh/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
 
-// Constants for expressions
+// Expression Constants
 const SMILE_DEFAULT = 0.5;
 const MOUTH_DEFAULT = 0.2;
 const SMILE_HOVER = 1.0;
 const MOUTH_HOVER = 1.0;
 
-// Scene setup
-const container = document.getElementById("avatar-container");
-if (!container) throw new Error("Avatar container not found");
+// DOM References
+const avatarContainer = document.getElementById("avatar-container");
+const avatarPlaceholder = document.getElementById("avatar-placeholder");
+if (!avatarContainer) throw new Error("Avatar container not found");
 
+// Scene Setup
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   35,
-  container.clientWidth / container.clientHeight,
+  avatarContainer.clientWidth / avatarContainer.clientHeight,
   0.1,
   1000
 );
 camera.position.set(0, 1.5, 3);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setSize(container.clientWidth, container.clientHeight);
+renderer.setSize(avatarContainer.clientWidth, avatarContainer.clientHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.domElement.classList.add("three-avatar");
-container.appendChild(renderer.domElement);
+avatarContainer.appendChild(renderer.domElement);
 
 scene.add(new THREE.HemisphereLight(0xffffff, 0x000000, 6));
 
-// Interaction and tracking
+// Interaction
 const mouse = new THREE.Vector2();
 const raycaster = new THREE.Raycaster();
 const lookTarget = new THREE.Vector3();
 const dummy = new THREE.Object3D();
 
-// Avatar-related
+// Avatar State
 let avatar = null;
 let headBone = null;
 let smileIndex, openIndex;
 
-// Animate head tracking
+// Animation Loop
 function animate() {
   requestAnimationFrame(animate);
   if (!avatar || !headBone) return;
@@ -407,7 +409,16 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-// Blink once
+// Resize Handler
+function resizeAvatar() {
+  const width = avatarContainer.clientWidth;
+  const height = avatarContainer.clientHeight;
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(width, height);
+}
+
+// Expression Functions
 function blinkEyesOnce() {
   avatar?.traverse((child) => {
     if (child.name === "EyeLeft" || child.name === "EyeRight") {
@@ -417,7 +428,6 @@ function blinkEyesOnce() {
   });
 }
 
-// Set smile and mouth expression
 function setExpression(smileValue, mouthValue) {
   avatar?.traverse((child) => {
     if (child.isMesh && child.morphTargetInfluences) {
@@ -431,18 +441,15 @@ function setExpression(smileValue, mouthValue) {
   });
 }
 
-// Link to avatar editor
-//https://pooya-nasiri-portfolio.readyplayer.me/avatar?id=6841e94dc4abd0700db3afe4
-
-// Load avatar
-//https://models.readyplayer.me/6841e94dc4abd0700db3afe4.glb
+// Load Avatar
 new GLTFLoader().load("data/6841e94dc4abd0700db3afe4.glb", (gltf) => {
   avatar = gltf.scene;
   avatar.scale.set(4, 4, 1);
   avatar.position.set(0, -5.2, 0);
   scene.add(avatar);
+
   if (IS_DESKTOP) {
-    // Find morph targets and head bone
+    // Track head and morph targets
     avatar.traverse((child) => {
       if (child.isBone && child.name === "Head") headBone = child;
       if (child.isMesh && child.morphTargetDictionary) {
@@ -451,13 +458,9 @@ new GLTFLoader().load("data/6841e94dc4abd0700db3afe4.glb", (gltf) => {
       }
     });
 
-    // Start tracking
     animate();
-
-    // Initial expression
     setExpression(SMILE_DEFAULT, MOUTH_DEFAULT);
 
-    // Hover behavior
     const contact = document.getElementById("contact");
     if (contact) {
       contact.addEventListener("mouseenter", () => {
@@ -468,22 +471,84 @@ new GLTFLoader().load("data/6841e94dc4abd0700db3afe4.glb", (gltf) => {
         setExpression(SMILE_DEFAULT, MOUTH_DEFAULT);
       });
     }
-  } else renderer.render(scene, camera);
+  } else {
+    renderer.render(scene, camera);
+  }
 });
 
-// Event listeners
-window.addEventListener("mousemove", (e) => {
-  const rect = renderer.domElement.getBoundingClientRect();
-  mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-  mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 0.6;
-});
+if (IS_DESKTOP) {
+  // Mouse Tracking
+  window.addEventListener("mousemove", (e) => {
+    const rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 0.6;
+  });
 
-window.addEventListener("resize", () => {
-  const width = container.clientWidth;
-  const height = container.clientHeight;
-  camera.aspect = width / height;
-  camera.updateProjectionMatrix();
-  renderer.setSize(width, height);
-});
+  window.addEventListener("click", blinkEyesOnce);
+  window.addEventListener("resize", resizeAvatar);
 
-window.addEventListener("click", blinkEyesOnce);
+  // ----------------------
+  // SCROLL + POSITIONING
+  // ----------------------
+
+  window.addEventListener("DOMContentLoaded", resetAvatarPosition);
+  window.addEventListener("scroll", moveAvatar);
+
+  function moveAvatar() {
+    if (window.scrollY > 100) moveAvatarToCorner();
+    else resetAvatarPosition();
+  }
+
+  function moveAvatarToCorner() {
+    avatarContainer.style.setProperty("--avatar-top", "1rem");
+    avatarContainer.style.setProperty("--avatar-left", "1rem");
+    avatarContainer.style.setProperty("--avatar-width", "6vw");
+    avatarContainer.style.setProperty("--avatar-height", "7.5vw");
+  }
+
+  function resetAvatarPosition() {
+    const rect = avatarPlaceholder.getBoundingClientRect();
+    avatarContainer.style.setProperty("--avatar-top", `${rect.top}px`);
+    avatarContainer.style.setProperty("--avatar-left", `${rect.left}px`);
+    avatarContainer.style.setProperty("--avatar-width", "12vw");
+    avatarContainer.style.setProperty("--avatar-height", "15vw");
+  }
+
+  // ----------------------
+  // LIVE RESIZING SUPPORT
+  // ----------------------
+
+  let isResizing = false;
+  let resizeRAF = null;
+
+  function startLiveResize() {
+    if (isResizing) return;
+    isResizing = true;
+
+    function loop() {
+      resizeAvatar();
+      moveAvatar();
+      resizeRAF = requestAnimationFrame(loop);
+    }
+
+    resizeRAF = requestAnimationFrame(loop);
+  }
+
+  function stopLiveResize() {
+    isResizing = false;
+    if (resizeRAF) cancelAnimationFrame(resizeRAF);
+    resizeAvatar();
+  }
+
+  avatarContainer.addEventListener("transitionrun", (e) => {
+    if (["width", "height"].includes(e.propertyName)) {
+      startLiveResize();
+    }
+  });
+
+  avatarContainer.addEventListener("transitionend", (e) => {
+    if (["width", "height"].includes(e.propertyName)) {
+      stopLiveResize();
+    }
+  });
+}
