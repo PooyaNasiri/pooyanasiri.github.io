@@ -475,79 +475,77 @@ new GLTFLoader().load("data/6841e94dc4abd0700db3afe4.glb", (gltf) => {
   }
 });
 
-if (IS_DESKTOP) {
-  // Mouse Tracking
-  window.addEventListener("mousemove", (e) => {
-    const rect = renderer.domElement.getBoundingClientRect();
-    mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 0.6;
-  });
+// Mouse Tracking
+window.addEventListener("mousemove", (e) => {
+  const rect = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 0.6;
+});
 
-  window.addEventListener("click", blinkEyesOnce);
-  window.addEventListener("resize", resizeAvatar);
+window.addEventListener("click", blinkEyesOnce);
+window.addEventListener("resize", resizeAvatar);
 
-  // ----------------------
-  // SCROLL + POSITIONING
-  // ----------------------
+// ----------------------
+// SCROLL + POSITIONING
+// ----------------------
 
-  window.addEventListener("DOMContentLoaded", resetAvatarPosition);
-  window.addEventListener("scroll", moveAvatar);
+window.addEventListener("DOMContentLoaded", resetAvatarPosition);
+window.addEventListener("scroll", moveAvatar);
 
-  function moveAvatar() {
-    if (window.scrollY > 100 && IS_DESKTOP) moveAvatarToCorner();
-    else resetAvatarPosition();
-  }
+function moveAvatar() {
+  if (window.scrollY > 100 && IS_DESKTOP) moveAvatarToCorner();
+  else resetAvatarPosition();
+}
 
-  function moveAvatarToCorner() {
-    avatarContainer.style.setProperty("--avatar-top", "1rem");
-    avatarContainer.style.setProperty("--avatar-left", "1rem");
-    avatarContainer.style.setProperty("--avatar-width", "6vw");
-    avatarContainer.style.setProperty("--avatar-height", "7.5vw");
-  }
+function moveAvatarToCorner() {
+  avatarContainer.style.setProperty("--avatar-top", "1rem");
+  avatarContainer.style.setProperty("--avatar-left", "1rem");
+  avatarContainer.style.setProperty("--avatar-width", "6vw");
+  avatarContainer.style.setProperty("--avatar-height", "7.5vw");
+}
 
-  function resetAvatarPosition() {
-    const rect = avatarPlaceholder.getBoundingClientRect();
-    avatarContainer.style.setProperty("--avatar-top", `${rect.top}px`);
-    avatarContainer.style.setProperty("--avatar-left", `${rect.left}px`);
-    avatarContainer.style.setProperty("--avatar-width", "12vw");
-    avatarContainer.style.setProperty("--avatar-height", "15vw");
-  }
+function resetAvatarPosition() {
+  const rect = avatarPlaceholder.getBoundingClientRect();
+  avatarContainer.style.setProperty("--avatar-top", `${rect.top}px`);
+  avatarContainer.style.setProperty("--avatar-left", `${rect.left}px`);
+  avatarContainer.style.setProperty("--avatar-width", "12vw");
+  avatarContainer.style.setProperty("--avatar-height", "15vw");
+}
 
-  // ----------------------
-  // LIVE RESIZING SUPPORT
-  // ----------------------
+// ----------------------
+// LIVE RESIZING SUPPORT
+// ----------------------
 
-  let isResizing = false;
-  let resizeRAF = null;
+let isResizing = false;
+let resizeRAF = null;
 
-  function startLiveResize() {
-    if (isResizing) return;
-    isResizing = true;
+function startLiveResize() {
+  if (isResizing) return;
+  isResizing = true;
 
-    function loop() {
-      resizeAvatar();
-      moveAvatar();
-      resizeRAF = requestAnimationFrame(loop);
-    }
-
+  function loop() {
+    resizeAvatar();
+    moveAvatar();
     resizeRAF = requestAnimationFrame(loop);
   }
 
-  function stopLiveResize() {
-    isResizing = false;
-    if (resizeRAF) cancelAnimationFrame(resizeRAF);
-    resizeAvatar();
-  }
-
-  avatarContainer.addEventListener("transitionrun", (e) => {
-    if (["width", "height"].includes(e.propertyName)) {
-      startLiveResize();
-    }
-  });
-
-  avatarContainer.addEventListener("transitionend", (e) => {
-    if (["width", "height"].includes(e.propertyName)) {
-      stopLiveResize();
-    }
-  });
+  resizeRAF = requestAnimationFrame(loop);
 }
+
+function stopLiveResize() {
+  isResizing = false;
+  if (resizeRAF) cancelAnimationFrame(resizeRAF);
+  resizeAvatar();
+}
+
+avatarContainer.addEventListener("transitionrun", (e) => {
+  if (["width", "height"].includes(e.propertyName)) {
+    startLiveResize();
+  }
+});
+
+avatarContainer.addEventListener("transitionend", (e) => {
+  if (["width", "height"].includes(e.propertyName)) {
+    stopLiveResize();
+  }
+});
