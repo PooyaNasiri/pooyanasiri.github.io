@@ -364,7 +364,6 @@ const MOUTH_HOVER = 1.0;
 // DOM References
 const avatarContainer = document.getElementById("avatar-container");
 const avatarPlaceholder = document.getElementById("avatar-placeholder");
-if (!avatarContainer) throw new Error("Avatar container not found");
 
 // Scene Setup
 const scene = new THREE.Scene();
@@ -441,6 +440,45 @@ function setExpression(smileValue, mouthValue) {
   });
 }
 
+function moveAvatar() {
+  if (window.scrollY > 100) moveAvatarToCorner();
+  else resetAvatarPosition();
+}
+
+function moveAvatarToCorner() {
+  avatarContainer.style.setProperty("--avatar-top", "1rem");
+  avatarContainer.style.setProperty("--avatar-left", "1rem");
+  avatarContainer.style.setProperty("--avatar-width", "6vw");
+  avatarContainer.style.setProperty("--avatar-height", "7.5vw");
+}
+
+function resetAvatarPosition() {
+  const rect = avatarPlaceholder.getBoundingClientRect();
+  avatarContainer.style.setProperty("--avatar-top", `${rect.top}px`);
+  avatarContainer.style.setProperty("--avatar-left", `${rect.left}px`);
+  avatarContainer.style.setProperty("--avatar-width", "12vw");
+  avatarContainer.style.setProperty("--avatar-height", "15vw");
+}
+
+function startLiveResize() {
+  if (isResizing) return;
+  isResizing = true;
+
+  function loop() {
+    resizeAvatar();
+    moveAvatar();
+    resizeRAF = requestAnimationFrame(loop);
+  }
+
+  resizeRAF = requestAnimationFrame(loop);
+}
+
+function stopLiveResize() {
+  isResizing = false;
+  if (resizeRAF) cancelAnimationFrame(resizeRAF);
+  resizeAvatar();
+}
+
 // Load Avatar
 new GLTFLoader().load("data/6841e94dc4abd0700db3afe4.glb", (gltf) => {
   avatar = gltf.scene;
@@ -494,51 +532,12 @@ if (IS_DESKTOP) {
   window.addEventListener("DOMContentLoaded", resetAvatarPosition);
   window.addEventListener("scroll", moveAvatar);
 
-  function moveAvatar() {
-    if (window.scrollY > 100) moveAvatarToCorner();
-    else resetAvatarPosition();
-  }
-
-  function moveAvatarToCorner() {
-    avatarContainer.style.setProperty("--avatar-top", "1rem");
-    avatarContainer.style.setProperty("--avatar-left", "1rem");
-    avatarContainer.style.setProperty("--avatar-width", "6vw");
-    avatarContainer.style.setProperty("--avatar-height", "7.5vw");
-  }
-
-  function resetAvatarPosition() {
-    const rect = avatarPlaceholder.getBoundingClientRect();
-    avatarContainer.style.setProperty("--avatar-top", `${rect.top}px`);
-    avatarContainer.style.setProperty("--avatar-left", `${rect.left}px`);
-    avatarContainer.style.setProperty("--avatar-width", "12vw");
-    avatarContainer.style.setProperty("--avatar-height", "15vw");
-  }
-
   // ----------------------
   // LIVE RESIZING SUPPORT
   // ----------------------
 
   let isResizing = false;
   let resizeRAF = null;
-
-  function startLiveResize() {
-    if (isResizing) return;
-    isResizing = true;
-
-    function loop() {
-      resizeAvatar();
-      moveAvatar();
-      resizeRAF = requestAnimationFrame(loop);
-    }
-
-    resizeRAF = requestAnimationFrame(loop);
-  }
-
-  function stopLiveResize() {
-    isResizing = false;
-    if (resizeRAF) cancelAnimationFrame(resizeRAF);
-    resizeAvatar();
-  }
 
   avatarContainer.addEventListener("transitionrun", (e) => {
     if (["width", "height"].includes(e.propertyName)) {
@@ -551,4 +550,6 @@ if (IS_DESKTOP) {
       stopLiveResize();
     }
   });
+} else {
+  window.addEventListener("scroll", resetAvatarPosition);
 }
