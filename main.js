@@ -32,7 +32,6 @@ function updateGitHubStatsTheme(isLight) {
     show_icons: "true",
     hide: "contribs,prs,issues",
     theme,
-    t: Date.now(),
   });
   placeholder.style.display = "block";
   errorMsg.style.display = "none";
