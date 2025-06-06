@@ -434,43 +434,40 @@ function setExpression(smileValue, mouthValue) {
 }
 
 // Load avatar
-new GLTFLoader().load(
-  "https://models.readyplayer.me/6841e94dc4abd0700db3afe4.glb",
-  (gltf) => {
-    avatar = gltf.scene;
-    avatar.scale.set(4, 4, 1);
-    avatar.position.set(0, -5.2, 0);
-    scene.add(avatar);
-    if (IS_DESKTOP) {
-      // Find morph targets and head bone
-      avatar.traverse((child) => {
-        if (child.isBone && child.name === "Head") headBone = child;
-        if (child.isMesh && child.morphTargetDictionary) {
-          smileIndex ??= child.morphTargetDictionary["mouthSmile"];
-          openIndex ??= child.morphTargetDictionary["mouthOpen"];
-        }
-      });
-
-      // Start tracking
-      animate();
-
-      // Initial expression
-      setExpression(SMILE_DEFAULT, MOUTH_DEFAULT);
-
-      // Hover behavior
-      const contact = document.getElementById("contact");
-      if (contact) {
-        contact.addEventListener("mouseenter", () => {
-          setExpression(SMILE_HOVER, MOUTH_HOVER);
-          blinkEyesOnce();
-        });
-        contact.addEventListener("mouseleave", () => {
-          setExpression(SMILE_DEFAULT, MOUTH_DEFAULT);
-        });
+new GLTFLoader().load("data/6841e94dc4abd0700db3afe4.glb", (gltf) => {
+  avatar = gltf.scene;
+  avatar.scale.set(4, 4, 1);
+  avatar.position.set(0, -5.2, 0);
+  scene.add(avatar);
+  if (IS_DESKTOP) {
+    // Find morph targets and head bone
+    avatar.traverse((child) => {
+      if (child.isBone && child.name === "Head") headBone = child;
+      if (child.isMesh && child.morphTargetDictionary) {
+        smileIndex ??= child.morphTargetDictionary["mouthSmile"];
+        openIndex ??= child.morphTargetDictionary["mouthOpen"];
       }
-    } else renderer.render(scene, camera);
-  }
-);
+    });
+
+    // Start tracking
+    animate();
+
+    // Initial expression
+    setExpression(SMILE_DEFAULT, MOUTH_DEFAULT);
+
+    // Hover behavior
+    const contact = document.getElementById("contact");
+    if (contact) {
+      contact.addEventListener("mouseenter", () => {
+        setExpression(SMILE_HOVER, MOUTH_HOVER);
+        blinkEyesOnce();
+      });
+      contact.addEventListener("mouseleave", () => {
+        setExpression(SMILE_DEFAULT, MOUTH_DEFAULT);
+      });
+    }
+  } else renderer.render(scene, camera);
+});
 
 // Event listeners
 window.addEventListener("mousemove", (e) => {
