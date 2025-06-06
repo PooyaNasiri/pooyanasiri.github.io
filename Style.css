@@ -743,19 +743,6 @@ ul {
     top: -0.5rem;
 }
 
-/* #avatar-container {
-    width: 12vw;
-    height: 15vw;
-    border-radius: 50%;
-    backdrop-filter: blur(1px);
-    background: transparent;
-    box-shadow: #0077cc 0px 0px 10px 1px;
-    overflow: hidden;
-    flex-shrink: 0;
-    z-index: 2;
-    position: relative;
-} */
-
 canvas.three-avatar {
     position: absolute;
     top: 0;
