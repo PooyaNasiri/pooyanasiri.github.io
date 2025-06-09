@@ -560,3 +560,30 @@ avatarContainer.addEventListener("transitionend", (e) => {
     stopLiveResize();
   }
 });
+
+
+const counterUrl = "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
+
+async function updateCounterDisplay() {
+  try {
+    const res = await fetch(counterUrl);
+    const count = await res.text();
+    document.getElementById("download-counter").textContent = `Downloaded ${count} times`;
+  } catch {
+    console.error("Error loading counter");
+    // document.getElementById("download-counter").textContent = "Error loading counter";
+  }
+}
+
+async function incrementCounter() {
+  try {
+    await fetch(counterUrl, { method: "POST" });
+  } catch {
+    console.error("Error incrementing counter");
+  }
+  updateCounterDisplay();
+}
+
+document.getElementById("resume-link").addEventListener("click", incrementCounter);
+document.getElementById("resume-button").addEventListener("click", incrementCounter);
+updateCounterDisplay();
