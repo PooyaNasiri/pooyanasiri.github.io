@@ -565,17 +565,6 @@ const counterUrl =
   "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
 
 async function log(type) {
-  let ipData = {};
-  try {
-    const res = await fetch("https://ipinfo.io/json?token=00faf208fa7977");
-    if (res.ok) {
-      ipData = await res.json();
-    }
-  } catch (e) {
-    // fallback: leave fields undefined
-  }
-
-  // UA Parsing
   const parser = new UAParser();
   const result = parser.getResult();
 
@@ -589,14 +578,6 @@ async function log(type) {
     screen: `${screen.width}x${screen.height}`,
     language: navigator.language,
     referrer: document.referrer,
-    ip: ipData.ip,
-    city: ipData.city,
-    region: ipData.region,
-    country: ipData.country,
-    loc: ipData.loc,
-    org: ipData.org,
-    postal: ipData.postal,
-    timezone: ipData.timezone,
   });
 
   try {
