@@ -367,12 +367,17 @@
     id="resume-button" aria-label="Download Pooya Nasiri Resume">📄Resume</a>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    document.getElementById('experience-years').textContent = new Date().getFullYear() - 2010;
+    document.addEventListener("DOMContentLoaded", function () {
+      const yearEl = document.getElementById('year');
+      const expEl = document.getElementById('experience-years');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+      if (expEl) expEl.textContent = new Date().getFullYear() - 2010;
+    });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
-  <script type="module" src="main.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@1.0.35/src/ua-parser.min.js"></script>
+  <script type="module" src="main.js"></script>
 </body>
 
 </html>

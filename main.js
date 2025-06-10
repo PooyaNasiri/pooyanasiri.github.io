@@ -565,21 +565,27 @@ const counterUrl =
   "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
 
 async function log(type) {
+  const parser = new UAParser();
+  const result = parser.getResult();
   const params = new URLSearchParams({
-    type: type,
-    userAgent: navigator.userAgent,
-    language: navigator.language,
-    screen: `${screen.width}x${screen.height}`,
-    referrer: document.referrer,
     timestamp: new Date().toISOString(),
+    type: type,
+    browser: `${result.browser.name} ${result.browser.version}`,
+    os: `${result.os.name} ${result.os.version}`,
+    device: result.device.type || "Desktop",
+    cpu: result.cpu.architecture,
+    screen: `${screen.width}x${screen.height}`,
+    language: navigator.language,
+    referrer: document.referrer
   });
 
   try {
     await fetch(`${counterUrl}?${params.toString()}`);
   } catch (err) {
-    console.error("Error logging view");
+    console.error("Error logging");
   }
 }
+
 document
   .getElementById("resume-link")
   .addEventListener("click", () => log("download"));
