@@ -561,38 +561,30 @@ avatarContainer.addEventListener("transitionend", (e) => {
   }
 });
 
+const counterUrl =
+  "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
 
-const counterUrl = "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
+async function log(type) {
+  const params = new URLSearchParams({
+    type: type,
+    userAgent: navigator.userAgent,
+    language: navigator.language,
+    screen: `${screen.width}x${screen.height}`,
+    referrer: document.referrer,
+    timestamp: new Date().toISOString(),
+  });
 
-// async function updateInlineCounters() {
-//   try {
-//     const res = await fetch(counterUrl);
-//     const data = await res.json();
-//     document.getElementById("download-inline-counter").textContent = `(Downloaded ${data.count} times)`;
-//     document.getElementById("view-inline-counter").textContent = `(Visited ${data.views} times)`;
-//   } catch {
-//     document.getElementById("download-inline-counter").textContent = `(download count error)`;
-//     document.getElementById("view-inline-counter").textContent = `(view count error)`;
-//   }
-// }
-
-async function incrementDownload() {
   try {
-    await fetch(counterUrl, { method: "POST" });
+    await fetch(`${counterUrl}?${params.toString()}`);
   } catch (err) {
-    console.error("Error updating download count");
+    console.error("Error logging view");
   }
 }
+document
+  .getElementById("resume-link")
+  .addEventListener("click", () => log("download"));
 
-async function incrementView() {
-  try {
-    await fetch(`${counterUrl}?type=view`);
-  } catch (err) {
-    console.error("Error updating view count");
-  }
-}
-
-
-document.getElementById("resume-link").addEventListener("click", incrementDownload);
-document.getElementById("resume-button").addEventListener("click", incrementDownload);
-incrementView();
+document
+  .getElementById("resume-button")
+  .addEventListener("click", () => log("download"));
+log("view");
