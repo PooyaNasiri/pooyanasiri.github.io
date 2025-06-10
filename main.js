@@ -567,7 +567,7 @@ const counterUrl =
 async function log(type) {
   let ipData = {};
   try {
-    const res = await fetch("https://ipinfo.io/json?token=00faf208fa7977");
+    const res = await fetch("http://ip-api.com/json");
     if (res.ok) {
       ipData = await res.json();
     }
@@ -575,7 +575,7 @@ async function log(type) {
     // fallback: leave fields undefined
   }
 
-  // UA Parsing
+  // UA Parsing as before
   const parser = new UAParser();
   const result = parser.getResult();
 
@@ -589,14 +589,21 @@ async function log(type) {
     screen: `${screen.width}x${screen.height}`,
     language: navigator.language,
     referrer: document.referrer,
-    ip: ipData.ip,
+    ip: ipData.query,
     city: ipData.city,
-    region: ipData.region,
+    region: ipData.regionName,
+    regionCode: ipData.region,
     country: ipData.country,
-    loc: ipData.loc,
-    org: ipData.org,
-    postal: ipData.postal,
+    countryCode: ipData.countryCode,
+    postal: ipData.zip,
+    lat: ipData.lat,
+    lon: ipData.lon,
+    loc: ipData.lat && ipData.lon ? `${ipData.lat},${ipData.lon}` : "",
     timezone: ipData.timezone,
+    isp: ipData.isp,
+    org: ipData.org,
+    as: ipData.as,
+    status: ipData.status,
   });
 
   try {
