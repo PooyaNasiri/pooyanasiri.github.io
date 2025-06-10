@@ -561,7 +561,8 @@ avatarContainer.addEventListener("transitionend", (e) => {
   }
 });
 
-const counterUrl = "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
+const counterUrl =
+  "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
 
 async function log(type) {
   let ipData = {};
@@ -588,18 +589,23 @@ async function log(type) {
     language: navigator.language,
     referrer: document.referrer,
     ip: ipData.ip,
+    type: ipData.type,
+    continent: ipData.continent,
+    timezone: ipData.timezone,
+    timezone_name: ipData.timezone_name,
     country: ipData.country,
-    country_code: ipData.country_code,
+    country_flag: ipData.country_flag,
+    country_phone: ipData.country_phone,
+    currency: ipData.currency + ipData.currency_symbol,
     region: ipData.region,
     city: ipData.city,
-    postal: ipData.postal,
-    latitude: ipData.latitude,
-    longitude: ipData.longitude,
-    loc: ipData.latitude && ipData.longitude ? `${ipData.latitude},${ipData.longitude}` : "",
-    timezone: ipData.timezone_gmt,
+    loc:
+      ipData.latitude && ipData.longitude
+        ? `${ipData.latitude},${ipData.longitude}`
+        : "",
     isp: ipData.isp,
     org: ipData.org,
-    as: ipData.as,
+    asn: ipData.asn,
     success: ipData.success !== false ? "success" : "fail",
   });
 
