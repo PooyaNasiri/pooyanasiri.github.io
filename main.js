@@ -565,6 +565,22 @@ const counterUrl =
   "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
 
 async function log(type) {
+  let ip = "Unknown";
+  let country = "Unknown";
+  let city = "Unknown";
+  try {
+    const ipRes = await fetch("https://ipinfo.io/json?token=00faf208fa7977");
+    if (ipRes.ok) {
+      const ipData = await ipRes.json();
+      ip = ipData.ip || "Unknown";
+      country = ipData.country || "Unknown";
+      city = ipData.city || "Unknown";
+    }
+  } catch (e) {
+    // Fallback to unknowns
+  }
+
+  // UA Parsing
   const parser = new UAParser();
   const result = parser.getResult();
   const params = new URLSearchParams({
@@ -576,13 +592,16 @@ async function log(type) {
     cpu: result.cpu.architecture,
     screen: `${screen.width}x${screen.height}`,
     language: navigator.language,
-    referrer: document.referrer
+    referrer: document.referrer,
+    ip,
+    country,
+    city,
   });
 
   try {
     await fetch(`${counterUrl}?${params.toString()}`);
   } catch (err) {
-    console.error("Error logging");
+    console.error("Error logging", err);
   }
 }
 
