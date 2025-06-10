@@ -561,13 +561,12 @@ avatarContainer.addEventListener("transitionend", (e) => {
   }
 });
 
-const counterUrl =
-  "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
+const counterUrl = "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
 
 async function log(type) {
   let ipData = {};
   try {
-    const res = await fetch("http://ip-api.com/json");
+    const res = await fetch("https://ipwhois.app/json/");
     if (res.ok) {
       ipData = await res.json();
     }
@@ -575,7 +574,6 @@ async function log(type) {
     // fallback: leave fields undefined
   }
 
-  // UA Parsing as before
   const parser = new UAParser();
   const result = parser.getResult();
 
@@ -589,21 +587,20 @@ async function log(type) {
     screen: `${screen.width}x${screen.height}`,
     language: navigator.language,
     referrer: document.referrer,
-    ip: ipData.query,
-    city: ipData.city,
-    region: ipData.regionName,
-    regionCode: ipData.region,
+    ip: ipData.ip,
     country: ipData.country,
-    countryCode: ipData.countryCode,
-    postal: ipData.zip,
-    lat: ipData.lat,
-    lon: ipData.lon,
-    loc: ipData.lat && ipData.lon ? `${ipData.lat},${ipData.lon}` : "",
-    timezone: ipData.timezone,
+    country_code: ipData.country_code,
+    region: ipData.region,
+    city: ipData.city,
+    postal: ipData.postal,
+    latitude: ipData.latitude,
+    longitude: ipData.longitude,
+    loc: ipData.latitude && ipData.longitude ? `${ipData.latitude},${ipData.longitude}` : "",
+    timezone: ipData.timezone_gmt,
     isp: ipData.isp,
     org: ipData.org,
     as: ipData.as,
-    status: ipData.status,
+    success: ipData.success !== false ? "success" : "fail",
   });
 
   try {
