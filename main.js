@@ -580,7 +580,7 @@ async function log(type) {
 
   const params = new URLSearchParams({
     timestamp: new Date().toISOString(),
-    type: type,
+    action: type,
     browser: `${result.browser.name} ${result.browser.version}`,
     os: `${result.os.name} ${result.os.version}`,
     device: result.device.type || "Desktop",
@@ -589,7 +589,7 @@ async function log(type) {
     language: navigator.language,
     referrer: document.referrer,
     ip: ipData.ip,
-    type: ipData.type,
+    iptype: ipData.type,
     continent: ipData.continent,
     timezone: ipData.timezone,
     timezone_name: ipData.timezone_name,
