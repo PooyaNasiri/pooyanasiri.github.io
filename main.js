@@ -594,6 +594,7 @@ async function log(type) {
     timezone: ipData.timezone,
     timezone_name: ipData.timezone_name,
     country: ipData.country,
+    country_code: ipData.country_code,
     country_flag: ipData.country_flag,
     country_phone: ipData.country_phone,
     currency: ipData.currency + ipData.currency_symbol,
