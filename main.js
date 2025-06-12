@@ -588,7 +588,7 @@ async function log(type) {
   const params = new URLSearchParams({
     timestamp: new Date().toISOString(),
     action: type,
-    bot: isBot ? "Bot" : "Human",
+    bot: isBot ? "Yes" : "No",
     browser: `${result.browser.name} ${result.browser.version}`,
     os: `${result.os.name} ${result.os.version}`,
     device: result.device.type || "Desktop",
