@@ -577,10 +577,18 @@ async function log(type) {
 
   const parser = new UAParser();
   const result = parser.getResult();
+  const isBot = (() => {
+    const ua = navigator.userAgent || "";
+    const knownBots =
+      /bot|crawler|spider|crawling|headless|python|curl|wget|phantomjs|slimerjs/i;
+    const isHeadless = navigator.webdriver === true;
+    return isHeadless || knownBots.test(ua);
+  })();
 
   const params = new URLSearchParams({
     timestamp: new Date().toISOString(),
     action: type,
+    bot: isBot ? "Bot" : "Human",
     browser: `${result.browser.name} ${result.browser.version}`,
     os: `${result.os.name} ${result.os.version}`,
     device: result.device.type || "Desktop",
