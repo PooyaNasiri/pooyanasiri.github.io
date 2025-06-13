@@ -560,31 +560,15 @@ avatarContainer.addEventListener("transitionend", (e) => {
     stopLiveResize();
   }
 });
+
+// ----------------------
+// LOGGING
+// ----------------------
+
 const counterUrl =
   "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
 
-const hasLogged = false;
-let downloaded = false;
-const pageEnterTime = Date.now();
-
-document.getElementById("resume-link").addEventListener("click", () => {
-  downloaded = true;
-});
-document.getElementById("resume-button").addEventListener("click", () => {
-  downloaded = true;
-});
-// document.addEventListener("visibilitychange", () => {
-//   if (document.visibilityState === "hidden") {
-//     sendLog();
-//   }
-// });
-window.addEventListener("beforeunload", sendLog);
-
-async function sendLog() {
-  if (hasLogged) return;
-  hasLogged = true;
-  const timeSpentSeconds = Math.floor((Date.now() - pageEnterTime) / 1000);
-
+async function log(type) {
   let ipData = {};
   try {
     const res = await fetch("https://ipwhois.app/json/");
@@ -607,8 +591,7 @@ async function sendLog() {
 
   const params = new URLSearchParams({
     timestamp: new Date().toISOString(),
-    downloaded: downloaded ? "Yes" : "No",
-    time_spent_seconds: timeSpentSeconds.toString(),
+    action: type,
     bot: isBot ? "Yes" : "No",
     browser: `${result.browser.name} ${result.browser.version}`,
     os: `${result.os.name} ${result.os.version}`,
@@ -640,9 +623,17 @@ async function sendLog() {
   });
 
   try {
-    // await navigator.sendBeacon(`${counterUrl}?${params.toString()}`);
     await fetch(`${counterUrl}?${params.toString()}`);
   } catch (err) {
     console.error("Error logging", err);
   }
 }
+
+document
+  .getElementById("resume-link")
+  .addEventListener("click", () => log("download"));
+
+document
+  .getElementById("resume-button")
+  .addEventListener("click", () => log("download"));
+log("view");
