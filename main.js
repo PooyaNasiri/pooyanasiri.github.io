@@ -121,7 +121,8 @@ const toggleBtn = document.getElementById("theme-toggle");
 
 window.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
-  const isLight = savedTheme !== "dark";
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const isLight = (savedTheme ? savedTheme !== "dark" : !prefersDark);
   document.body.classList.toggle("light-mode", isLight);
   toggleBtn.textContent = isLight ? "☀️" : "🌙";
   updateGitHubStatsTheme(isLight);
