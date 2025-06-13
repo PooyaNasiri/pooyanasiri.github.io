@@ -563,24 +563,25 @@ avatarContainer.addEventListener("transitionend", (e) => {
 const counterUrl =
   "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
 
+const hasLogged = false;
 let downloaded = false;
 const pageEnterTime = Date.now();
 
-// Track resume download
 document.getElementById("resume-link").addEventListener("click", () => {
   downloaded = true;
 });
 document.getElementById("resume-button").addEventListener("click", () => {
   downloaded = true;
 });
-
-window.addEventListener("visibilitychange", async () => {
+document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "hidden") {
-    await sendLog();
+    sendLog();
   }
 });
+window.addEventListener("beforeunload", sendLog);
 
 async function sendLog() {
+  hasLogged = true;
   const timeSpentSeconds = Math.floor((Date.now() - pageEnterTime) / 1000);
 
   let ipData = {};
