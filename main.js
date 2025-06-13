@@ -573,14 +573,15 @@ document.getElementById("resume-link").addEventListener("click", () => {
 document.getElementById("resume-button").addEventListener("click", () => {
   downloaded = true;
 });
-document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "hidden") {
-    sendLog();
-  }
-});
+// document.addEventListener("visibilitychange", () => {
+//   if (document.visibilityState === "hidden") {
+//     sendLog();
+//   }
+// });
 window.addEventListener("beforeunload", sendLog);
 
 async function sendLog() {
+  if (hasLogged) return;
   hasLogged = true;
   const timeSpentSeconds = Math.floor((Date.now() - pageEnterTime) / 1000);
 
