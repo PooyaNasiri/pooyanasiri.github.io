@@ -560,11 +560,29 @@ avatarContainer.addEventListener("transitionend", (e) => {
     stopLiveResize();
   }
 });
-
 const counterUrl =
   "https://script.google.com/macros/s/AKfycbwgOdPngWYFAv0Vi3BGDXW-e5LvkeH7lFe64VVie0qFmZpugqxs-1_HoFfR4glSFklGvQ/exec";
 
-async function log(type) {
+let downloaded = false;
+const pageEnterTime = Date.now();
+
+// Track resume download
+document.getElementById("resume-link").addEventListener("click", () => {
+  downloaded = true;
+});
+document.getElementById("resume-button").addEventListener("click", () => {
+  downloaded = true;
+});
+
+window.addEventListener("visibilitychange", async () => {
+  if (document.visibilityState === "hidden") {
+    await sendLog();
+  }
+});
+
+async function sendLog() {
+  const timeSpentSeconds = Math.floor((Date.now() - pageEnterTime) / 1000);
+
   let ipData = {};
   try {
     const res = await fetch("https://ipwhois.app/json/");
@@ -587,7 +605,8 @@ async function log(type) {
 
   const params = new URLSearchParams({
     timestamp: new Date().toISOString(),
-    action: type,
+    downloaded: downloaded ? "Yes" : "No",
+    time_spent_seconds: timeSpentSeconds.toString(),
     bot: isBot ? "Yes" : "No",
     browser: `${result.browser.name} ${result.browser.version}`,
     os: `${result.os.name} ${result.os.version}`,
@@ -619,17 +638,9 @@ async function log(type) {
   });
 
   try {
+    // await navigator.sendBeacon(`${counterUrl}?${params.toString()}`);
     await fetch(`${counterUrl}?${params.toString()}`);
   } catch (err) {
     console.error("Error logging", err);
   }
 }
-
-document
-  .getElementById("resume-link")
-  .addEventListener("click", () => log("download"));
-
-document
-  .getElementById("resume-button")
-  .addEventListener("click", () => log("download"));
-log("view");
