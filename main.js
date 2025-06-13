@@ -122,7 +122,7 @@ const toggleBtn = document.getElementById("theme-toggle");
 window.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const isLight = (savedTheme ? savedTheme !== "dark" : !prefersDark);
+  const isLight = savedTheme ? savedTheme !== "dark" : !prefersDark;
   document.body.classList.toggle("light-mode", isLight);
   toggleBtn.textContent = isLight ? "☀️" : "🌙";
   updateGitHubStatsTheme(isLight);
@@ -393,13 +393,15 @@ const dummy = new THREE.Object3D();
 // Avatar State
 let avatar = null;
 let headBone = null;
+let handBone = null;
+let forearmBone = null;
+let shoulderBone = null;
 let smileIndex, openIndex;
 
 // Animation Loop
 function animate() {
   requestAnimationFrame(animate);
   if (!avatar || !headBone) return;
-
   raycaster.setFromCamera(mouse, camera);
   raycaster.ray.at(2.8, lookTarget);
   headBone.parent.worldToLocal(lookTarget);
@@ -416,6 +418,36 @@ function resizeAvatar() {
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
   renderer.setSize(width, height);
+}
+
+//handshake Function
+function handShake() {
+  if (!handBone) return;
+  let frame = 0;
+  const frames = [
+    0,
+    0.4,
+    -0.4,
+    0.3,
+    -0.3,
+    0.2,
+    -0.2,
+    0,
+  ];
+  handBone.rotation.y = Math.PI / 2;
+  forearmBone.rotation.x = -Math.PI / 1.1;
+  shoulderBone.rotation.y = -Math.PI / 2.5;
+  const interval = setInterval(() => {
+    if (frame >= frames.length) {
+      clearInterval(interval);
+      handBone.rotation.y = 0;
+      forearmBone.rotation.x = 0;
+      shoulderBone.rotation.y = 0;
+      return;
+    }
+    handBone.rotation.z = frames[frame];
+    frame++;
+  }, 50);
 }
 
 // Expression Functions
@@ -452,6 +484,9 @@ new GLTFLoader().load("data/6841e94dc4abd0700db3afe4.glb", (gltf) => {
     // Track head and morph targets
     avatar.traverse((child) => {
       if (child.isBone && child.name === "Head") headBone = child;
+      if (child.isBone && child.name === "RightHand") handBone = child;
+      if (child.isBone && child.name === "RightForeArm") forearmBone = child;
+      if (child.isBone && child.name === "RightShoulder") shoulderBone = child;
       if (child.isMesh && child.morphTargetDictionary) {
         smileIndex ??= child.morphTargetDictionary["mouthSmile"];
         openIndex ??= child.morphTargetDictionary["mouthOpen"];
@@ -485,6 +520,7 @@ window.addEventListener("mousemove", (e) => {
 
 window.addEventListener("click", blinkEyesOnce);
 window.addEventListener("resize", resizeAvatar);
+avatarPlaceholder.addEventListener("click", handShake);
 
 // ----------------------
 // SCROLL + POSITIONING
@@ -637,4 +673,4 @@ document
 document
   .getElementById("resume-button")
   .addEventListener("click", () => log("download"));
-log("view");
+// log("view");
