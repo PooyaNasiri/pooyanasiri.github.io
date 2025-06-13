@@ -422,18 +422,9 @@ function resizeAvatar() {
 
 //handshake Function
 function handShake() {
-  if (!handBone) return;
+  if (!IS_DESKTOP || !handBone || !forearmBone || !shoulderBone) return;
   let frame = 0;
-  const frames = [
-    0,
-    0.4,
-    -0.4,
-    0.3,
-    -0.3,
-    0.2,
-    -0.2,
-    0,
-  ];
+  const frames = [0, 0.4, -0.4, 0.3, -0.3, 0.2, -0.2, 0];
   handBone.rotation.y = Math.PI / 2;
   forearmBone.rotation.x = -Math.PI / 1.1;
   shoulderBone.rotation.y = -Math.PI / 2.5;
@@ -673,4 +664,4 @@ document
 document
   .getElementById("resume-button")
   .addEventListener("click", () => log("download"));
-// log("view");
+log("view");
