@@ -371,7 +371,21 @@
   <button id="go-to-top" aria-label="Go to top" title="Scroll to top">  ▲  </button>
 
   <a href="https://raw.githubusercontent.com/PooyaNasiri/resume/main/PooyaNasiri-CV.pdf" download="PooyaNasiri-CV.pdf"
-    id="resume-button" aria-label="Download Pooya Nasiri Resume">📄Resume</a>
+    id="resume-button" class="gooey" aria-label="Download Pooya Nasiri Resume">
+    <span class="btn-text">📄 Resume</span>
+  </a>
+
+  <svg width="0" height="0" style="position:absolute; pointer-events: none;">
+    <filter id="goo" x="-50%" y="-50%" width="200%" height="200%">
+      <feComponentTransfer>
+        <feFuncA type="discrete" tableValues="0 1"></feFuncA>
+      </feComponentTransfer>
+      <feGaussianBlur stdDeviation="5"></feGaussianBlur>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="-5 11"></feFuncA>
+      </feComponentTransfer>
+    </filter>
+  </svg>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {

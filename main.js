@@ -24,7 +24,7 @@ function updateGitHubStatsTheme(isLight) {
   const statsImg = document.getElementById("github-stats-img");
   const placeholder = document.getElementById("stats-placeholder");
   const errorMsg = document.getElementById("stats-error");
-  const baseURL = "https://github-readme-stats.vercel.app/api";
+  const baseURL = "https://vercel-clone-pooya-nasiris-projects.vercel.app/api";
   const username = "PooyaNasiri";
   const theme = isLight ? "default" : "github_dark";
   const params = new URLSearchParams({
@@ -174,6 +174,25 @@ goToTopButton.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
   goToTopButton.classList.add("launched");
   setTimeout(() => goToTopButton.classList.remove("launched"), 1000);
+});
+
+// ----------------------
+// Gooey Button Interaction
+// ----------------------
+
+document.addEventListener("DOMContentLoaded", () => {
+  const gooeyBtn = document.getElementById("resume-button");
+
+  if (gooeyBtn) {
+    gooeyBtn.addEventListener("pointermove", (e) => {
+      const rect = gooeyBtn.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      
+      gooeyBtn.style.setProperty("--x", x);
+      gooeyBtn.style.setProperty("--y", y);
+    });
+  }
 });
 
 // ----------------------
