@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this portfolio as a template or reference my code, please cite it as below."
+authors:
+  - family-names: "Nasiri"
+    given-names: "Pooya"
+    email: "Pooya.nasiri75@gmail.com"
+title: "Pooya Nasiri - AI & Machine Learning Engineer Portfolio"
+version: 1.0.0
+date-released: 2024-02-03
+url: "https://pooyanasiri.github.io/"
+repository-code: "https://github.com/PooyaNasiri/pooyanasiri.github.io"
+license: MIT
+keywords:
+  - "portfolio"
+  - "threejs"
+  - "webgl"
+  - "ai-engineer"
+  - "personal-website"
