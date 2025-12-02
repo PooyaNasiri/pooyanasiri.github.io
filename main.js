@@ -38,7 +38,7 @@ function updateGitHubStatsTheme(isLight) {
   statsImg.style.display = "none";
   const imgUrl = `${baseURL}?${params.toString()}`;
   const preloader = new Image();
-  const timeoutDuration = 8000; // Set timeout duration (in ms)
+  const timeoutDuration = 30000;
   const timeoutId = setTimeout(() => {
     preloader.src = "";
     errorMsg.style.display = "block";
