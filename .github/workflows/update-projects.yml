@@ -8,15 +8,23 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Fetch latest repositories and commits
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
           mkdir -p data
-          curl -s https://api.github.com/users/PooyaNasiri/repos?per_page=100 > repos.json
+
+          # 1. Get the list of repos (using the token to avoid limits)
+          curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/users/PooyaNasiri/repos?per_page=100" > repos.json
+
           rm -f commits_temp.json
 
           jq -c '.[] | {name: .name, description: .description}' repos.json |
@@ -31,13 +39,25 @@ jobs:
             fi
 
             echo "Fetching latest commit for $name..."
-            commit_data=$(curl -s "https://api.github.com/repos/PooyaNasiri/$name/commits?per_page=1")
-            last_commit=$(echo "$commit_data" | jq -r '.[0].commit.committer.date')
 
-            repo_meta=$(curl -s -H "Accept: application/vnd.github.mercy-preview+json" \
+            commit_data=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              "https://api.github.com/repos/PooyaNasiri/$name/commits?per_page=1")
+            
+            # CHECK: Is the result valid? (Fixes the "Cannot index object" error)
+            is_array=$(echo "$commit_data" | jq -r 'if type=="array" then "yes" else "no" end')
+
+            if [ "$is_array" == "no" ]; then
+              echo "  > Warning: Could not fetch commits (Repo might be empty). Skipping..."
+              last_commit="1970-01-01T00:00:00Z"
+            else
+              last_commit=$(echo "$commit_data" | jq -r '.[0].commit.committer.date')
+            fi
+
+            # 4. Get repo details
+            repo_meta=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.mercy-preview+json" \
               "https://api.github.com/repos/PooyaNasiri/$name")
 
-            # Extract language and topics safely
             language=$(echo "$repo_meta" | jq -r 'if type == "object" and has("language") then .language else "Unknown" end')
             topics=$(echo "$repo_meta" | jq -c 'if type == "object" and has("topics") then .topics else [] end')
               
@@ -52,11 +72,13 @@ jobs:
           done
 
           echo "[" > data/recent.json
-          cat commits_temp.json | jq -s 'sort_by(.last_commit) | reverse' | jq -c '.[]' |
-          while read -r line; do
-            echo "$line," >> data/recent.json
-          done
-          sed -i '$ s/,$//' data/recent.json
+          if [ -f commits_temp.json ]; then
+            cat commits_temp.json | jq -s 'sort_by(.last_commit) | reverse' | jq -c '.[]' |
+            while read -r line; do
+              echo "$line," >> data/recent.json
+            done
+            sed -i '$ s/,$//' data/recent.json
+          fi
           echo "]" >> data/recent.json
       - name: Commit and push
         run: |
