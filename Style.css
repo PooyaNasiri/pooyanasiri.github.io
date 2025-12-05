@@ -687,6 +687,7 @@ body.light-mode section p {
 .github-card {
     background: transparent;
     border-radius: 8px;
+    background: #0d1117a1;
     box-shadow: 0 0 12px rgba(0, 170, 255, 0.25);
     display: flex;
     flex: 1 1 300px;
@@ -703,7 +704,6 @@ body.light-mode section p {
 .github-stats {
     align-items: center;
     backdrop-filter: blur(2px);
-    background: #0d1117a1;
     display: flex;
     justify-content: center;
     padding: 0;
@@ -730,7 +730,6 @@ body.light-mode section p {
 
 .github-heatmap {
     backdrop-filter: blur(2px);
-    background: #0d1117a1;
     border-radius: 8px;
     padding: 1.5rem;
 }
