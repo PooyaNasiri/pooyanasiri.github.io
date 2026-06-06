@@ -1,4 +1,5 @@
 [
+{"name":"follow-unfollow","html_url":"https://github.com/PooyaNasiri/follow-unfollow","description":"null","last_commit":"2026-06-06T17:08:05Z","language":"JavaScript","topics":[]},
 {"name":"infinity-ttt","html_url":"https://github.com/PooyaNasiri/infinity-ttt","description":"A tic-tac-toe game with no tie!","last_commit":"2025-12-26T14:57:29Z","language":"CSS","topics":["css","html5","javasctipt"]},
 {"name":"PooyaBot","html_url":"https://github.com/PooyaNasiri/PooyaBot","description":"A smart AI Digital Twin Telegram bot built with Agentic RAG, LangGraph, Gemini 2.5 Flash, and Pinecone.","last_commit":"2025-11-28T10:43:08Z","language":"Python","topics":["agentic-ai","langchain","langgraph","llm","rag"]},
 {"name":"AIQuotes","html_url":"https://github.com/PooyaNasiri/AIQuotes","description":"A web app that generates AI-powered quotes using Google Apps Script and the OpenAI API. Customize quote length and explore creative outputs with a simple, sleek interface.","last_commit":"2025-11-20T13:59:23Z","language":"HTML","topics":["apikey","artificial-intelligence","llm","openai","prompt-engineering"]},
